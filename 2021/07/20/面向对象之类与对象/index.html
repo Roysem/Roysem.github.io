@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"Gemini"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="面向对象之类与对象目标 理解面向对象 掌握类与对象的定义和使用 掌握成员变量和局部变量的区别  1.面向对象1.1面向对象思想介绍java语言是一种面向对象程序设计语言，而面向对象思想是一种程序设计思想，我们在面向对象思想的指引下，使用java语言去设计，开发计算机程序 这里的对象泛指现实中一切事物，每种事物都具备自己的属性和行为。面向对象思想就是讲现实世界中的事物的属性特征，行为特征抽象出来，描">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象之类与对象">
+<meta property="og:url" content="http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="roysem">
+<meta property="og:description" content="面向对象之类与对象目标 理解面向对象 掌握类与对象的定义和使用 掌握成员变量和局部变量的区别  1.面向对象1.1面向对象思想介绍java语言是一种面向对象程序设计语言，而面向对象思想是一种程序设计思想，我们在面向对象思想的指引下，使用java语言去设计，开发计算机程序 这里的对象泛指现实中一切事物，每种事物都具备自己的属性和行为。面向对象思想就是讲现实世界中的事物的属性特征，行为特征抽象出来，描">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/image-20200611144138237.jpg">
+<meta property="og:image" content="http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/image-20200611154936663.jpg">
+<meta property="article:published_time" content="2021-07-20T13:49:50.000Z">
+<meta property="article:modified_time" content="2021-07-20T15:04:12.403Z">
+<meta property="article:author" content="嘿咻">
+<meta property="article:tag" content="java基础">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/image-20200611144138237.jpg">
+
+
+<link rel="canonical" href="http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/","path":"2021/07/20/面向对象之类与对象/","title":"面向对象之类与对象"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>面向对象之类与对象 | roysem</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">roysem</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">面向对象之类与对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.</span> <span class="nav-text">1.面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1面向对象思想介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2面向对象和面向过程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1.2.1 什么是面向过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2%E4%BB%80%E4%B9%88%E4%BA%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">1.2.2什么事面向对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">1.2.3举例说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-4%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">1.3.4总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%95%E5%85%A5"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3类和对象的引入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1.3.1什么是类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2%E4%BB%80%E4%B9%88%E6%98%AF%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">1.3.2什么是对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-3%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">1.3.3类与对象的关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">2.类与对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1类的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2对象的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3对象内存分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4成员变量与局部变量</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="嘿咻"
+      src="/images/heixiu.jpeg">
+  <p class="site-author-name" itemprop="name">嘿咻</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/roysem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;roysem" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2335163219@qq.com" title="E-Mail → mailto:2335163219@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/heixiu.jpeg">
+      <meta itemprop="name" content="嘿咻">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="roysem">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向对象之类与对象
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-07-20 21:49:50 / 修改时间：23:04:12" itemprop="dateCreated datePublished" datetime="2021-07-20T21:49:50+08:00">2021-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="面向对象之类与对象"><a href="#面向对象之类与对象" class="headerlink" title="面向对象之类与对象"></a>面向对象之类与对象</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ol>
+<li>理解面向对象</li>
+<li>掌握类与对象的定义和使用</li>
+<li>掌握成员变量和局部变量的区别</li>
+</ol>
+<h2 id="1-面向对象"><a href="#1-面向对象" class="headerlink" title="1.面向对象"></a>1.面向对象</h2><h3 id="1-1面向对象思想介绍"><a href="#1-1面向对象思想介绍" class="headerlink" title="1.1面向对象思想介绍"></a>1.1面向对象思想介绍</h3><p>java语言是一种面向对象程序设计语言，而面向对象思想是一种程序设计思想，我们在面向对象思想的指引下，使用java语言去设计，开发计算机程序</p>
+<p>这里的对象泛指现实中一切事物，每种事物都具备自己的属性和行为。面向对象思想就是讲现实世界中的事物的属性特征，行为特征抽象出来，描述成计算机事件的设计思想</p>
+<h3 id="1-2面向对象和面向过程的区别"><a href="#1-2面向对象和面向过程的区别" class="headerlink" title="1.2面向对象和面向过程的区别"></a>1.2面向对象和面向过程的区别</h3><h4 id="1-2-1-什么是面向过程"><a href="#1-2-1-什么是面向过程" class="headerlink" title="1.2.1 什么是面向过程"></a>1.2.1 什么是面向过程</h4><p>在我们去实现某项功能的时候，我们会不自觉的按部就班的罗列出我们要去做的事情，在一步一步的实现出来，这种按照我们罗列的步骤去实现某项功能的过程其实就是面向过程。</p>
+<p>总结起来就是：<strong>自顶向下，逐步向下</strong>：</p>
+<p>实现步骤：</p>
+<ol>
+<li><p>将要实现的功能描述为一个开始到结束按部就班的连续的步骤</p>
+</li>
+<li><p>将这一系列步骤中比较复杂的事情在继续继续细分为若干个子步骤 。以此内推，直到得到想用的结果</p>
+</li>
+<li><p>程序的主体是函数，一个函数就是一个封装好的功能，可以实现一定的功能，各个步骤有各个函数来完成。从而实现代码的重用和模块化编程</p>
+</li>
+</ol>
+<h4 id="1-2-2什么事面向对象"><a href="#1-2-2什么事面向对象" class="headerlink" title="1.2.2什么事面向对象"></a>1.2.2什么事面向对象</h4><p>所谓面向对象，就是在编程的时候尽可能的去模拟现实世界，按照现实世界的逻辑去处理一个问题，分析现实世界中的逻辑去处理一个问题，分析问题中的逻辑去处理一个问题，分析问题中参与其中的有哪些实体，这些实体应该有什么属性和方法，我们如何去调用这些实体的属性和方法去解决问题。</p>
+<p>现实世界中，任何一个操作或者是业务逻辑的实现都需要一个实体来完成，也就是说，实体就是动作的支配者，没有实体，就肯定没有动作发生</p>
+<p>当使用面向对象的思想去解决问题时，可分为以下几步</p>
+<ol>
+<li><p>分析哪些动作是由哪些实体发出的</p>
+</li>
+<li><p>定义这些实体，为其增加相应的属性和功能</p>
+</li>
+<li><p>让实体去执行相应的功能或动作</p>
+</li>
+</ol>
+<h4 id="1-2-3举例说明"><a href="#1-2-3举例说明" class="headerlink" title="1.2.3举例说明"></a>1.2.3举例说明</h4><p>洗衣服</p>
+<ul>
+<li><p>面向过程：把衣服脱下来–&gt;找一个盆 –&gt; 放点洗衣粉 –&gt;加点水 –&gt;浸泡10分钟 –&gt;揉一揉 –&gt;洗衣服 –&gt; 拧干 –&gt;晾起来</p>
+</li>
+<li><p>面向对象： 把衣服脱下来 –&gt; 打开全自动洗衣机 –&gt;扔衣服 –&gt;按钮–&gt; 晾起来</p>
+</li>
+</ul>
+<p>区别：</p>
+<ul>
+<li><p>面向过程：强调步骤</p>
+</li>
+<li><p>面向过程：强调对象，这里的对象就是洗衣机</p>
+</li>
+</ul>
+<h4 id="1-3-4总结"><a href="#1-3-4总结" class="headerlink" title="1.3.4总结"></a>1.3.4总结</h4><ol>
+<li><p>面向过程：当要实现一个功能时，需要亲力亲为，处理每个细节</p>
+</li>
+<li><p>面向过程：当要实现一个功能时，不关心具体的实现步骤，只关心结果，找一个具有该功能的类，帮我呢吧做事</p>
+</li>
+<li><p>面向对象的思想</p>
+<ol>
+<li>面向对象是基于面向过程的编程思想</li>
+<li>面向过程：强调的是每一个功能的步骤</li>
+<li>面向对象：强调的是对象，然后由对象去调用功能</li>
+</ol>
+</li>
+<li><p>面向对象和面向过程都能实现模块化编程，但是面向对象的模块化更深，数据更封闭，也更安全</p>
+</li>
+<li><p>特点：</p>
+<p>面向对象思维是一种更符合我们思考习惯的思想，他可以将复杂的事情简单化，并将我们从执行者变成指挥者。面向对象的语言，包含了三大基本特征：封装，继承，多态</p>
+</li>
+</ol>
+<h3 id="1-3类和对象的引入"><a href="#1-3类和对象的引入" class="headerlink" title="1.3类和对象的引入"></a>1.3类和对象的引入</h3><h4 id="1-3-1什么是类"><a href="#1-3-1什么是类" class="headerlink" title="1.3.1什么是类"></a>1.3.1什么是类</h4><ul>
+<li><strong>类：</strong> 是一组具有类似属性和行为的集合。可以看成是一类事物得模板，使用事物得属性特征和行为特征来描述该类事物</li>
+<li><strong>属性：</strong> 就是该事物得状态信息</li>
+<li><strong>行为：</strong> 就是该事物能够做什么 </li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">举例: 人类</span><br><span class="line">属性：名字，年龄，性别，身高等等。</span><br><span class="line">行为：吃饭，睡觉，工作等等。</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-2什么是对象"><a href="#1-3-2什么是对象" class="headerlink" title="1.3.2什么是对象"></a>1.3.2什么是对象</h4><ul>
+<li>对象：是一类事物得具体体现。对象是类的一个实例。必然具备该事物的属性和行为。</li>
+</ul>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">属性：张三丰,<span class="number">120</span>，男，<span class="number">175</span></span><br><span class="line">行为：吃饭，睡觉，练武。</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-3类与对象的关系"><a href="#1-3-3类与对象的关系" class="headerlink" title="1.3.3类与对象的关系"></a>1.3.3类与对象的关系</h4><ul>
+<li>类是对一类事物得描述，是抽象的</li>
+<li>对象是一类事物得实例，是具体的</li>
+<li>类是对象的模板，对象是类的实体</li>
+</ul>
+<p>下图中<strong>男孩（boy）</strong>、<strong>女孩（girl）</strong>为<strong>类（class）</strong>，而具体的每个人为该类的<strong>对象（object）：</strong></p>
+<p><img src="/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/image-20200611144138237.jpg"></p>
+<h2 id="2-类与对象"><a href="#2-类与对象" class="headerlink" title="2.类与对象"></a>2.类与对象</h2><p>在java语言中，参与现实世界的类与对象并以面向面向对象的思维进行了语言设计，把一些事物按照类的划分，在以对象的形式进行管理</p>
+<h3 id="2-1类的定义"><a href="#2-1类的定义" class="headerlink" title="2.1类的定义"></a>2.1类的定义</h3><p>语法：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">访问权限修饰符 class 类名&#123;</span><br><span class="line">    //成员变量  属性特征</span><br><span class="line">    //成员方法  行为特征</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li><strong>定义类：</strong>就是对业务或者现实中某一实实在在的分类物以java语言中的类进行定义并分类管理，参考现实类有属性和行为两个关键特征，所以java中的类也包括属性和行为</li>
+<li><strong>访问权限修饰符：</strong>就是java中控制当前类是否可见，被谁可见的关键字，包括有public，protected,default,private。通常类的权限修饰符都为public</li>
+<li><strong>class：</strong> 定义java类的关键字</li>
+<li><strong>类名：</strong> 就是我们要创建具体的什么类，给取个见名知意的名字</li>
+<li><strong>成员变量：</strong> 和以前定义变量几乎是一样的(可以类比现实对象的属性)。<strong>位置发生了改变。在类中，方法外</strong></li>
+<li><strong>成员方法：</strong>可以描述该类的所有对象可以有什么行为，以及怎么行动</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">  	<span class="comment">// 成员变量</span></span><br><span class="line">  	String username;<span class="comment">//姓名</span></span><br><span class="line">    <span class="keyword">int</span> age; <span class="comment">//年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//成员方法</span></span><br><span class="line">    <span class="comment">//学习的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;好好学习，天天向上&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 跑步的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String username,<span class="keyword">int</span> distance)</span> </span>&#123;</span><br><span class="line">       System.out.println(username+<span class="string">&quot; 今天跑了&quot;</span>+distance+<span class="string">&quot;m&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2对象的创建"><a href="#2-2对象的创建" class="headerlink" title="2.2对象的创建"></a>2.2对象的创建</h3><p>java类有了，但还只是一个抽象的概念的东西，如果要使用，必须创造一个个具体的对象。</p>
+<p>语法</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类名 对象名 =new 类名()</span><br></pre></td></tr></table></figure>
+
+<p>使用对象访问类中的成员：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对象名.成员变量</span><br><span class="line">对象名.成员方法</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentTest</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建对象格式：类名 对象名 = new 类名();</span></span><br><span class="line">    Student s = <span class="keyword">new</span> Student();</span><br><span class="line">    System.out.println(s); <span class="comment">//com.hopu.classobject.Student@15db9742</span></span><br><span class="line">  &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>成员变量有默认的初始值</strong></p>
+<p>对象创建后，<strong>成员变量有默认的初始值</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>数据类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本类型</td>
+<td>整数（byte，short，int，long）</td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td>浮点数（float，double）</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td></td>
+<td>字符（char）</td>
+<td>‘\u0000’</td>
+</tr>
+<tr>
+<td></td>
+<td>布尔（boolean）</td>
+<td>false</td>
+</tr>
+<tr>
+<td>引用类型</td>
+<td>数组，类，接口</td>
+<td>null</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentTest</span> </span>&#123;</span><br><span class="line">	  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	    <span class="comment">// 创建对象格式：类名 对象名 = new 类名();</span></span><br><span class="line">	    Student s = <span class="keyword">new</span> Student();</span><br><span class="line">	    System.out.println(s); <span class="comment">//com.hopu.classobject.Student@15db9742</span></span><br><span class="line"></span><br><span class="line">	    <span class="comment">// 直接输出成员变量值</span></span><br><span class="line">	    System.out.println(<span class="string">&quot;姓名：&quot;</span>+s.username); <span class="comment">//null</span></span><br><span class="line">	    System.out.println(<span class="string">&quot;年龄：&quot;</span>+s.age); <span class="comment">//0</span></span><br><span class="line">	    System.out.println(<span class="string">&quot;----------&quot;</span>);</span><br><span class="line"></span><br><span class="line">	    <span class="comment">//给成员变量赋值</span></span><br><span class="line">	    s.username = <span class="string">&quot;佐佐木希&quot;</span>;</span><br><span class="line">	    s.age = <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">	    <span class="comment">// 再次输出成员变量的值</span></span><br><span class="line">	    System.out.println(<span class="string">&quot;姓名：&quot;</span>+s.username); <span class="comment">//佐佐木希</span></span><br><span class="line">	    System.out.println(<span class="string">&quot;年龄：&quot;</span>+s.age); <span class="comment">//32</span></span><br><span class="line">	    System.out.println(<span class="string">&quot;----------&quot;</span>);</span><br><span class="line"></span><br><span class="line">	    <span class="comment">// 调用成员方法</span></span><br><span class="line">	    s.study(); <span class="comment">// &quot;好好学习，天天向上&quot;</span></span><br><span class="line">	    s.run(<span class="string">&quot;tom&quot;</span>,<span class="number">123</span>); <span class="comment">// 跑步</span></span><br><span class="line">	  &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3对象内存分析"><a href="#2-3对象内存分析" class="headerlink" title="2.3对象内存分析"></a>2.3对象内存分析</h3><h3 id="2-4成员变量与局部变量"><a href="#2-4成员变量与局部变量" class="headerlink" title="2.4成员变量与局部变量"></a>2.4成员变量与局部变量</h3><p>java中变量根据定义位置的不同，我们给变量起了不同的名字</p>
+<p><img src="/2021/07/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/image-20200611154936663.jpg"></p>
+<p><strong>说明</strong></p>
+<ul>
+<li><p>在类的位置不同 <!--重点--></p>
+<ul>
+<li>成员变量：类中，方法外</li>
+<li>局部变量：方法中或者方法声明上(形式参数)</li>
+</ul>
+</li>
+<li><p>作用范围不一样  <!--重点--></p>
+<ul>
+<li><p>成员变量：类中</p>
+</li>
+<li><p>局部变量：方法中</p>
+</li>
+</ul>
+</li>
+<li><p>初始化值不同 <!--重点--></p>
+<ul>
+<li>成员变量：有默认值</li>
+<li>局部变量：没有默认值。必须先定义，赋值，最后使用</li>
+</ul>
+</li>
+<li><p>在内存中的位置不同</p>
+<ul>
+<li>成员变量：堆内存</li>
+<li>局部变量：栈内存</li>
+</ul>
+</li>
+<li><p>生命周期不同</p>
+<ul>
+<li>成员变量 随着对象的创建而存在，随着对象的消失而消失</li>
+<li>随着方法的调用而存在，随着方法的调用完毕而消失</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%9F%BA%E7%A1%80/" rel="tag"># java基础</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"># 面向对象</a>
+          </div>
+
+        
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">嘿咻</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="150" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":false},"rect":"opacity:0.7","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
