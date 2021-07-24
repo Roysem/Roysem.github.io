@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"Gemini"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="面向对象之基础目标 this , static关键字 final 关键字 package,import关键字 代码块介绍  1.this，static关键字1.1this关键字1.1.1this关键字介绍this关键字说明：this是java提供的关键字，表示当前实例化的对象本身 作用：可以用来区分成员变量和局部变量 当我们出现了成员变量和局部变量名称相同的情况，可以采用 this 关键字区分，被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象之基础">
+<meta property="og:url" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="roysem">
+<meta property="og:description" content="面向对象之基础目标 this , static关键字 final 关键字 package,import关键字 代码块介绍  1.this，static关键字1.1this关键字1.1.1this关键字介绍this关键字说明：this是java提供的关键字，表示当前实例化的对象本身 作用：可以用来区分成员变量和局部变量 当我们出现了成员变量和局部变量名称相同的情况，可以采用 this 关键字区分，被">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210721145621716.jpg">
+<meta property="og:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722170556811.jpg">
+<meta property="og:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722171007929.jpg">
+<meta property="og:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722171605154.jpg">
+<meta property="og:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722171910479.jpg">
+<meta property="og:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20200618094608601.jpg">
+<meta property="article:published_time" content="2021-07-24T02:39:29.000Z">
+<meta property="article:modified_time" content="2021-07-24T04:46:28.674Z">
+<meta property="article:author" content="嘿咻">
+<meta property="article:tag" content="java基础">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210721145621716.jpg">
+
+
+<link rel="canonical" href="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/","path":"2021/07/24/面向对象之基础/","title":"面向对象之基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>面向对象之基础 | roysem</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">roysem</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">面向对象之基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-this%EF%BC%8Cstatic%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.2.</span> <span class="nav-text">1.this，static关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1this%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1this关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1this%E5%85%B3%E9%94%AE%E5%AD%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1.1.1this关键字介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2%E4%BE%8B%E5%AD%90"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">1.1.2例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-%E5%86%85%E5%AD%98%E5%9B%BE"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">1.1.3 内存图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-static%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 static关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-static%E5%85%B3%E9%94%AE%E5%AD%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1.2.1 static关键字介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-static-%E5%85%B3%E9%94%AE%E5%AD%97%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">1.2.2 static 关键字使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-final-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.3.</span> <span class="nav-text">2.final 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-final%E5%85%B3%E9%94%AE%E5%AD%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 final关键字介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-import-package%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">3.import,package关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1package%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.1.</span> <span class="nav-text">3.1package关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-import-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.2.</span> <span class="nav-text">3.2 import 关键字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">1.5.</span> <span class="nav-text">4.代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1%E5%B8%B8%E8%A7%81%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">4.1常见分类：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">4.2示例：</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="嘿咻"
+      src="/images/heixiu.jpeg">
+  <p class="site-author-name" itemprop="name">嘿咻</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/roysem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;roysem" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2335163219@qq.com" title="E-Mail → mailto:2335163219@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/heixiu.jpeg">
+      <meta itemprop="name" content="嘿咻">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="roysem">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向对象之基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-07-24 10:39:29 / 修改时间：12:46:28" itemprop="dateCreated datePublished" datetime="2021-07-24T10:39:29+08:00">2021-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="面向对象之基础"><a href="#面向对象之基础" class="headerlink" title="面向对象之基础"></a>面向对象之基础</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ol>
+<li>this , static关键字</li>
+<li>final 关键字</li>
+<li>package,import关键字</li>
+<li>代码块介绍</li>
+</ol>
+<h2 id="1-this，static关键字"><a href="#1-this，static关键字" class="headerlink" title="1.this，static关键字"></a>1.this，static关键字</h2><h3 id="1-1this关键字"><a href="#1-1this关键字" class="headerlink" title="1.1this关键字"></a>1.1this关键字</h3><h4 id="1-1-1this关键字介绍"><a href="#1-1-1this关键字介绍" class="headerlink" title="1.1.1this关键字介绍"></a>1.1.1this关键字介绍</h4><p><strong>this关键字说明</strong>：this是java提供的关键字，表示当前实例化的对象本身</p>
+<p><strong>作用：可以用来区分成员变量和局部变量</strong></p>
+<p>当我们出现了成员变量和局部变量名称相同的情况，可以采用 this 关键字区分，被this关键字修饰的是 成员变量。</p>
+<p><strong>使用：</strong></p>
+<ul>
+<li><p><strong>this.属性名：</strong>来访问类中的成员变量，用来区分成员变量和局部变量</p>
+</li>
+<li><p>**this.方法名(参数值…):**用来访问本类的成员方法，通常直接省略；</p>
+</li>
+<li><p>**this(参数值…):**访问本类的构造方法。</p>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、this.属性名在同一个类的方法中，用来区分成员变量和局部变量用的比较常见，且不可以省略；</span><br><span class="line"></span><br><span class="line">2、this.方法名(参数值...)这种用法的this可以省略，实际上通常都会省略；</span><br><span class="line"></span><br><span class="line">3、this(参数值...)调用构造方法时，必须在构造方法内的第一条执行；多个构造方法内不要相互使用来调用。</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-1-2例子"><a href="#1-1-2例子" class="headerlink" title="1.1.2例子"></a>1.1.2例子</h4><p><strong>1.this.属性名</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 成员变量</span></span><br><span class="line">	String username; </span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="comment">// 构造方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;这是一个无参构造方法&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String username, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.username = username;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">		System.out.println(<span class="string">&quot;这是一个有参构造方法&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 成员方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">		System.out.println(username+<span class="string">&quot;在学习&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li> <strong>this.方法名(参数值…)</strong></li>
+</ol>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisDemo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;方法1执行&quot;</span>);</span><br><span class="line">		<span class="keyword">this</span>.method2();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;方法2执行&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ThisDemo t= <span class="keyword">new</span> ThisDemo();</span><br><span class="line">		t.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>this(参数值…)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisDemo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;方法1执行&quot;</span>);</span><br><span class="line">		<span class="keyword">this</span>.method2();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;方法2执行&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ThisDemo t= <span class="keyword">new</span> ThisDemo();</span><br><span class="line">		t.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="1-1-3-内存图"><a href="#1-1-3-内存图" class="headerlink" title="1.1.3 内存图"></a>1.1.3 内存图</h4><p>   <img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210721145621716.jpg"></p>
+<h3 id="1-2-static关键字"><a href="#1-2-static关键字" class="headerlink" title="1.2 static关键字"></a>1.2 static关键字</h3><h4 id="1-2-1-static关键字介绍"><a href="#1-2-1-static关键字介绍" class="headerlink" title="1.2.1 static关键字介绍"></a>1.2.1 static关键字介绍</h4><p><strong>static关键字说明：</strong>static关键字是java提供的，方便在没有创建对象的情况下进行调用(方法/变量)。static可以用来修饰类的成员方法、类的成员变量，另外也可以编写static代码块来优化程序性能。</p>
+<p><strong>使用：</strong></p>
+<ul>
+<li><p><strong>static成员变量：</strong>static变量也称为静态变量</p>
+<ul>
+<li><p><strong>静态变量被所有对象共享，在内存中只有一个副本，在类初次加载的时候才会初始化；</strong></p>
+</li>
+<li><p>非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响；</p>
+</li>
+<li><p><strong>语法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> 数据类型 变量名；</span><br></pre></td></tr></table></figure>
+
+<!--static成员变量初始化顺序按照定义的顺序来进行初始话--></li>
+</ul>
+</li>
+<li><p><strong>static方法：</strong></p>
+<ul>
+<li>由于静态方法<strong>不依赖于任何对象就可以直接访问</strong>，因此对于静态方法来说，是<strong>没有this的</strong></li>
+<li><strong>静态方法中不能访问类的非静态成员</strong>，因为非静态成员变量和非静态方法都必须依赖于具体的对象才能被调用；</li>
+<li>static方法<strong>通常作用一个工具类中统一对外提供的方法使用</strong>，比如之前学习的Arrays数组工具类中的方法都是static的。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-2-static-关键字使用"><a href="#1-2-2-static-关键字使用" class="headerlink" title="1.2.2 static 关键字使用"></a>1.2.2 static 关键字使用</h4><p>1.<strong>static成员变量</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 定义一个静态变量</span></span><br><span class="line">	<span class="keyword">static</span> String schoolName=<span class="string">&quot;武汉花园&quot;</span>;</span><br><span class="line">	String username;</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticDemoTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 1、使用对象访问静态变量</span></span><br><span class="line">		Teacher t= <span class="keyword">new</span> Teacher();</span><br><span class="line">		System.out.println(t.schoolName);</span><br><span class="line">		t.schoolName=<span class="string">&quot;武汉厚浦教育科技有限公司&quot;</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 2、可以直接使用类访问静态变量</span></span><br><span class="line">		System.out.println(Teacher.schoolName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.<strong>static方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 定义一个静态变量</span></span><br><span class="line">	<span class="keyword">static</span> String schoolName=<span class="string">&quot;武汉厚浦&quot;</span>;</span><br><span class="line">	String username;</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="comment">// 定义一个静态方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;你该休息休息了&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticDemoTest2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 1、使用对象访问静态方法</span></span><br><span class="line">		Teacher t= <span class="keyword">new</span> Teacher();</span><br><span class="line">		t.sleep();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 2、可以直接使用类访问静态方法</span></span><br><span class="line">		Teacher.sleep();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-final-关键字"><a href="#2-final-关键字" class="headerlink" title="2.final 关键字"></a>2.final 关键字</h2><h3 id="2-1-final关键字介绍"><a href="#2-1-final关键字介绍" class="headerlink" title="2.1 final关键字介绍"></a>2.1 final关键字介绍</h3><p>java提供有一个final关键字，中文意思是最终、终极的意思，在Java中代表不可变更的意思。final关键字可以用来修饰类、成员变量、成员方法。</p>
+<ul>
+<li><strong>java修饰类：</strong>表示最终类，也就是此类不能被继承</li>
+<li><strong>final修饰变量：</strong>表示常量，也就是一个变量的值始终如一，无法变更</li>
+<li><strong>final修饰方法</strong>：表示最终方法，也就是此方法不能被重写。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>被final修饰的<strong>成员变量</strong>，必须<strong>进行初始化赋值</strong>，且<strong>值不能变更</strong>，否则编译出错；</li>
+<li>被final修饰的成员变量，通常会结合final和static关键字一起使用，表示一个全局的静态常量，常量名用大写；</li>
+<li>被final修饰的<strong>局部变量</strong>，<strong>不能使用static修饰</strong>，<strong>同时可以不用先初始化赋值，</strong>使用时进行一次赋值即可，后续也不能变更；</li>
+<li>inal修饰基本数据类型，表示该基本数据类型的值一旦在<strong>初始化后便不能发生变化</strong>；</li>
+<li>final修饰引用数据类型，则在对其初始化之后便<strong>不能再改变引用地址</strong>了，但该<strong>引用所指向的对象的内容是可以发生变化的</strong>。</li>
+</ul>
+<h3 id="2-2-示例"><a href="#2-2-示例" class="headerlink" title="2.2 示例"></a>2.2 示例</h3><p><strong>final修饰类的情况</strong></p>
+<p><img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722170556811.jpg"></p>
+<p>我们java当中的字符串类String就是被final修饰，字符串没有子类，所有的方法都不可以被重写</p>
+<p><strong>final修饰方法的情况</strong></p>
+<p><img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722171007929.jpg"></p>
+<p>如果后期：想要实现当前类里面某个方法不要被重写，可以将该方法设置final修饰</p>
+<p><strong>final修饰变量的情况</strong></p>
+<p>修饰的是基本数据类型，<strong>表示的值不能变</strong></p>
+<p><img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722171605154.jpg"></p>
+<p>修饰的是引用数据类型，<strong>表示的是地址值不能变</strong></p>
+<p><img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20210722171910479.jpg"></p>
+<h2 id="3-import-package关键字"><a href="#3-import-package关键字" class="headerlink" title="3.import,package关键字"></a>3.import,package关键字</h2><h3 id="3-1package关键字"><a href="#3-1package关键字" class="headerlink" title="3.1package关键字"></a>3.1package关键字</h3><p><strong>作用：</strong>package包其实就是目录，通常情况下，我们会对文件进行分文别类来管理，在Java 中称为分包管理，包名称通常采用小写。</p>
+<p><strong>语法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package 包名;</span></span><br><span class="line"><span class="keyword">package</span> com.hopu.test;</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><p>为了解决同类的命名冲突问题，在类名前加命名空间(包机制)，进行分包管理；</p>
+</li>
+<li><p>在Java中使用package语句定义包，<strong>多级包名之间用逗号“.”分隔</strong>(单包，复包)；</p>
+</li>
+<li><p><strong>package语句只能出现在Java源文件的第一行；</strong></p>
+</li>
+<li><p>package定义的格式，通常采用公司域名倒叙方式，例如com.myhopu.oa。</p>
+</li>
+</ul>
+<h3 id="3-2-import-关键字"><a href="#3-2-import-关键字" class="headerlink" title="3.2 import 关键字"></a>3.2 import 关键字</h3><p><strong>作用：</strong>import的作用就是<strong>导入不同包下的类</strong>（包名+类名）。也就是说，我们在某个类方法中，使用到了其他特殊包下的类，那么就需要先引入包包下的类，然后才可以使用，否则会编译错误。</p>
+<p><strong>语法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import 包名.类名;</span></span><br><span class="line"><span class="keyword">import</span> com.hopu.domain.Stuent;</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><p>一个类中使用其他包下的类时（<strong>特殊包java.lang除外</strong>），就需要使用import关键字引入对应的类（包名+类名形式）；</p>
+</li>
+<li><p>同包下的类使用时无需使用import引入，直接使用即可；</p>
+</li>
+<li><p>在使用java.lang包下的所有类时，无需使用import引入。java.lang包是Java的基础核心包，Java在编译期间会自动引入该包；</p>
+</li>
+<li><p><strong>import导包语句必须放在package语句与class类之间；</strong></p>
+</li>
+<li><p>如果某个类下重复导入其他同一个包下的多个类，可以使用通配符“*”引入该包下的所有类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-代码块"><a href="#4-代码块" class="headerlink" title="4.代码块"></a>4.代码块</h2><h3 id="4-1常见分类："><a href="#4-1常见分类：" class="headerlink" title="4.1常见分类："></a>4.1常见分类：</h3><ul>
+<li><p><strong>局部代码块</strong></p>
+<p>基本概念：局部位置，用于限定变量的生命周期，提高内存利用率</p>
+</li>
+<li><p><strong>静态代码块</strong></p>
+<p>基本概念：类方法外，采用static修饰，用于对类进行初始化操作</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>static代码块随着类的加载而加载，并且<strong>只初始化执行一次；</strong></li>
+<li>静态初始化块中<strong>不能直接访问非static成员</strong>；</li>
+<li>静态初始化块可以置于类中的任何地方，类中可以有多个静态初始化块，多个静态代码块会按照书写顺序加载。</li>
+</ul>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123; 初始化语句 &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>构造代码块</strong></p>
+<p>基本概念：类中方法外(成员位置)，用”{}”括起来的java程序代码，调用构造方法前，都会执行构造方法前都会执行</p>
+<p><strong>特点：</strong>每次创建对象，调用构造方法前都会执行</p>
+</li>
+<li><p>同步代码块，在多线程使用</p>
+</li>
+</ul>
+<h3 id="4-2示例："><a href="#4-2示例：" class="headerlink" title="4.2示例："></a>4.2示例：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CodeBlock</span> </span>&#123;</span><br><span class="line">    <span class="comment">//静态代码块：类中方法外，加static修饰，用于给类进行初始化</span></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">//构造代码块：类中方法外，用&#123;&#125;括起，每次调用构造方法前执行，用于给对象进行初始化</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">// 构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CodeBlock</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;无参构造&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeBlockDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;局部代码块&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        CodeBlock t2 = <span class="keyword">new</span> CodeBlock();</span><br><span class="line">        CodeBlock t3 = <span class="keyword">new</span> CodeBlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20200618094608601.jpg"></p>
+<p><strong>总结：</strong></p>
+<p>执行顺序是<strong>：静态代码块-&gt;构造代码块-&gt;构造方法</strong>。特点：静态代码块只执行一次，构造代码块在每次调用构造方法之前都会执行！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%9F%BA%E7%A1%80/" rel="tag"># java基础</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"># 面向对象</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" rel="prev" title="面向对象之三大特性">
+                  <i class="fa fa-chevron-left"></i> 面向对象之三大特性
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">嘿咻</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">17k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="150" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":false},"rect":"opacity:0.7","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
