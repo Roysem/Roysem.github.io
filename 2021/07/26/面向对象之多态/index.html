@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"Gemini"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="学习目标12341、掌握Java多态的使用2、掌握引用数据类型转换及异常处理3、掌握几种内部类的使用4、理解Java内存管理与垃圾回收机制    1. 多态1.1 概述1.1.1 什么是多态多态是继封装、继承之后，面向对象的第三大特性。 生活中，比如跑的动作，小猫、小狗和大象，跑起来是不一样的。再比如飞的动作，昆虫、鸟类和飞机，飞起来也是 不一样的。可见，同一行为，通过不同的事物，可以体现出来的不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象之多态">
+<meta property="og:url" content="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/index.html">
+<meta property="og:site_name" content="roysem">
+<meta property="og:description" content="学习目标12341、掌握Java多态的使用2、掌握引用数据类型转换及异常处理3、掌握几种内部类的使用4、理解Java内存管理与垃圾回收机制    1. 多态1.1 概述1.1.1 什么是多态多态是继封装、继承之后，面向对象的第三大特性。 生活中，比如跑的动作，小猫、小狗和大象，跑起来是不一样的。再比如飞的动作，昆虫、鸟类和飞机，飞起来也是 不一样的。可见，同一行为，通过不同的事物，可以体现出来的不">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228145334441.jpg">
+<meta property="og:image" content="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228145143326.jpg">
+<meta property="og:image" content="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160210269.jpg">
+<meta property="og:image" content="http://example.com/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160155295.jpg">
+<meta property="og:image" content="http://example.com/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160418278.jpg">
+<meta property="og:image" content="http://example.com/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160527396.jpg">
+<meta property="og:image" content="http://example.com/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228162847419.jpg">
+<meta property="article:published_time" content="2021-07-26T14:14:14.000Z">
+<meta property="article:modified_time" content="2021-07-26T14:31:06.791Z">
+<meta property="article:author" content="嘿咻">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228145334441.jpg">
+
+
+<link rel="canonical" href="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/","path":"2021/07/26/面向对象之多态/","title":"面向对象之多态"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>面向对象之多态 | roysem</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">roysem</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">学习目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%A4%9A%E6%80%81"><span class="nav-number">2.</span> <span class="nav-text">1. 多态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%9A%E6%80%81"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 什么是多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-%E5%A4%9A%E6%80%81%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 多态分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%A4%9A%E6%80%81"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 运行时多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%A4%9A%E6%80%81%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 多态的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E5%A4%9A%E6%80%81%E7%9A%84%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 多态的成员访问特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 引用类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-1-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.5.1.</span> <span class="nav-text">1.5.1 引用类型转换介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.2.</span> <span class="nav-text">1.5.2 为什么要转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-3-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%BC%82%E5%B8%B8"><span class="nav-number">2.5.3.</span> <span class="nav-text">1.5.3 类型转换异常</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">2. 内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 成员内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 静态内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 局部内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 匿名内部类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC3%E7%AB%A0-Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86-amp-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">第3章 Java内存管理&amp;垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Java内存管理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">4.1.1.</span> <span class="nav-text">3.1.1 程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="nav-number">4.1.2.</span> <span class="nav-text">3.1.2 虚拟机栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="nav-number">4.1.3.</span> <span class="nav-text">3.1.3 本地方法栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-4-Java%E5%A0%86"><span class="nav-number">4.1.4.</span> <span class="nav-text">3.1.4 Java堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-5-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="nav-number">4.1.5.</span> <span class="nav-text">3.1.5 方法区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 java垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.2.1 标记-清除算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 标记-整理算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-4-%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 分代收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-%E6%80%BB%E7%BB%93"><span class="nav-number">4.2.5.</span> <span class="nav-text">4.2.5 总结</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="嘿咻"
+      src="/images/heixiu.jpeg">
+  <p class="site-author-name" itemprop="name">嘿咻</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/roysem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;roysem" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2335163219@qq.com" title="E-Mail → mailto:2335163219@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/heixiu.jpeg">
+      <meta itemprop="name" content="嘿咻">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="roysem">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向对象之多态
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-07-26 22:14:14 / 修改时间：22:31:06" itemprop="dateCreated datePublished" datetime="2021-07-26T22:14:14+08:00">2021-07-26</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、掌握Java多态的使用</span><br><span class="line">2、掌握引用数据类型转换及异常处理</span><br><span class="line">3、掌握几种内部类的使用</span><br><span class="line">4、理解Java内存管理与垃圾回收机制</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="1-多态"><a href="#1-多态" class="headerlink" title="1. 多态"></a>1. 多态</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><h3 id="1-1-1-什么是多态"><a href="#1-1-1-什么是多态" class="headerlink" title="1.1.1 什么是多态"></a><strong>1.1.1 什么是多态</strong></h3><p>多态是继封装、继承之后，面向对象的第三大特性。</p>
+<p>生活中，比如跑的动作，小猫、小狗和大象，跑起来是不一样的。再比如飞的动作，昆虫、鸟类和飞机，飞起来也是</p>
+<p>不一样的。可见，同一行为，通过不同的事物，可以体现出来的不同的形态。多态，描述的就是这样的状态。</p>
+<p><strong>多态</strong>： 是指同一行为，具有多个不同表现形式。</p>
+<h3 id="1-1-2-多态分类"><a href="#1-1-2-多态分类" class="headerlink" title="1.1.2 多态分类"></a>1.1.2 多态分类</h3><p>对面向对象来说，多态分为<strong>编译时多态和运行时多态</strong>。其中编译时多态是静态的，主要是指方法的重载，它是根据参数列表的不同来区分不同的方法。通过编译之后会变成两个不同的方法，在运行时谈不上多态。而运行时多态是动态的，它是通过动态绑定来实现的，也就是大家通常所说的多态性。</p>
+<p><a target="_blank" rel="noopener" href="http://c.biancheng.net/java/">Java</a> 实现运行时多态有 3 个必要条件：<strong>继承、重写和向上转型</strong>。只有满足这 3 个条件，开发人员才能够在同一个继承结构中使用统一的逻辑实现代码处理不同的对象，从而执行不同的行为。</p>
+<ul>
+<li>继承：在多态中必须存在有继承关系的子类和父类。</li>
+<li>重写：子类对父类中某些方法进行重新定义，在调用这些方法时就会调用子类的方法。</li>
+<li>向上转型：在多态中需要将子类的引用赋给父类对象，只有这样该引用才既能可以调用父类的方法，又能调用子类的方法。</li>
+</ul>
+<h2 id="1-2-运行时多态"><a href="#1-2-运行时多态" class="headerlink" title="1.2 运行时多态"></a>1.2 运行时多态</h2><p>运行时多态一个最显著的例子就是子类的上转型对象，即父类引用指向之类对象,调用的方法只能是父类下包含的方法(指向子类的那个父类引用)，执行的结果是子类重写以后的。</p>
+<p><strong>多态体现的格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">父类类型 变量名 = new 子类对象； </span><br><span class="line">变量名.方法名();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>父类类型：指子类对象继承的父类类型，或者实现的父接口类型。</p>
+</blockquote>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Fu f = <span class="keyword">new</span> Zi(); </span><br><span class="line">f.method();</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误；如果有，执行的是子类重写后的方法。</strong></p>
+</blockquote>
+<p><strong>父类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>子类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        System.out.println(<span class="string">&quot;吃鱼&quot;</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        System.out.println(<span class="string">&quot;吃骨头&quot;</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest1</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">        <span class="comment">// 多态形式，创建对象 </span></span><br><span class="line">        Animal a1 = <span class="keyword">new</span> Cat(); </span><br><span class="line">        <span class="comment">// 调用的是 Cat 的eat </span></span><br><span class="line">        a1.eat(); </span><br><span class="line">        <span class="comment">// 多态形式，创建对象 </span></span><br><span class="line">        Animal a2 = <span class="keyword">new</span> Dog(); </span><br><span class="line">        <span class="comment">// 调用的是 Dog 的 eat </span></span><br><span class="line">        a2.eat(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-3-多态的好处"><a href="#1-3-多态的好处" class="headerlink" title="1.3 多态的好处"></a>1.3 多态的好处</h2><p>实际开发的过程中，父类类型作为方法形式参数，传递子类对象给方法，进行方法的调用，更能体现出多态的扩展性与便利。代码如下：</p>
+<p><strong>测试类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest2</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">        <span class="comment">// 多态形式，创建对象 </span></span><br><span class="line">        Cat c = <span class="keyword">new</span> Cat(); </span><br><span class="line">        Dog d = <span class="keyword">new</span> Dog(); </span><br><span class="line">        <span class="comment">// 调用showCatEat </span></span><br><span class="line">        showCatEat(c); </span><br><span class="line">        <span class="comment">// 调用showDogEat </span></span><br><span class="line">        showDogEat(d); </span><br><span class="line">        <span class="comment">// 以上两个方法, 均可以被showAnimalEat(Animal a)方法所替代 而执行效果一致</span></span><br><span class="line">        showAnimalEat(c); </span><br><span class="line">        showAnimalEat(d); </span><br><span class="line">   &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showCatEat</span> <span class="params">(Cat c)</span></span>&#123; </span><br><span class="line">        c.eat(); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showDogEat</span> <span class="params">(Dog d)</span></span>&#123; </span><br><span class="line">        d.eat(); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showAnimalEat</span> <span class="params">(Animal a)</span></span>&#123; </span><br><span class="line">        a.eat(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于多态特性的支持，showAnimalEat方法的Animal类型，是Cat和Dog的父类类型，父类类型接收子类对象，当然可以把Cat对象和Dog对象，传递给方法。</p>
+<p>当eat方法执行时，多态规定，执行的是子类重写的方法，那么效果自然与showCatEat、showDogEat方法一致，所以showAnimalEat完全可以替代以上两方法。</p>
+<p>不仅仅是替代，在扩展性方面，无论之后再多的子类出现，我们都不需要编写showXxxEat方法了，直接使用showAnimalEat都可以完成。</p>
+<p>所以，多态的好处，体现在，可以使程序编写的更简单，并有良好的扩展。</p>
+<h2 id="1-4-多态的成员访问特点"><a href="#1-4-多态的成员访问特点" class="headerlink" title="1.4 多态的成员访问特点"></a>1.4 多态的成员访问特点</h2><ul>
+<li>成员变量：编译看左边（父类），运行看左边（父类）</li>
+</ul>
+<p>​    所有的成员变量取决于编译时类型</p>
+<ul>
+<li>成员方法：编译看左边（父类），运行看右边（子类）</li>
+</ul>
+<p>​    所有的成员方法取决于运行时类型</p>
+<ul>
+<li>静态方法：编译看左边（父类），运行看左边（父类）</li>
+</ul>
+<p>​    所有的静态方法取决于编译时类型</p>
+<h2 id="1-5-引用类型转换"><a href="#1-5-引用类型转换" class="headerlink" title="1.5 引用类型转换"></a>1.5 引用类型转换</h2><h3 id="1-5-1-引用类型转换介绍"><a href="#1-5-1-引用类型转换介绍" class="headerlink" title="1.5.1 引用类型转换介绍"></a>1.5.1 引用类型转换介绍</h3><p>多态的转型分为向上转型与向下转型两种：</p>
+<p><strong>向上转型：</strong>多态本身是子类类型向父类类型向上转换的过程，这个过程是默认的。</p>
+<p>当父类引用指向一个子类对象时，便是向上转型。</p>
+<p><strong>使用格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">父类类型 变量名 = new 子类类型();</span><br><span class="line">如：Animal a = new Cat();</span><br></pre></td></tr></table></figure>
+
+<p><strong>向下转型：</strong>父类类型向子类类型向下转换的过程，这个过程是强制的。</p>
+<p>一个已经向上转型的子类对象，将父类引用转为子类引用，可以使用强制类型转换的格式，便是向下转型。</p>
+<p><strong>使用格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">子类类型 变量名 = (子类类型) 父类变量名;</span><br><span class="line">如:Cat c =(Cat) a;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-5-2-为什么要转换"><a href="#1-5-2-为什么要转换" class="headerlink" title="1.5.2 为什么要转换"></a>1.5.2 为什么要转换</h3><p>当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误。也就是说，<strong>不能调用</strong>子类有而父类没有的方法。编译都错误，更别说运行了。这也是多态给我们带来的一点”小麻烦”。所以，想要调用子类特有的方法，必须做向下转型。</p>
+<p><strong>修改一下Dog类，添加特有方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123; </span><br><span class="line">		System.out.println(<span class="string">&quot;吃骨头&quot;</span>); </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">watchHouse</span><span class="params">()</span> </span>&#123; </span><br><span class="line">		System.out.println(<span class="string">&quot;看家&quot;</span>); </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest3</span> </span>&#123; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">		<span class="comment">// 向上转型 </span></span><br><span class="line">		Animal a = <span class="keyword">new</span> Cat(); </span><br><span class="line">		a.eat(); <span class="comment">// 调用的是 Cat 的 eat </span></span><br><span class="line">		<span class="comment">// 向下转型 </span></span><br><span class="line">		Cat c = (Cat)a; </span><br><span class="line">		c.catchMouse(); <span class="comment">// 调用的是 Cat 的 catchMouse </span></span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-5-3-类型转换异常"><a href="#1-5-3-类型转换异常" class="headerlink" title="1.5.3 类型转换异常"></a>1.5.3 类型转换异常</h3><p>转型的过程中，一不小心就会遇到这样的问题，请看如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest3</span> </span>&#123; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">		<span class="comment">// 向上转型 </span></span><br><span class="line">		Animal a = <span class="keyword">new</span> Cat(); </span><br><span class="line">		a.eat(); <span class="comment">// 调用的是 Cat 的 eat </span></span><br><span class="line">		<span class="comment">// 向下转型 </span></span><br><span class="line">		Dog d = (Dog)a; </span><br><span class="line">		d.watchHouse(); <span class="comment">// 调用的是 Dog 的 watchHouse 【运行报错】 </span></span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码可以通过编译，但是运行时，却报出了 ClassCastException ，类型转换异常！这是因为，明明创建了Cat类型对象，运行时，当然不能转换成Dog对象的。这两个类型并没有任何继承关系，不符合类型转换的定义。</p>
+<p>为了避免ClassCastException的发生，Java提供了 instanceof 关键字，给引用变量做类型的校验，格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变量名 instanceof 数据类型 如果变量属于该数据类型，返回true。 如果变量不属于该数据类型，返回false。</span><br></pre></td></tr></table></figure>
+
+<p>所以，转换前，我们最好先做一个判断，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest3</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">        <span class="comment">// 向上转型 </span></span><br><span class="line">        Animal a = <span class="keyword">new</span> Cat(); </span><br><span class="line">        a.eat(); <span class="comment">// 调用的是 Cat 的 eat </span></span><br><span class="line">        <span class="comment">// 向下转型 </span></span><br><span class="line">        <span class="keyword">if</span> (a <span class="keyword">instanceof</span> Cat)&#123; </span><br><span class="line">            Cat c = (Cat)a; </span><br><span class="line">            c.catchMouse(); <span class="comment">// 调用的是 Cat 的 catchMouse </span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a <span class="keyword">instanceof</span> Dog)&#123; </span><br><span class="line">            Dog d = (Dog)a; </span><br><span class="line">            d.watchHouse(); <span class="comment">// 调用的是 Dog 的 watchHouse </span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="2-内部类"><a href="#2-内部类" class="headerlink" title="2. 内部类"></a>2. 内部类</h1><p>将一个类A定义在另一个类B里面，里面的那个类A就称为<strong>内部类</strong>，B则称为<strong>外部类</strong>。</p>
+<p>内部类可以很好地实现隐藏，一般的非内部类是不允许有 private 与 protected 权限的，但内部类可以。内部类拥有外部类的所有元素的访问权限。</p>
+<p>内部类可以分为<strong>：成员内部类、局部内部类、静态内部类、匿名内部类</strong>，每种内部类都有它特定的一些特点。</p>
+<h2 id="2-1-成员内部类"><a href="#2-1-成员内部类" class="headerlink" title="2.1 成员内部类"></a>2.1 成员内部类</h2><p><strong>成员内部类</strong> ：定义在<strong>类中方法外</strong>的类。</p>
+<p><strong>定义格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class 外部类 &#123; </span><br><span class="line">	// 成员变量</span><br><span class="line">	// 成员方法</span><br><span class="line">	class 内部类&#123; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 成员内部类</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>访问特点：</strong></p>
+<ul>
+<li>内部类可以直接访问外部类的成员，包括私有成员。</li>
+<li>外部类要访问内部类的成员，必须要建立内部类的对象。</li>
+</ul>
+<p><strong>创建内部类对象格式：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">外部类名.内部类名 对象名 = <span class="keyword">new</span> 外部类型().new 内部类型()；</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-2-静态内部类"><a href="#2-2-静态内部类" class="headerlink" title="2.2 静态内部类"></a>2.2 静态内部类</h2><p><strong>成员内部类</strong> ：静态内部类是指使用 static 修饰的内部类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 静态内部类</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>访问特点：</strong></p>
+<ul>
+<li>在创建静态内部类的实例时，不需要创建外部类的实例；</li>
+<li>静态内部类可以直接访问外部类的静态成员，如果要访问外部类的实例成员，则需要通过外部类的实例去访问。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Outer.Inner inner =new Outer.Inner();</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="3-3-局部内部类"><a href="#3-3-局部内部类" class="headerlink" title="3.3 局部内部类"></a>3.3 局部内部类</h2><p><strong>局部内部类：</strong>局部内部类是指在一个方法中局部位置定义的内部类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 局部内部类</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>访问特点：</strong></p>
+<ul>
+<li>局部内部类与局部变量一样，不能使用访问控制修饰符（public、private 和 protected）和 static 修饰符修饰；</li>
+<li>局部内部类只在当前方法中有效；</li>
+<li>局部内部类中不能定义 static 成员。</li>
+</ul>
+<h2 id="3-4-匿名内部类"><a href="#3-4-匿名内部类" class="headerlink" title="3.4 匿名内部类"></a>3.4 匿名内部类</h2><p><strong>匿名内部类：</strong>是内部类的简化写法，它的本质是一个 带具体实现的 父类或者父接口的 匿名的 子类对象<strong>。</strong></p>
+<p>开发中，最常用到的内部类就是匿名内部类了。以接口举例，当你使用一个接口时，似乎得做如下几步操作，</p>
+<blockquote>
+<ol>
+<li>定义子类</li>
+<li>重写接口中的方法</li>
+<li>创建子类对象</li>
+<li>调用重写后的方法</li>
+</ol>
+</blockquote>
+<p>我们的目的，最终只是为了调用方法，那么能不能简化一下，把以上四步合成一步呢？匿名内部类就是做这样的快捷方式。</p>
+<p><strong>前提：</strong>存在一个<strong>类或者接口</strong>，这里的<strong>类可以是具体类也可以是抽象类</strong>。</p>
+<p><strong>格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new 父类名或者接口名()&#123; </span><br><span class="line">	// 方法重写 </span><br><span class="line">	@Override </span><br><span class="line">	public void 方法名() &#123; </span><br><span class="line">		// 执行语句 </span><br><span class="line">	&#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="第3章-Java内存管理-amp-垃圾回收机制"><a href="#第3章-Java内存管理-amp-垃圾回收机制" class="headerlink" title="第3章 Java内存管理&amp;垃圾回收机制"></a>第3章 Java内存管理&amp;垃圾回收机制</h1><p>我们知道，java所谓的跨平台特性（hardware- and operating system-independence）是依赖于JVM的。也就是，JAVA代码写好了之后会被编译成java的字节，一般存放为class文件，之后由JVM负责解释执行。</p>
+<p>而做java后台开发，对jvm的考察就是最重要的了！面试官肯定会问你对jvm的理解，你就要从以下几个角度来描述：</p>
+<blockquote>
+<ol>
+<li>JVM内存的划分</li>
+<li>垃圾回收问题(定义、回收的东西)</li>
+<li>GC算法</li>
+<li>新生代、老年代、(jdk8之前还有永久代，jdk8开始取消了永久代的划分)</li>
+</ol>
+</blockquote>
+<p>java代码的执行依赖于JVM，这里我们了解一下JVM的内存管理机制和垃圾回收机制。</p>
+<h2 id="3-1-Java内存管理机制"><a href="#3-1-Java内存管理机制" class="headerlink" title="3.1 Java内存管理机制"></a>3.1 Java内存管理机制</h2><p>关于Java内存管理，可以查看官方文档声明：<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html">https://docs.oracle.com/javase/specs/jvms/se8/html/index.html</a></p>
+<p><img src="/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228145334441.jpg">)</p>
+<p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分成为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的随着虚拟机的进程启动而存在，有的区域则依赖用户线程的启动和结束而建立和销毁。根据《Java虚拟机规范（Java SE 8版）》规定，Java虚拟机所管理的内存将包括以下几个运行时数据区域，如下图所示：</p>
+<p><img src="/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228145143326.jpg"></p>
+<h3 id="3-1-1-程序计数器"><a href="#3-1-1-程序计数器" class="headerlink" title="3.1.1 程序计数器"></a>3.1.1 程序计数器</h3><p>程序计数器有以下 三个特点：</p>
+<ul>
+<li><strong>较小</strong></li>
+</ul>
+<p>程序计数器是一块较小的内存空间，它的作用可以看做是当前线程所指向的字节码的行号指示器。在虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要指向字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
+<ul>
+<li><strong>线程私有</strong></li>
+</ul>
+<p>由于 Java 虚拟机的多线程是通过线程轮流 切换并分配处理器指向时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）只会执行一条线程的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间的计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p>
+<ul>
+<li><strong>无异常</strong></li>
+</ul>
+<p>如果线程正在执行的是一个 Java 的方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是 Native 方法，这个计数器值则为空（Undefined）。此内存区域是唯一一个在 Java 虚拟机规范中没有任何 OutOfMemoryError 情况的区域。</p>
+<h3 id="3-1-2-虚拟机栈"><a href="#3-1-2-虚拟机栈" class="headerlink" title="3.1.2 虚拟机栈"></a>3.1.2 虚拟机栈</h3><ul>
+<li><strong>线程私有</strong></li>
+</ul>
+<p>与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期与线程相同。</p>
+<ul>
+<li><strong>描述 Java 方法执行的内存模型</strong></li>
+</ul>
+<p>虚拟机栈描述的是 Java 方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame，栈帧是方法运行期的基础数据结构）用于存储局部变量表、操作栈、动态链接、方法出口等信息。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈栈从入栈到出栈的过程。</p>
+<ul>
+<li><strong>异常</strong></li>
+</ul>
+<p>在 Java 虚拟中，对虚拟机规定了下面两种异常：</p>
+<p>① <strong>StockOverflowError</strong></p>
+<p>当执行 Java 方法是会进行压栈的操作，在栈栈会保存局部变量、操作栈和方法出口等信息。</p>
+<p>JVM 规定了栈的最大胜读，如果线程请求执行方法时栈的深度大于规定的深度，就会抛出栈溢出异常 StockOverflowError。</p>
+<p>② <strong>OutOfMemoryError</strong></p>
+<p>如果虚拟机在扩展时无法申请到足够的内存，就会抛出内存溢出异常 OutOfMemoryError。</p>
+<h3 id="3-1-3-本地方法栈"><a href="#3-1-3-本地方法栈" class="headerlink" title="3.1.3 本地方法栈"></a>3.1.3 本地方法栈</h3><p>本地方法栈的作用于虚拟机非常相似，它有下面两个特点。</p>
+<p><strong>① 为 native 服务</strong></p>
+<p>本地方法栈与虚拟机栈的区别是虚拟机栈为 Java 服务，而本地方法栈为 native 方法服务。</p>
+<p><strong>② 异常</strong></p>
+<p>与虚拟机栈一样，本地方法栈也会抛出 StackOverflowError 和 OutOfMemoryError 异常。</p>
+<h3 id="3-1-4-Java堆"><a href="#3-1-4-Java堆" class="headerlink" title="3.1.4 Java堆"></a>3.1.4 Java堆</h3><p>Java 堆（Java Heap）也就是实例堆，它有以下四个特点：</p>
+<p><strong>① 最大</strong></p>
+<p>对于大多数应用来说，Java 堆（Java Heap）是 Java 虚拟机所管理的内存中最大的一块。</p>
+<p><strong>② 线程共享</strong></p>
+<p>Java 堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。</p>
+<p><strong>③ 存放实例</strong></p>
+<p>此内存区域的唯一目的就是存放对象的实例，几乎所有的对象实例都在这里分配内存。这一点在 Java 虚拟机规范中的描述是：所有的对象实例以及数组都要在堆上分配，但是随着 JIT 编译器的发展与逃逸分析技术的逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发送，所有的对象都分配在堆上也渐渐变得不那么“绝对”了 。</p>
+<p><strong>④ GC</strong></p>
+<p>Java 堆是垃圾收集器管理的主要区域，因此很多时候也被称为“GC堆”（Garbage Collected Heap）。如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法（详见下节），所以 Java 堆中还可以细分为：新生代和老年代。如果从内存分配的角度看，线程共享的 Java 堆中可能划分多个线程私有的分配缓冲区（Thread Local Allocation Buffer，TLAB）。不过，无论如何划分，都与存放内容无关，无论哪个区域，存储的都依然是对象实例，进一步划分的目的是为了更好地回收内存，或者更快地分配内存。</p>
+<h3 id="3-1-5-方法区"><a href="#3-1-5-方法区" class="headerlink" title="3.1.5 方法区"></a>3.1.5 方法区</h3><p>方法区存储的是已经被虚拟机加载的数据，它有以下三个特点:</p>
+<p><strong>① 线程共享</strong></p>
+<p>方法区域 Java 堆一样，是各个线程共享的内存区域，它用于存储已经被虚拟机加载的等数据。</p>
+<p><strong>② 存储的数据类型</strong></p>
+<p><strong>◇</strong> 类的信息；</p>
+<p><strong>◇</strong> 常量；</p>
+<p><strong>◇</strong> 静态变量；</p>
+<p><strong>◇</strong> 即时编译器编译后的代码，等。</p>
+<p><strong>③ 异常</strong></p>
+<p>方法区的大小决定履历系统可以保存多少个类，如果系统定义了太多的类，导致方法区溢出，虚拟机同样抛出内存溢出异常 OutOfMemoryError。</p>
+<p><strong>方法区又可以分为运行时常量池和直接内存两部分：</strong></p>
+<p><strong>① 运行常量池</strong></p>
+<p>运行时常量池（Run-time Constant Pool）是方法区的一部分。</p>
+<p>Class 文件中处了有类的 版本、字段、方法和接口等描述信息，还有一项信息就是常量池（Constant Pool Table）。</p>
+<p>常量池用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。</p>
+<p>运行时常量池受到方法区内存的限制，当常量池无法再申请到内存时就会抛出 OutOfMemoryError 异常。</p>
+<p><strong>② 直接内存</strong></p>
+<p>直接内存（Direct Memory）有以下四个特点：</p>
+<p>a）在虚拟机数据区外</p>
+<p>直接内存不是虚拟机运行时数据区的一部分，也不是 Java 虚拟机规范中定义的内存区域。</p>
+<p>b）直接分配</p>
+<p>在 JDK1.4 中新加入的 NIO（New Input/Output）类，引入了一种基于通道（Channel）与缓冲区（Buffer）的 I/O 方式，它可以使用 native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆中的 DirectByteBuffer 对象作为这块内存的引用操作，这样能避免在 Java 堆和 native 堆中来回复制数据。</p>
+<p>c）受设备内存大小限制</p>
+<p>直接内存的分配不会受到 Java 堆大小的限制，但是会受到设备总内存（RAM 以及 SWAP 区）大小以及处理器寻址空间的限制。</p>
+<p>d）异常</p>
+<p>直接内存的容量默认与 Java 对的最大值一样，如果超额申请内存，也可能导致 OOM 异常出现。</p>
+<h2 id="3-2-java垃圾回收机制"><a href="#3-2-java垃圾回收机制" class="headerlink" title="3.2 java垃圾回收机制"></a>3.2 java垃圾回收机制</h2><p> java  语言中一个显著的特点就是引入了java回收机制，是c++程序员最头疼的内存管理的问题迎刃而解，它使得java程序员在编写程序的时候不在考虑内存管理。由于有个垃圾回收机制，java中的额对象不在有“作用域”的概念，只有对象的引用才有“作用域”。</p>
+<p>垃圾回收可以有效的防止内存泄露，有效的使用空闲的内存；java语言规范没有明确的说明JVM 使用哪种垃圾回收算法，但是任何一种垃圾回收算法一般要做两件基本事情：（1）发现无用的信息对象；（2）回收将无用对象占用的内存空间。使该空间可被程序再次使用。</p>
+<h3 id="3-2-1-标记-清除算法"><a href="#3-2-1-标记-清除算法" class="headerlink" title="3.2.1 标记-清除算法"></a>3.2.1 标记-清除算法</h3><p>标记-清除算法（Mark-Sweep）相当于是先把货架上有人买的、没人买的、空着的商品和位置都记录下来，然后再把没人买的商品统一进行下架，这是垃圾收集器中的早期策略。</p>
+<p><img src="/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160210269.jpg"></p>
+<ul>
+<li><strong>工作原理</strong></li>
+</ul>
+<p><strong>◇</strong> 第一步：标记所有需要回收的对象；</p>
+<p><strong>◇</strong> 第二步：标记完成后，统一回收所有被标记的对象。</p>
+<ul>
+<li><strong>缺点</strong></li>
+</ul>
+<p><strong>◇</strong> 效率低</p>
+<p>标记和清除的效率都不高。</p>
+<p><strong>◇</strong> 内存碎片</p>
+<p>标记清除后会产生大量不连续的内存碎片，内存碎片大多会导致当程序需要分配较大的对象时，无法找到足够的连续内存而不得不提前触发 GC。</p>
+<h3 id="4-2-2-复制算法"><a href="#4-2-2-复制算法" class="headerlink" title="4.2.2 复制算法"></a>4.2.2 复制算法</h3><p>为了解决效率问题，复制（Copying）收集算法出现了。</p>
+<p><img src="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160155295.jpg"></p>
+<ul>
+<li><strong>工作原理</strong></li>
+</ul>
+<p>复制算法把可用内存按容量划分为大小相同的两块，每次只使用其中的一块。</p>
+<p>当使用中的这块内存用完了，就把存活的对象复制到另一块内存上，然后把已使用的空间一次清理掉。</p>
+<p>这样每次都是对半个内存区域进行回收，内存分配时也不用考虑内存碎片等复杂问题。</p>
+<ul>
+<li><strong>优点</strong></li>
+</ul>
+<p>复制算法的优点是每次只对半个内存区域进行内存回收，分配内存时也不用考虑内存碎片等复杂情况，只要移动堆顶指针，按顺序分配内存即可。</p>
+<ul>
+<li><strong>缺点</strong></li>
+</ul>
+<p><strong>◇</strong> 浪费空间</p>
+<p>把内存缩小一半用太浪费空间。</p>
+<p><strong>◇</strong> 有时效率低</p>
+<p>在对象存活率高时，要进行较多的复制操作，这时效率就低了。</p>
+<h3 id="4-2-3-标记-整理算法"><a href="#4-2-3-标记-整理算法" class="headerlink" title="4.2.3 标记-整理算法"></a>4.2.3 标记-整理算法</h3><p>在复制算法中，如果不想浪费 50% 的空间，就需要有额外的空间进行分配担保，以应对被使用内存中所有对象都存活的低端情况所以养老区不能用这种算法。</p>
+<p>根据养老区的特点，有人提出了一种标记-整理（Mark-Compact）算法。</p>
+<p><img src="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160418278.jpg"></p>
+<ul>
+<li><strong>工作原理</strong></li>
+</ul>
+<p>标记-整理算法的标记过程与标记-清除算法一样，但后续步骤是让所有存活的对象向一端移动，然后直接清除掉边界外的内存。</p>
+<h3 id="4-2-4-分代收集算法"><a href="#4-2-4-分代收集算法" class="headerlink" title="4.2.4 分代收集算法"></a>4.2.4 分代收集算法</h3><p>现代商业虚拟机的垃圾回收机制都是采用分代收集算法（Generational Collection）算法，这种算法会根据对象存活周期的不同将内存划分为几块，这样就可以根据各个区域的特点采用最适当的收集算法。</p>
+<p>在新生区，每次垃圾收集都有大批对象死去，只有少了存活，所以可以用复制算法。</p>
+<p>养老区中因为对象存活率高、没有额外空间对它进行担保，就必须使用标记-清除或标记-整理算法进行回收。</p>
+<p>对内存可分为新生区、养老区永久存储区三个区域。</p>
+<p><img src="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228160527396.jpg"></p>
+<p><strong>一、新生区（Young Generation Space）</strong></p>
+<blockquote>
+<p>新生区也叫年轻代。</p>
+</blockquote>
+<ol>
+<li><p>所有新生成的对象首先都是放在年轻代的。年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象。</p>
+</li>
+<li><p>新生代内存按照8:1:1的比例分为一个eden区和两个survivor(survivor0,survivor1)区。一个Eden区，两个 Survivor区(一般而言)。大部分对象在Eden区中生成。</p>
+<p>回收时先将eden区存活对象复制到一个survivor0区，然后清空eden区，当这个survivor0区也存放满了时，则将eden区和survivor0区存活对象复制到另一个survivor1区，然后清空eden和这个survivor0区，此时survivor0区是空的，然后将survivor0区和survivor1区交换，即保持survivor1区为空， 如此往复。</p>
+</li>
+<li><p>当survivor1区不足以存放 eden和survivor0的存活对象时，就将存活对象直接存放到老年代。若是老年代也满了就会触发一次Full GC，也就是新生代、老年代都进行回收。</p>
+</li>
+<li><p>新生代发生的GC也叫做Minor GC，MinorGC发生频率比较高(不一定等Eden区满了才触发)。</p>
+</li>
+</ol>
+<p><strong>二、养老区（Tenure Generation Space）</strong></p>
+<blockquote>
+<p>养老区也叫老年代。</p>
+</blockquote>
+<p>1.在年轻代中经历了N次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。</p>
+<p>2.内存比新生代也大很多(大概比例是1:2)，当老年代内存满时触发Major GC即Full GC，Full GC发生频率比较低，老年代对象存活时间比较长，存活率标记高。</p>
+<p><strong>三、永久存储区（Permanent Space）</strong></p>
+<blockquote>
+<p>永久存储区也叫持久代。</p>
+</blockquote>
+<p>持久代用于存放静态文件，如Java类、方法等。持久代对垃圾回收没有显著影响，但是有些应用可能动态生成或者调用一些class，例如Hibernate 等，在这种时候需要设置一个比较大的持久代空间来存放这些运行过程中新增的类。</p>
+<h3 id="4-2-5-总结"><a href="#4-2-5-总结" class="headerlink" title="4.2.5 总结"></a>4.2.5 总结</h3><p>​        目前大部分垃圾收集器对于新生代都采取Copying算法，因为新生代中每次垃圾回收都要回收大部分对象，也就是说需要复制的操作次数较少，但是实际中并不是按照1：1的比例来划分新生代的空间的，一般来说是将新生代划分为一块较大的Eden空间和两块较小的Survivor空间，每次使用Eden空间和其中的一块Survivor空间，当进行回收时，将Eden和Survivor中还存活的对象复制到另一块Survivor空间中，然后清理掉Eden和刚才使用过的Survivor空间。</p>
+<p>　　而由于老年代的特点是每次回收都只回收少量对象，一般使用的是Mark-Compact算法。</p>
+<p><img src="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/image-20201228162847419.jpg"></p>
+<ol>
+<li><p>当Eden区满的时候，会触发第一次Minor gc，把还活着的对象拷贝到Survivor From区；</p>
+</li>
+<li><p>当Eden区再次触发Minor gc的时候，会扫描Eden区和From区，对两个区域进行垃圾回收，经过这次回收后还存活的对象，则直接复制到To区域，并将Eden区和From区清空，然后将From区和to区交换，即保持to区为空；</p>
+</li>
+<li><p>接着，重复1、2步操作；</p>
+</li>
+<li><p>部分对象会在From区域和To区域中复制来复制去，如此交换15次(由JVM参数MaxTenuringThreshold决定，这个参数默认是15)，最终如果还存活，就存入老年代。</p>
+<blockquote>
+<p>但并非意味着，对象必须要经历15次YGC才会晋升到老年代中。例如，当survivor区空间不够时，便会提前进入到老年代中，但这个次数一定不大于设置的最大阈值。</p>
+</blockquote>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%80%BB%E7%BB%93/" rel="prev" title="面向对象之总结">
+                  <i class="fa fa-chevron-left"></i> 面向对象之总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">嘿咻</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">49k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">44 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="150" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":false},"rect":"opacity:0.7","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
