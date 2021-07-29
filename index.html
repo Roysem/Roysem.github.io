@@ -157,7 +157,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -170,7 +170,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -219,6 +219,116 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/27/%E5%B8%B8%E7%94%A8%E7%B1%BB1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/heixiu.jpeg">
+      <meta itemprop="name" content="嘿咻">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="roysem">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/07/27/%E5%B8%B8%E7%94%A8%E7%B1%BB1/" class="post-title-link" itemprop="url">常用类1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-07-27 20:16:39 / 修改时间：20:41:52" itemprop="dateCreated datePublished" datetime="2021-07-27T20:16:39+08:00">2021-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、掌握Object类的相关用法</span><br><span class="line">2、掌握==跟equals的区别</span><br><span class="line">3、掌握Math类的常用方法</span><br><span class="line">3、掌握Random类的基本方法 </span><br><span class="line">4、掌握日期类和字符串类的转换方式</span><br><span class="line">5、掌握日期和日历类的转换方式</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="1-Object类"><a href="#1-Object类" class="headerlink" title="1  Object类"></a>1  Object类</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>​    <code>java.lang.Object</code>在Java中是万类之祖，即所有类的父类。Java中的继承是单继承的，如果一个类没有定义任何父类则这个类默认继承<code>java.lang.Object</code>，故其中定义的方法可以被任意引用类型使用，前提是拥有足够的权限。</p>
+<p>​    根据JDK的API文档，我们可以发现Object类当中包含的方法有11个。今天我们主要学习其中的2个：</p>
+<ul>
+<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
+<li><code>public boolean equals(Object obj)</code> ：指示其他某个对象是否与此对象“相等”。</li>
+<li><code>protected native Object clone()</code> ： 创建并返回此对象的一个副本。</li>
+<li><code>protected void finalize()</code>： 当垃圾回收器确定不存在对该对象的更多引用时，由对象的垃圾回收器调用此方法。</li>
+</ul>
+<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><p>​    当我们在直接输出打印一个引用类型的对象时发现输出结果为”类型+@+内存地址值”。这个结果其实就是调用了这个对象的toString方法的结果。我们可以通过Object的toString源码得到验证：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/27/%E5%B8%B8%E7%94%A8%E7%B1%BB1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%A4%9A%E6%80%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -244,7 +354,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-07-26 22:14:14 / 修改时间：22:33:05" itemprop="dateCreated datePublished" datetime="2021-07-26T22:14:14+08:00">2021-07-26</time>
+      <time title="创建时间：2021-07-26 22:14:14 / 修改时间：22:35:48" itemprop="dateCreated datePublished" datetime="2021-07-26T22:14:14+08:00">2021-07-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -347,10 +457,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-07-26 09:43:11 / 修改时间：20:38:35" itemprop="dateCreated datePublished" datetime="2021-07-26T09:43:11+08:00">2021-07-26</time>
+      <time title="创建时间：2021-07-26 09:43:11" itemprop="dateCreated datePublished" datetime="2021-07-26T09:43:11+08:00">2021-07-26</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-27 21:01:53" itemprop="dateModified" datetime="2021-07-27T21:01:53+08:00">2021-07-27</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -369,14 +485,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -1018,13 +1134,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">49k</span>
+    <span title="站点总字数">59k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">44 分钟</span>
+    <span title="站点阅读时长">53 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
