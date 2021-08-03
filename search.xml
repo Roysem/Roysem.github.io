@@ -1,156 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>面向对象之总结</title>
-    <url>/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="面向对象之总结"><a href="#面向对象之总结" class="headerlink" title="面向对象之总结"></a>面向对象之总结</h1><h2 id="1-什么是对象，什么是类，类与对象的关系"><a href="#1-什么是对象，什么是类，类与对象的关系" class="headerlink" title="1. 什么是对象，什么是类，类与对象的关系"></a>1. 什么是对象，什么是类，类与对象的关系</h2><p>   类是一类事物抽象的集合</p>
-<p>   对象是一类事物具体的体现</p>
-<p>   类与对象的关系：类是对象的模板，对象时类的实体</p>
-<h2 id="2-成员变量与局部变量的区别"><a href="#2-成员变量与局部变量的区别" class="headerlink" title="2. 成员变量与局部变量的区别"></a>2. 成员变量与局部变量的区别</h2><ul>
-<li>在类的位置不同<ul>
-<li><p>成员变量：类中，方法外</p>
-</li>
-<li><p>局部变量：方法中    - 作用范围不同</p>
-</li>
-<li><p>成员变量：类中</p>
-</li>
-<li><p>局部变量：方法中    - 默认初始值不同</p>
-</li>
-<li><p>成员变量: 有默认值</p>
-</li>
-<li><p>局部变量：没有初始值。必须先定义，赋值后使用    - 生命周期不同</p>
-</li>
-<li><p>成员变量：伴随着对象的创建而存在，随着对象的消失而消失</p>
-</li>
-<li><p>局部变量：随着方法的调用而存在，随着方法的消失而消失</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-什么是方法，方法的作业是什么，有啥注意事项？"><a href="#3-什么是方法，方法的作业是什么，有啥注意事项？" class="headerlink" title="3 .  什么是方法，方法的作业是什么，有啥注意事项？"></a>3 .  什么是方法，方法的作业是什么，有啥注意事项？</h2><p>   <strong>方法：</strong>就是将具有独立功能的代码块组织成一个整体，使具有特有功能的代码</p>
-<p>   <strong>作用：</strong>提高代码的复用性，解决代码的冗余性，同时还封装了一个类应有的行为</p>
-<p><strong>注意事项：</strong></p>
-<ul>
-<li><p>方法不能嵌套定义</p>
-</li>
-<li><p>返回值类型，必须和return语句返回值的类型相同<strong>或者比返回值类型范围小</strong></p>
-</li>
-<li><p>不能再return后面写代码，在其后写的代码不能实现</p>
-</li>
-<li><p>void 表示无返回值，可以省略return</p>
-</li>
-</ul>
-<h2 id="4-方法参数传递注意事项"><a href="#4-方法参数传递注意事项" class="headerlink" title="4. 方法参数传递注意事项"></a>4. 方法参数传递注意事项</h2><p>形参：定义方法时，参数列表中的变量，成为形式参数</p>
-<p>实参：调用方法时，传入给方法的数值，我们称为实际参数</p>
-<ul>
-<li>基本数据类型作为形参时，那么形式参数的变化不会影响到实际参数</li>
-<li>引用数据类型作为型参时，那么形式参数的变化会影响到实际实际参数，因为形式参数的值为应用数据类型实体化的地址，修改其中的值，实质上是修改地址内存里面的值</li>
-</ul>
-<h2 id="5-方法重载"><a href="#5-方法重载" class="headerlink" title="5.方法重载"></a>5.方法重载</h2><p>方法重载：指在同一个类中，允许存在一个或多个以上的同名方法<strong>，只要它们的参数列表不同即可，与修饰符和返回值类型不同</strong></p>
-<h2 id="6-可变参数"><a href="#6-可变参数" class="headerlink" title="6. 可变参数"></a>6. 可变参数</h2><p>目的：用于解决实际情况中类型相同，个数不确定</p>
-<p>注意事项：</p>
-<ul>
-<li>定义可变参数方法时，允许加入其它类型的固定参数列表，且<strong>可变参数必须放在最后</strong></li>
-<li>在方法中定义可变参数后，我们可以像操作数组一样操作该参数</li>
-</ul>
-<h2 id="7-构造方法"><a href="#7-构造方法" class="headerlink" title="7. 构造方法"></a>7. 构造方法</h2><p><strong>定义：</strong>就是类构造对象时调用的方法，主要用于实例化对象。</p>
-<p><strong>作用：</strong></p>
-<ul>
-<li>构造出来一个类的实例</li>
-<li>对构造出来个一个一个类的实例(对象)初始化</li>
-</ul>
-<p><strong>注意：</strong></p>
-<ul>
-<li>构造方法的名字必须与定义他的类名完全相同，没有返回类型，甚至连void都没有</li>
-<li><strong>类中必有构造方法</strong>，若不写，系统会自动提供一个无参构造方法；而一旦提供有参构造方法，就不再提供默认的无参构造方法</li>
-<li>构造方法存在重载</li>
-</ul>
-<h2 id="8-封装"><a href="#8-封装" class="headerlink" title="8 封装"></a>8 封装</h2><p>封装是一种将抽象性函式接口的细节部分包装，隐藏起来的一种方法</p>
-<p><strong>原则:</strong></p>
-<p>将内部细节隐藏起来，若雪要访问某个成员，提供公共方法对齐访问或者是只允许内部访问</p>
-<p><strong>优点：</strong></p>
-<ul>
-<li><p>良好的封装能够隐藏耦合</p>
-</li>
-<li><p>类内部可以自由修改</p>
-</li>
-<li><p>可以对类成员进行更细节精准的控制</p>
-</li>
-<li><p>隐藏信息，实现细节</p>
-</li>
-</ul>
-<p><strong>封装基本使用：</strong></p>
-<ul>
-<li><p>使用private关键字来修饰类的成员以及类</p>
-</li>
-<li><p>对需要访问的成员变量，提供对应一对public的get和set方法</p>
-</li>
-<li><p>private修饰的成员方法，只允许本类中的其他方法调用</p>
-</li>
-<li><p>private修饰的类，只能作为内部类使用</p>
-</li>
-</ul>
-<h2 id="9-访问权限修饰符的访问权限"><a href="#9-访问权限修饰符的访问权限" class="headerlink" title="9. 访问权限修饰符的访问权限"></a>9. 访问权限修饰符的访问权限</h2><p><img src="/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%80%BB%E7%BB%93/image-20200618140830256.jpg"></p>
-<h2 id="10-继承"><a href="#10-继承" class="headerlink" title="10. 继承"></a>10. 继承</h2><p>含义：继承就是子类继承父类的特征和行为</p>
-<p>继承的特点：</p>
-<ul>
-<li><p>成员变量</p>
-<ul>
-<li>如果子类父类中出现不重名的成员变量，这时的访问是没有影响的</li>
-<li>如果子类中出现重名的成员变量，这时访问是有影响的</li>
-</ul>
-</li>
-<li><p>成员方法</p>
-<ul>
-<li>子类父类中出现不重名的成员方法，这时调用是没有影响的</li>
-<li>子类父类中出现重名的成员方法，这时的访问是一种特殊情况<ul>
-<li>如果子类出现与父类重名的方法，但是方法参数不同，这种情况属于方法重载</li>
-<li>如果子类出现与父类重名方法，同时方法参数也相同，这种情况叫做方法重写</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>构造方法</p>
-<ul>
-<li>构造方法的名字是与类名一致的。所以子类是无法继承父类构造方法</li>
-<li>子类中的初始化过程中，必须先执行父类的初始化动作。子类的构造方法中默认只有一个super(),表示调用父类的构造方法，父类成员变量初始化后，才可以给子类使用</li>
-</ul>
-</li>
-</ul>
-<h2 id="11-方法重写"><a href="#11-方法重写" class="headerlink" title="11. 方法重写"></a>11. 方法重写</h2><p>方法重名：子类中出现与父类一模一样的方法时(<strong>方法名和参数列表都相同，重写的返回值类型相同或者是父类方法的子类</strong>)，会出现覆盖效果，也称为重写或者复写</p>
-<p>特点：</p>
-<ul>
-<li>子类方法覆盖父类方法，必须保证权限大于等于父类权限</li>
-<li>子类方法覆盖父类方法，方法名和参数列表都要一模一样</li>
-<li>子类方法覆盖父类方法，<strong>返回值类型可以与父类保存一致，或者返回父类返回值的子类</strong></li>
-<li>私有方法不能被继承，而是无法访问，所以不能重写。</li>
-</ul>
-<h2 id="12-final关键字"><a href="#12-final关键字" class="headerlink" title="12 final关键字"></a>12 final关键字</h2><ul>
-<li><p>final修饰类，表示最终类，也就是此类不能被继承</p>
-</li>
-<li><p>final修饰变量：表示常量，也就是一个变量的值始终如一，无法变更</p>
-</li>
-<li><p>final修饰方法：表示最终方法，也就是此方法不能被重写</p>
-</li>
-</ul>
-<p><strong>注意：</strong></p>
-<ul>
-<li>被 final修饰的成员变量，必须先进行初始化赋值，且值不能变更，否则编译出错</li>
-<li>被final修饰的成员变量，通常会结合final和static关键字一起使用，表示一个全局的静态常量，常量名用大写</li>
-<li><strong>被final修饰的局部变量，不能被static修饰</strong>，同时可以不用先初始化赋值，使用时先进行一次赋值即可，后续也不能变更</li>
-<li>final修饰的基本数据类型，初始化便不能发生变化</li>
-<li>final修饰引用数据类型，则在对其初始化以后便不能再改变引用地址了，但改引用地址中的内容可以发生改变</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java基础</tag>
-        <tag>面向对象</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>面向对象之基础</title>
     <url>/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="面向对象之基础"><a href="#面向对象之基础" class="headerlink" title="面向对象之基础"></a>面向对象之基础</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ol>
@@ -299,6 +149,156 @@
 <p><img src="/2021/07/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%9F%BA%E7%A1%80/image-20200618094608601.jpg"></p>
 <p><strong>总结：</strong></p>
 <p>执行顺序是<strong>：静态代码块-&gt;构造代码块-&gt;构造方法</strong>。特点：静态代码块只执行一次，构造代码块在每次调用构造方法之前都会执行！</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+        <tag>面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向对象之总结</title>
+    <url>/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="面向对象之总结"><a href="#面向对象之总结" class="headerlink" title="面向对象之总结"></a>面向对象之总结</h1><h2 id="1-什么是对象，什么是类，类与对象的关系"><a href="#1-什么是对象，什么是类，类与对象的关系" class="headerlink" title="1. 什么是对象，什么是类，类与对象的关系"></a>1. 什么是对象，什么是类，类与对象的关系</h2><p>   类是一类事物抽象的集合</p>
+<p>   对象是一类事物具体的体现</p>
+<p>   类与对象的关系：类是对象的模板，对象时类的实体</p>
+<h2 id="2-成员变量与局部变量的区别"><a href="#2-成员变量与局部变量的区别" class="headerlink" title="2. 成员变量与局部变量的区别"></a>2. 成员变量与局部变量的区别</h2><ul>
+<li>在类的位置不同<ul>
+<li><p>成员变量：类中，方法外</p>
+</li>
+<li><p>局部变量：方法中    - 作用范围不同</p>
+</li>
+<li><p>成员变量：类中</p>
+</li>
+<li><p>局部变量：方法中    - 默认初始值不同</p>
+</li>
+<li><p>成员变量: 有默认值</p>
+</li>
+<li><p>局部变量：没有初始值。必须先定义，赋值后使用    - 生命周期不同</p>
+</li>
+<li><p>成员变量：伴随着对象的创建而存在，随着对象的消失而消失</p>
+</li>
+<li><p>局部变量：随着方法的调用而存在，随着方法的消失而消失</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-什么是方法，方法的作业是什么，有啥注意事项？"><a href="#3-什么是方法，方法的作业是什么，有啥注意事项？" class="headerlink" title="3 .  什么是方法，方法的作业是什么，有啥注意事项？"></a>3 .  什么是方法，方法的作业是什么，有啥注意事项？</h2><p>   <strong>方法：</strong>就是将具有独立功能的代码块组织成一个整体，使具有特有功能的代码</p>
+<p>   <strong>作用：</strong>提高代码的复用性，解决代码的冗余性，同时还封装了一个类应有的行为</p>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li><p>方法不能嵌套定义</p>
+</li>
+<li><p>返回值类型，必须和return语句返回值的类型相同<strong>或者比返回值类型范围小</strong></p>
+</li>
+<li><p>不能再return后面写代码，在其后写的代码不能实现</p>
+</li>
+<li><p>void 表示无返回值，可以省略return</p>
+</li>
+</ul>
+<h2 id="4-方法参数传递注意事项"><a href="#4-方法参数传递注意事项" class="headerlink" title="4. 方法参数传递注意事项"></a>4. 方法参数传递注意事项</h2><p>形参：定义方法时，参数列表中的变量，成为形式参数</p>
+<p>实参：调用方法时，传入给方法的数值，我们称为实际参数</p>
+<ul>
+<li>基本数据类型作为形参时，那么形式参数的变化不会影响到实际参数</li>
+<li>引用数据类型作为型参时，那么形式参数的变化会影响到实际实际参数，因为形式参数的值为应用数据类型实体化的地址，修改其中的值，实质上是修改地址内存里面的值</li>
+</ul>
+<h2 id="5-方法重载"><a href="#5-方法重载" class="headerlink" title="5.方法重载"></a>5.方法重载</h2><p>方法重载：指在同一个类中，允许存在一个或多个以上的同名方法<strong>，只要它们的参数列表不同即可，与修饰符和返回值类型不同</strong></p>
+<h2 id="6-可变参数"><a href="#6-可变参数" class="headerlink" title="6. 可变参数"></a>6. 可变参数</h2><p>目的：用于解决实际情况中类型相同，个数不确定</p>
+<p>注意事项：</p>
+<ul>
+<li>定义可变参数方法时，允许加入其它类型的固定参数列表，且<strong>可变参数必须放在最后</strong></li>
+<li>在方法中定义可变参数后，我们可以像操作数组一样操作该参数</li>
+</ul>
+<h2 id="7-构造方法"><a href="#7-构造方法" class="headerlink" title="7. 构造方法"></a>7. 构造方法</h2><p><strong>定义：</strong>就是类构造对象时调用的方法，主要用于实例化对象。</p>
+<p><strong>作用：</strong></p>
+<ul>
+<li>构造出来一个类的实例</li>
+<li>对构造出来个一个一个类的实例(对象)初始化</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>构造方法的名字必须与定义他的类名完全相同，没有返回类型，甚至连void都没有</li>
+<li><strong>类中必有构造方法</strong>，若不写，系统会自动提供一个无参构造方法；而一旦提供有参构造方法，就不再提供默认的无参构造方法</li>
+<li>构造方法存在重载</li>
+</ul>
+<h2 id="8-封装"><a href="#8-封装" class="headerlink" title="8 封装"></a>8 封装</h2><p>封装是一种将抽象性函式接口的细节部分包装，隐藏起来的一种方法</p>
+<p><strong>原则:</strong></p>
+<p>将内部细节隐藏起来，若雪要访问某个成员，提供公共方法对齐访问或者是只允许内部访问</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li><p>良好的封装能够隐藏耦合</p>
+</li>
+<li><p>类内部可以自由修改</p>
+</li>
+<li><p>可以对类成员进行更细节精准的控制</p>
+</li>
+<li><p>隐藏信息，实现细节</p>
+</li>
+</ul>
+<p><strong>封装基本使用：</strong></p>
+<ul>
+<li><p>使用private关键字来修饰类的成员以及类</p>
+</li>
+<li><p>对需要访问的成员变量，提供对应一对public的get和set方法</p>
+</li>
+<li><p>private修饰的成员方法，只允许本类中的其他方法调用</p>
+</li>
+<li><p>private修饰的类，只能作为内部类使用</p>
+</li>
+</ul>
+<h2 id="9-访问权限修饰符的访问权限"><a href="#9-访问权限修饰符的访问权限" class="headerlink" title="9. 访问权限修饰符的访问权限"></a>9. 访问权限修饰符的访问权限</h2><p><img src="/2021/07/26/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%80%BB%E7%BB%93/image-20200618140830256.jpg"></p>
+<h2 id="10-继承"><a href="#10-继承" class="headerlink" title="10. 继承"></a>10. 继承</h2><p>含义：继承就是子类继承父类的特征和行为</p>
+<p>继承的特点：</p>
+<ul>
+<li><p>成员变量</p>
+<ul>
+<li>如果子类父类中出现不重名的成员变量，这时的访问是没有影响的</li>
+<li>如果子类中出现重名的成员变量，这时访问是有影响的</li>
+</ul>
+</li>
+<li><p>成员方法</p>
+<ul>
+<li>子类父类中出现不重名的成员方法，这时调用是没有影响的</li>
+<li>子类父类中出现重名的成员方法，这时的访问是一种特殊情况<ul>
+<li>如果子类出现与父类重名的方法，但是方法参数不同，这种情况属于方法重载</li>
+<li>如果子类出现与父类重名方法，同时方法参数也相同，这种情况叫做方法重写</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<ul>
+<li>构造方法的名字是与类名一致的。所以子类是无法继承父类构造方法</li>
+<li>子类中的初始化过程中，必须先执行父类的初始化动作。子类的构造方法中默认只有一个super(),表示调用父类的构造方法，父类成员变量初始化后，才可以给子类使用</li>
+</ul>
+</li>
+</ul>
+<h2 id="11-方法重写"><a href="#11-方法重写" class="headerlink" title="11. 方法重写"></a>11. 方法重写</h2><p>方法重名：子类中出现与父类一模一样的方法时(<strong>方法名和参数列表都相同，重写的返回值类型相同或者是父类方法的子类</strong>)，会出现覆盖效果，也称为重写或者复写</p>
+<p>特点：</p>
+<ul>
+<li>子类方法覆盖父类方法，必须保证权限大于等于父类权限</li>
+<li>子类方法覆盖父类方法，方法名和参数列表都要一模一样</li>
+<li>子类方法覆盖父类方法，<strong>返回值类型可以与父类保存一致，或者返回父类返回值的子类</strong></li>
+<li>私有方法不能被继承，而是无法访问，所以不能重写。</li>
+</ul>
+<h2 id="12-final关键字"><a href="#12-final关键字" class="headerlink" title="12 final关键字"></a>12 final关键字</h2><ul>
+<li><p>final修饰类，表示最终类，也就是此类不能被继承</p>
+</li>
+<li><p>final修饰变量：表示常量，也就是一个变量的值始终如一，无法变更</p>
+</li>
+<li><p>final修饰方法：表示最终方法，也就是此方法不能被重写</p>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>被 final修饰的成员变量，必须先进行初始化赋值，且值不能变更，否则编译出错</li>
+<li>被final修饰的成员变量，通常会结合final和static关键字一起使用，表示一个全局的静态常量，常量名用大写</li>
+<li><strong>被final修饰的局部变量，不能被static修饰</strong>，同时可以不用先初始化赋值，使用时先进行一次赋值即可，后续也不能变更</li>
+<li>final修饰的基本数据类型，初始化便不能发生变化</li>
+<li>final修饰引用数据类型，则在对其初始化以后便不能再改变引用地址了，但改引用地址中的内容可以发生改变</li>
+</ul>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1857,6 +1857,381 @@
       <tags>
         <tag>java基础</tag>
         <tag>面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>错题集1</title>
+    <url>/2021/08/02/%E9%94%99%E9%A2%98%E9%9B%861/</url>
+    <content><![CDATA[<h1 id="错题集1"><a href="#错题集1" class="headerlink" title="错题集1"></a>错题集1</h1><h2 id="1-以下说法描述当中，正确的是"><a href="#1-以下说法描述当中，正确的是" class="headerlink" title="1.以下说法描述当中，正确的是()"></a>1.以下说法描述当中，正确的是()</h2><p>A.  Java面向对象的三大特性是 封装，继承，接口。</p>
+<p>B.  Java支持多继承</p>
+<p>C.  Java抽象类当中，没有构造方法。</p>
+<p>D. Java继承当中，创建子类对象的时候，必须执行父类构造方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">题目正确答案是： D</span><br><span class="line">答案解析：</span><br><span class="line">A Java面向对象的三大特性是封装，继承，多态</span><br><span class="line">B Java只能单继承，</span><br><span class="line">C Java的抽象类，有构造方法。目的是为了在创建子类对象的时候，给父类成员变量初始化数据</span><br><span class="line">D java继承当中，创建子类对象的时候，目的是为了在创建子类对象的时候，给父类成员变量初始化数据。</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-以下说法描述中，错误的是"><a href="#2-以下说法描述中，错误的是" class="headerlink" title="2. 以下说法描述中，错误的是()"></a>2. 以下说法描述中，错误的是()</h2><p>A.  Calendar类的使用，需要创建对象，在调用方法</p>
+<p>B.  Object类是所有类的父类，它里面的所有方法，都可以被子类使用</p>
+<p>C.  Integer类是int类型的包装类，可以完成字符串类型转化成int的操作</p>
+<p>D.  如果一个类，想要进行排序操作，则需要实现Comparable接口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">题目正确答案是： A</span><br><span class="line">A. Calendar类是抽象类，不能创建对象，Calendar.getInstance创建的对象是其子类的对象</span><br><span class="line">B. Object是所有类的父类，它里面有public 和protected方法，只有一个private方法，但是其被静态方法引用，在创建对象的时候，先执行父类的构造方法，改私有类就被调用了</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>异常</title>
+    <url>/2021/08/03/%E5%BC%82%E5%B8%B8/</url>
+    <content><![CDATA[<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><h1 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、了解异常和错误的区别</span><br><span class="line">2、了解异常的分类</span><br><span class="line">3、掌握异常的捕获跟处理</span><br><span class="line">3、掌握自定义异常</span><br></pre></td></tr></table></figure>
+
+<h1 id="1-异常"><a href="#1-异常" class="headerlink" title="1.异常"></a>1.异常</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>​     正常情况下，小王从家里去上班，路上大概需要1个小时。</p>
+<p><img src="/2021/08/03/%E5%BC%82%E5%B8%B8/1609745117928.jpg" alt="1609745117928"></p>
+<p>但是，偶尔总会有各种情况发生，比如堵车、撞车等。这就是上班过程中的异常行为。</p>
+<p><img src="/2021/08/03/%E5%BC%82%E5%B8%B8/1609745140833.jpg" alt="1609745140833"></p>
+<p>​        生活中我们有各种异常情况发生，我们写的程序也同样有各种异常情况发生。比如</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner input = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">System.out.println(<span class="string">&quot;请输入一个整数：&quot;</span>);</span><br><span class="line"><span class="keyword">int</span> i = input.nextInt();</span><br></pre></td></tr></table></figure>
+
+<p>当用户控制台输入非数字的字符时，程序就出现异常情况了。</p>
+<p>​        那么什么是异常呢？异常是指在程序的运行过程中所发生的不正常的事件，它会中断正在运行 </p>
+<p>的程序。Java提供了一套处理异常情况的机制，我们可以使用这套机制为程序提供了错误处理的能力。好比上班堵车了就需要等待或者绕行，撞车了就需要交警跟保险处理，然后再去上班。 </p>
+<h2 id="1-2-异常体系"><a href="#1-2-异常体系" class="headerlink" title="1.2 异常体系"></a>1.2 异常体系</h2><p><img src="/2021/08/03/%E5%BC%82%E5%B8%B8/wps1.jpg" alt="wps1"></p>
+<p>​        通过上面的异常体系图中我们可以发现，异常的根类是<code>java.lang.Throwable</code>，其下有两个子类：<code>java.lang.Error</code>与<code>java.lang.Exception</code>。</p>
+<ul>
+<li><strong>Error</strong>： 严重错误Error，无法通过处理的错误，只能事先避免，好比绝症。</li>
+<li><strong>Exception</strong>：表示异常，异常产生后程序员可以通过代码的方式纠正，使程序继续运行，是必须要处理的。好比感冒。</li>
+</ul>
+<p>​    由于Error无法避免，我们上面说的异常处理机制主要是针对Exception。</p>
+<h2 id="1-3-异常的分类"><a href="#1-3-异常的分类" class="headerlink" title="1.3 异常的分类"></a>1.3 异常的分类</h2><p>​    Exception又可以分为2类，编译异常跟运行时异常。</p>
+<ul>
+<li><strong>编译时期异常</strong>:checked异常。在编译时期,就会检查,如果没有处理异常,则编译失败。(如日期格式化异常)</li>
+<li><strong>运行时期异常</strong>:runtime异常。在运行时期,检查异常.在编译时期,运行异常不会编译器检测(不报错)。(如数学异常)</li>
+</ul>
+<h2 id="1-4-异常的处理"><a href="#1-4-异常的处理" class="headerlink" title="1.4 异常的处理"></a>1.4 异常的处理</h2><p>Java异常处理的五个关键字：try、catch、finally、throw、throws</p>
+<h4 id="1-4-1-throw抛出异常"><a href="#1-4-1-throw抛出异常" class="headerlink" title="1.4.1 throw抛出异常"></a>1.4.1 throw抛出异常</h4><p>​        在JAVA中，可以通过throw关键字来抛出一个指定的异常对象。throw用在方法内，用来抛出一个异常对象，将这个异常对象传递到调用者处，并结束当前方法的执行。</p>
+<ul>
+<li><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">throw new 异常类名(描述信息);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02Exception</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建数组</span></span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">        <span class="comment">//根据索引找对应的元素</span></span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">int</span> element = getElement(arr, index);</span><br><span class="line">        System.out.println(element);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getElement</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line"><span class="comment">// 当数组下表越界时抛出下标越界异常</span></span><br><span class="line">        <span class="keyword">if</span>(index&lt;<span class="number">0</span> || index&gt;arr.length-<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(<span class="string">&quot;blb提醒您，数组下标已越界。&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr[index];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        throw抛出去的异常给谁了呢？谁调用谁处理，一层层往上找，没人处理则由JVM处理。</p>
+<h4 id="1-4-2-throws声明异常"><a href="#1-4-2-throws声明异常" class="headerlink" title="1.4.2 throws声明异常"></a>1.4.2 throws声明异常</h4><p>​        throws用于方法上，表示此方法中出现的异常自己不处理，丢给调用者来处理。就像小孩子之间发生了矛盾自己解决不了，由父母来负责处理。当然父母也可以不处理继续上抛，交给爷爷奶奶来处理。</p>
+<ul>
+<li> 语法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">修饰符 返回值类型 方法名(参数) throws 异常类名1,异常类名2…&#123;   &#125;	</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">throws</span> ParseException </span>&#123;</span><br><span class="line">    SimpleDateFormat format = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">    Date date = format.parse(<span class="string">&quot;2020-10-10&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="1-4-3-try-catch捕获异常"><a href="#1-4-3-try-catch捕获异常" class="headerlink" title="1.4.3 try-catch捕获异常"></a>1.4.3 try-catch捕获异常</h4><p>​        刚刚我们都是在抛出异常，那如何进行捕获跟处理异常呢？通过try catch块进行异常的捕获跟处理。 </p>
+<ul>
+<li><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">     代码</span><br><span class="line">&#125;catch(异常类型  e)&#123;</span><br><span class="line">     发生了异常1，进行处理。     </span><br><span class="line">&#125;catch(异常类型  e)&#123;</span><br><span class="line">	 发生了异常2，进行处理。     </span><br><span class="line">&#125;...</span><br></pre></td></tr></table></figure>
+
+<p><code>try</code>块中写编写可能产生异常的代码。</p>
+<p><code>catch</code>块中用来表示发生了异常，如何进行处理的逻辑。</p>
+</li>
+</ul>
+<p><strong>代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03Exception</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"><span class="comment">//            制造一个异常。</span></span><br><span class="line">            System.out.println(<span class="number">5</span>/<span class="number">0</span>);</span><br><span class="line">            String s = <span class="keyword">null</span>;</span><br><span class="line">            System.out.println(s.toString());</span><br><span class="line">        &#125;<span class="keyword">catch</span> (ArithmeticException e)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;发生了算术运算的异常。&quot;</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (NullPointerException e)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;发生了空指针的异常。&quot;</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>tips: try-catch不能单独使用，必须一起使用。</p>
+<h4 id="1-4-4-finally代码块"><a href="#1-4-4-finally代码块" class="headerlink" title="1.4.4 finally代码块"></a>1.4.4 finally代码块</h4><p>​        生活中，有时候即使发生了异常情况，干扰了生活的秩序，但有些事是无论是否异常都需要完成的。比如发生了疫情，我们不能正常的聚会、娱乐。但是无论是否发生疫情我们都必须活着，我们都需要吃饭睡觉。程序也一样，有时候当代码无论是否发生了异常我们都要保证执行一些操作，比如当我们打开了一些物理资源(磁盘文件/网络连接/数据库连接等),我们都得在使用完之后,最终关闭打开的资源。可以通过<code>finally</code>代码块来实现。</p>
+<ul>
+<li><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">     代码</span><br><span class="line">&#125;catch(异常类型  e)&#123;</span><br><span class="line">     发生了异常1，进行处理。     </span><br><span class="line">&#125;catch(异常类型  e)&#123;</span><br><span class="line">	 发生了异常2，进行处理。     </span><br><span class="line">&#125;...</span><br><span class="line">	fianlly&#123;</span><br><span class="line">	  一定会执行的代码</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTryCatchFinally</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        FileInputStream fs = <span class="keyword">null</span> ;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            File file = <span class="keyword">new</span> File(<span class="string">&quot;blb.txt&quot;</span>);</span><br><span class="line">            fs = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line"><span class="comment">//            无论是否发生了异常都执行关闭打开的文件流</span></span><br><span class="line">            <span class="keyword">if</span>(fs!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                fs.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>tips: <code>finally</code>中的代码无论是否异常都会执行，return也无法阻止，除非使用<code>System.exit(1);</code>退出虚拟机。<code>finally</code>也不能单独使用。    </p>
+</li>
+</ul>
+<h4 id="1-4-5-try-finally块"><a href="#1-4-5-try-finally块" class="headerlink" title="1.4.5 try-finally块"></a>1.4.5 try-finally块</h4><p>​    开发中还有一种比较少用的结果，<code>try-finally</code>结构，语法如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">     代码</span><br><span class="line">&#125;fianlly&#123;</span><br><span class="line">	  一定会执行的代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTryFinally</span><span class="params">()</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    FileInputStream fs = <span class="keyword">null</span> ;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">&quot;blb.txt&quot;</span>);</span><br><span class="line">        fs = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">        System.exit(<span class="number">1</span>);</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//            无论是否发生了异常都执行关闭打开的文件流</span></span><br><span class="line">        <span class="keyword">if</span>(fs!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            fs.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-4-6-注意事项"><a href="#1-4-6-注意事项" class="headerlink" title="1.4.6 注意事项"></a>1.4.6 注意事项</h4><ul>
+<li>运行时异常被抛出可以不处理，由JVM处理。</li>
+<li>多个catch块捕获多个异常且有父子关系时，子类的捕获在前面，父类的捕获在后面。</li>
+<li>如果finally有return语句,永远返回finally中的结果</li>
+<li>子类重写父类方法时，子类不能抛出比父类更宽泛的的异常，可以不抛出异常</li>
+<li>子类不能抛出比父类更多的异常</li>
+</ul>
+<p><img src="/2021/08/03/%E5%BC%82%E5%B8%B8/%E6%AD%BB%E4%BA%86%E9%83%BD%E8%A6%81try.jpg" alt="死了都要try"></p>
+<h4 id="1-4-7-常见异常"><a href="#1-4-7-常见异常" class="headerlink" title="1.4.7 常见异常"></a>1.4.7 常见异常</h4><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>异常名称</th>
+<th>异常描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td>java.lang.NullPointerException</td>
+<td>空指针异常:对象为空，并且调用相应方法。</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td>java.lang.ClassNotFoundException</td>
+<td>找不到指定类，常出现在反射中</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td>java.lang.ArrayIndexOutOfBoundsException</td>
+<td>数组下标越界</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td>java.lang.NumberFormatException:</td>
+<td>数字格式化异常</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td>java.lang.ArithmeticException:</td>
+<td>数学运算异常</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td>java.lang.StackOverflowError</td>
+<td>内存空间溢出错误，方法递归调用中，经常发生</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td>java.lang.ClassCastException</td>
+<td>类型转换异常，向下转型中经常发生</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td>java.text.ParseException</td>
+<td>时间格式化异常，SimpleDateFormart中经常发生</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td>java.util.InputMismatchException</td>
+<td>输入类型不匹配异常</td>
+</tr>
+</tbody></table>
+<h2 id="1-5-自定义异常"><a href="#1-5-自定义异常" class="headerlink" title="1.5 自定义异常"></a>1.5 自定义异常</h2><p>​        JAVA提供了很多异常类供我们使用，但是在实际开发中，根据业务的需求，有些异常情况是JDK没有提供的，比如年龄输入不合法等，此时我们要像JAVA一样来定义异常。</p>
+<ul>
+<li>自定义一个编译异常类，继承<code>java.lang.Exception</code>。</li>
+<li>自定义一个运行时期异常类，继承<code>java.lang.RuntimeException</code>。</li>
+</ul>
+<p><strong>代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 自定义一个年龄越界的运行时异常，如果要定义编译异常改为Exception即可</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AgeOutOfBoundException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AgeOutOfBoundException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AgeOutOfBoundException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置年龄的时候，检查如果为负数抛出此异常</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05Exception</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        setAge(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> <span class="keyword">throws</span> AgeOutOfBoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 如果年龄为负数抛出此异常</span></span><br><span class="line">        <span class="keyword">if</span>(age&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AgeOutOfBoundException(<span class="string">&quot;年龄不能为负数&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDK8新特性之时间类</title>
+    <url>/2021/08/03/JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8B%E6%97%B6%E9%97%B4%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="JDK8新特性之时间类"><a href="#JDK8新特性之时间类" class="headerlink" title="JDK8新特性之时间类"></a>JDK8新特性之时间类</h1><h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1.基本介绍"></a>1.基本介绍</h2><h3 id="1-1旧版的Java中，日期时间API存在的问题"><a href="#1-1旧版的Java中，日期时间API存在的问题" class="headerlink" title="1.1旧版的Java中，日期时间API存在的问题"></a>1.1旧版的Java中，日期时间API存在的问题</h3><ul>
+<li><strong>非线程安全</strong> − java.util.Date 是非线程安全的，所有的日期类都是可变的，这是Java日期类最大的问题之一。</li>
+<li><strong>设计很差</strong> −  Java的日期/时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外用于格式化和解析的类在java.text包中定义。java.util.Date同时包含日期和时间，而java.sql.Date仅包含日期，将其纳入java.sql包并不合理。另外这两个类都有相同的名字，这本身就是一个非常糟糕的设计。</li>
+<li><strong>时区处理麻烦</strong> − 日期类并不提供国际化，没有时区支持，因此Java引入了java.util.Calendar和java.util.TimeZone类，但他们同样存在上述所有的问题。</li>
+</ul>
+<h3 id="1-2Java8在java。time包下提供了很多新的API。"><a href="#1-2Java8在java。time包下提供了很多新的API。" class="headerlink" title="1.2Java8在java。time包下提供了很多新的API。"></a>1.2Java8在java。time包下提供了很多新的API。</h3><ul>
+<li>Local(本地) - 简化了日期时间的处理，没有时区的问题</li>
+<li>Zoned(地区) - 通过制定的时间处理日期时间</li>
+</ul>
+<blockquote>
+<p>新的java.time包涵盖了所有处理日期，时间，日期/时间，时区，时刻（instants），过程（during）与时钟（clock）的操作。</p>
+</blockquote>
+<h2 id="2-LocalDateTime"><a href="#2-LocalDateTime" class="headerlink" title="2.LocalDateTime"></a>2.LocalDateTime</h2><p>操作日期和时间</p>
+<ul>
+<li>日期 包括年,月,日,星期</li>
+<li>时间 包括时,分,秒,毫秒</li>
+</ul>
+<h3 id="2-1常用API"><a href="#2-1常用API" class="headerlink" title="2.1常用API"></a>2.1常用API</h3><table>
+<thead>
+<tr>
+<th>返回值</th>
+<th>方法名</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static LocalDateTime</code></td>
+<td><code>now()</code></td>
+<td>从默认时区的系统时钟获取当前的日期时间</td>
+</tr>
+<tr>
+<td><code>static LocalDateTime</code></td>
+<td><code> of(int year,int month,int dayofMonth,int hour,int minute,int second)</code></td>
+<td>从年，月，日，时，分，秒获得LocalDateTime的实例</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getYear()</code></td>
+<td>获取年份字段</td>
+</tr>
+<tr>
+<td><code>Month</code></td>
+<td><code>getMonth()</code></td>
+<td>获取Month枚举获取月份字段</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getMonthValue()</code></td>
+<td>获取月份字段从1到12</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getDayOfMonth()</code></td>
+<td>获取这个月的第几天</td>
+</tr>
+<tr>
+<td><code>DayOfWeek</code></td>
+<td><code>getDayofWeek()</code></td>
+<td>获取星期几(DayOfWeek枚举)</td>
+</tr>
+<tr>
+<td><code>int </code></td>
+<td><code>getHour()</code></td>
+<td>获取时间字段</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getMinute()</code></td>
+<td>获取分钟字段</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getSecond()</code></td>
+<td>获取秒</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>minusDays(long days)</code></td>
+<td>返回此 <code>LocalDateTime</code>的副本，其中指定的时间间隔以天为单位。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>minusHours(long hours)</code></td>
+<td>以指定的时间段返回此 <code>LocalDateTime</code>的副本，以减少的小时数。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>minusMonths(long months)</code></td>
+<td>返回此<code>LocalDateTime</code>的副本，指定的时间以月为单位减去。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>plusDays(long days)</code></td>
+<td>返回此 <code>LocalDateTime</code>的副本，并以指定的时间段添加天数。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>plusMonths(long months)</code></td>
+<td>返回这个 <code>LocalDateTime</code>的副本，其中指定的时间段以月为单位</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>with(TemporalField field,  long newValue</code></td>
+<td>返回此日期时间的副本，并将指定的字段设置为新值。</td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td><code>format(DateTimeFormatter formatter)</code></td>
+<td>使用指定的格式化程序格式化此日期时间。</td>
+</tr>
+<tr>
+<td><code>static LocalDateTime</code></td>
+<td><code>parse(CharSequence text, DateTimeFormatter formatter)</code></td>
+<td>使用特定的格式化 <code>LocalDateTime</code>从文本字符串获取 <code>LocalDateTime</code>的实例。</td>
+</tr>
+</tbody></table>
+<h3 id="2-2举例"><a href="#2-2举例" class="headerlink" title="2.2举例"></a>2.2举例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//获取当前时间</span></span><br><span class="line">       LocalDateTime now = LocalDateTime.now();</span><br><span class="line">       System.out.println(<span class="string">&quot;now = &quot;</span> + now);<span class="comment">//now = 2021-08-03T19:43:02.639</span></span><br><span class="line">       <span class="comment">//设置时间</span></span><br><span class="line">       LocalDateTime of = LocalDateTime.of(<span class="number">2018</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;of = &quot;</span> + of);<span class="comment">//of = 2018-08-08T08:08:08</span></span><br><span class="line">       <span class="comment">//获取当前的年份</span></span><br><span class="line">       <span class="keyword">int</span> year = now.getYear();</span><br><span class="line">       System.out.println(<span class="string">&quot;year = &quot;</span> + year);<span class="comment">//year = 2021</span></span><br><span class="line">       <span class="comment">//获取当前的月份</span></span><br><span class="line">       Month month = now.getMonth();</span><br><span class="line">       System.out.println(<span class="string">&quot;month = &quot;</span> + month);<span class="comment">//month = AUGUST [返回的是Month枚举]</span></span><br><span class="line">       <span class="comment">//获取当前月份</span></span><br><span class="line">       <span class="keyword">int</span> monthValue = now.getMonthValue();</span><br><span class="line">       System.out.println(<span class="string">&quot;monthValue = &quot;</span> + monthValue);<span class="comment">//monthValue = 8</span></span><br><span class="line">       <span class="comment">//获取这个月的第几天</span></span><br><span class="line">       <span class="keyword">int</span> dayOfMonth = now.getDayOfMonth();</span><br><span class="line">       System.out.println(<span class="string">&quot;dayOfMonth = &quot;</span> + dayOfMonth);<span class="comment">//dayOfMonth = 3</span></span><br><span class="line">       <span class="comment">//获取这周的星期几</span></span><br><span class="line">       DayOfWeek dayOfWeek = now.getDayOfWeek();</span><br><span class="line">       System.out.println(<span class="string">&quot;dayOfWeek = &quot;</span> + dayOfWeek);<span class="comment">//dayOfWeek = TUESDAY [DayOfWeek枚举]</span></span><br><span class="line">       <span class="comment">//获取这周的星期几</span></span><br><span class="line">       <span class="keyword">int</span> value = now.getDayOfWeek().getValue();</span><br><span class="line">       System.out.println(<span class="string">&quot;value = &quot;</span> + value);<span class="comment">//value = 2</span></span><br><span class="line">       <span class="comment">//往后推两天</span></span><br><span class="line">       LocalDateTime localDateTime = now.plusDays(<span class="number">2</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;localDateTime = &quot;</span> + localDateTime);<span class="comment">//localDateTime = 2021-08-05T19:43:02.639</span></span><br><span class="line">       <span class="comment">//往前推两个月</span></span><br><span class="line">       LocalDateTime localDateTime1 = now.minusMonths(<span class="number">2</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;localDateTime1 = &quot;</span> + localDateTime1);<span class="comment">//localDateTime1 = 2021-06-03T19:43:02.639</span></span><br><span class="line">       <span class="comment">//这个月的第3天</span></span><br><span class="line">       LocalDateTime localDateTime2 = now.withDayOfMonth(<span class="number">7</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;localDateTime2 = &quot;</span> + localDateTime2);<span class="comment">//localDateTime2 = 2021-08-07T19:43:02.639</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//时间对象 ---&gt;字符串</span></span><br><span class="line"></span><br><span class="line">       String pattern = <span class="string">&quot;yyyy年MM月dd日 HH:mm:ss&quot;</span>;</span><br><span class="line">       String format = now.format(DateTimeFormatter.ofPattern(pattern));</span><br><span class="line">       System.out.println(<span class="string">&quot;format = &quot;</span> + format);<span class="comment">//format = 2021年08月03日 19:53:40</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//字符串 ---&gt;时间对象</span></span><br><span class="line"></span><br><span class="line">       String s1 =<span class="string">&quot;2021年08月03日 10:18:14&quot;</span>;</span><br><span class="line">       LocalDateTime parse = now.parse(s1, DateTimeFormatter.ofPattern(pattern));</span><br><span class="line">       System.out.println(<span class="string">&quot;parse = &quot;</span> + parse);<span class="comment">//parse = 2021-08-03T10:18:14</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-LocaDate"><a href="#3-LocaDate" class="headerlink" title="3.LocaDate"></a>3.LocaDate</h2><p>操作日期</p>
+<h3 id="3-1常用API"><a href="#3-1常用API" class="headerlink" title="3.1常用API"></a>3.1常用API</h3><table>
+<thead>
+<tr>
+<th align="left">返回值</th>
+<th>方法名</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>static LocalDate</code></td>
+<td><code>now()</code></td>
+<td>从默认时区的系统时钟获取当前日期</td>
+</tr>
+<tr>
+<td align="left"><code>static LocalDate</code></td>
+<td><code>of(int year,  int month, int dayOfMonth)</code></td>
+<td>从一年，一个月和一天获得一个 <code>LocalDate</code>的实例。</td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td><code>getDayOfMonth()</code></td>
+<td>获取月份字段。</td>
+</tr>
+<tr>
+<td align="left"><code>DayOfWeek</code></td>
+<td><code>getDayOfWeek()</code></td>
+<td>获取星期几字段，这是一个枚举 <code>DayOfWeek</code> 。</td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td><code>getMonthValue()</code></td>
+<td>将月份字段从1到12。</td>
+</tr>
+<tr>
+<td align="left"><code>LocalDate</code></td>
+<td><code>minusDays(long daysToSubtract)</code></td>
+<td>返回此 <code>LocalDate</code>的副本，并减去指定的天数。</td>
+</tr>
+<tr>
+<td align="left"><code>LocalDate</code></td>
+<td><code>plusDays(long daysToAdd)</code></td>
+<td>返回指定天数的 <code>LocalDate</code>的副本。</td>
+</tr>
+<tr>
+<td align="left"><code>LocalDate</code></td>
+<td><code>withYear(int year)</code></td>
+<td>返回此日期的副本，并更改年份。</td>
+</tr>
+</tbody></table>
+<h3 id="3-2实例"><a href="#3-2实例" class="headerlink" title="3.2实例"></a>3.2实例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//      获取当前对应的日期</span></span><br><span class="line">        LocalDate now = LocalDate.now();</span><br><span class="line">        System.out.println(now);<span class="comment">//2021-08-03</span></span><br><span class="line"></span><br><span class="line">        LocalDate date = LocalDate.of(<span class="number">2020</span>, <span class="number">12</span>, <span class="number">13</span>);</span><br><span class="line">        System.out.println(date);<span class="comment">//2020-12-13</span></span><br><span class="line"><span class="comment">//      获取年份</span></span><br><span class="line">        System.out.println(now.getYear());<span class="comment">//2021</span></span><br><span class="line"><span class="comment">//       获取月份，英文</span></span><br><span class="line">        System.out.println(now.getMonth());<span class="comment">//AUGUST</span></span><br><span class="line"><span class="comment">//       获取月份值</span></span><br><span class="line">        System.out.println(now.getMonthValue());<span class="comment">//8</span></span><br><span class="line"><span class="comment">//        获取当月中的第几天，也就是几号</span></span><br><span class="line">        System.out.println(now.getDayOfMonth());<span class="comment">//3</span></span><br><span class="line"><span class="comment">//        获取当周中的第几天，也就是星期</span></span><br><span class="line">        System.out.println(now.getDayOfWeek());<span class="comment">//TUESDAY</span></span><br><span class="line"><span class="comment">//        获取年中的第几天</span></span><br><span class="line">        System.out.println(now.getDayOfYear());<span class="comment">//215</span></span><br><span class="line"><span class="comment">//        修改年份为2019</span></span><br><span class="line">        System.out.println(now.withYear(<span class="number">2019</span>));<span class="comment">//2019-08-03</span></span><br><span class="line"><span class="comment">//        修改月份为2</span></span><br><span class="line">        System.out.println(now.withMonth(<span class="number">2</span>));<span class="comment">//2021-02-03</span></span><br><span class="line"><span class="comment">//        修改日期为3号</span></span><br><span class="line">        System.out.println(now.withDayOfMonth(<span class="number">3</span>));<span class="comment">//2021-08-03</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-LocalTime"><a href="#4-LocalTime" class="headerlink" title="4.LocalTime"></a>4.LocalTime</h2><p>操作时间</p>
+<p>API和上面的差不多</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> test.test1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.LocalTime;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalTime time = LocalTime.of(<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>);</span><br><span class="line">        System.out.println(time);<span class="comment">//11:12:13</span></span><br><span class="line">        <span class="comment">//      获取当前时间</span></span><br><span class="line">        LocalTime now = LocalTime.now();</span><br><span class="line">        <span class="comment">//       获取小时</span></span><br><span class="line">        System.out.println(now.getHour());<span class="comment">//20</span></span><br><span class="line">        <span class="comment">//       获取分</span></span><br><span class="line">        System.out.println(now.getMinute());<span class="comment">//17</span></span><br><span class="line">        <span class="comment">//       获取秒</span></span><br><span class="line">        System.out.println(now.getSecond());<span class="comment">//10</span></span><br><span class="line">        <span class="comment">//       获取纳秒</span></span><br><span class="line">        System.out.println(now.getNano());<span class="comment">//296000000</span></span><br><span class="line">        <span class="comment">//      修改小时为12</span></span><br><span class="line">        System.out.println(now.withHour(<span class="number">12</span>));<span class="comment">//12:17:10.296</span></span><br><span class="line">        <span class="comment">//       修改分钟为22</span></span><br><span class="line">        System.out.println(now.withMinute(<span class="number">22</span>));<span class="comment">//20:22:10.296</span></span><br><span class="line">        <span class="comment">//        修改秒为33</span></span><br><span class="line">        System.out.println(now.withSecond(<span class="number">33</span>));<span class="comment">//20:17:33.296</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-相互转换"><a href="#5-相互转换" class="headerlink" title="5.相互转换"></a>5.相互转换</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//生成日期时间</span></span><br><span class="line">        LocalDateTime now = LocalDateTime.now();</span><br><span class="line">        System.out.println(<span class="string">&quot;now = &quot;</span> + now);<span class="comment">//now = 2021-08-03T20:26:07.972</span></span><br><span class="line">        <span class="comment">//转化成日期</span></span><br><span class="line">        LocalDate localDate = now.toLocalDate();</span><br><span class="line">        System.out.println(<span class="string">&quot;localDate = &quot;</span> + localDate);<span class="comment">//localDate = 2021-08-03</span></span><br><span class="line">        <span class="comment">//转化为时间</span></span><br><span class="line">        LocalTime localTime = now.toLocalTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;localTime = &quot;</span> + localTime);<span class="comment">//localTime = 20:26:07.972</span></span><br><span class="line">        <span class="comment">//将时间和日期转化为时间日期</span></span><br><span class="line">        LocalDateTime of = LocalDateTime.of(localDate, localTime);</span><br><span class="line">        System.out.println(<span class="string">&quot;of = &quot;</span> + of);<span class="comment">//of = 2021-08-03T20:26:07.972</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-日期时间差"><a href="#6-日期时间差" class="headerlink" title="6.日期时间差"></a>6.日期时间差</h2><p>K8中通过<code>Duration </code>用于计算两个“时间”间隔。通过<code>Period</code>用于计算两个“日期”间隔的类。</p>
+<p><strong>Duration代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalTime now = LocalTime.now();</span><br><span class="line">        System.out.println(now);<span class="comment">//20:28:55.080</span></span><br><span class="line">        LocalTime time = LocalTime.of(<span class="number">17</span>,<span class="number">48</span>,<span class="number">12</span>);</span><br><span class="line">        System.out.println(time);<span class="comment">//17:48:12</span></span><br><span class="line"></span><br><span class="line">        Duration duration = Duration.between(time,now);</span><br><span class="line">        <span class="comment">//      时间差转成小时</span></span><br><span class="line">        System.out.println(duration.toHours());<span class="comment">//2</span></span><br><span class="line">        <span class="comment">//      时间差转成分钟</span></span><br><span class="line">        System.out.println(duration.toMinutes());<span class="comment">//160</span></span><br><span class="line">        <span class="comment">//      时间差转成秒</span></span><br><span class="line">        System.out.println(duration.getSeconds());<span class="comment">//9643</span></span><br><span class="line">        <span class="comment">//      时间差转成纳秒</span></span><br><span class="line">        System.out.println(duration.toNanos());<span class="comment">//9643080000000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Period代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test5</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalDate now = LocalDate.now();</span><br><span class="line">        System.out.println(<span class="string">&quot;now = &quot;</span> + now);<span class="comment">//now = 2021-08-03</span></span><br><span class="line">        LocalDate date = LocalDate.of(<span class="number">2030</span>,<span class="number">4</span>,<span class="number">30</span>);</span><br><span class="line">        Period period = Period.between(now,date);</span><br><span class="line">        <span class="comment">//      获取年份差</span></span><br><span class="line">        System.out.println(period.getYears());<span class="comment">//8</span></span><br><span class="line">        <span class="comment">//      获取月份差</span></span><br><span class="line">        System.out.println(period.getMonths());<span class="comment">//8</span></span><br><span class="line">        <span class="comment">//       获取日期差</span></span><br><span class="line">        System.out.println(period.getDays());<span class="comment">//27</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+        <tag>JDK新特性</tag>
       </tags>
   </entry>
 </search>

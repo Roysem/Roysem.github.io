@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"Gemini"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="JDK8新特性之时间类1.基本介绍1.1旧版的Java中，日期时间API存在的问题 非线程安全 − java.util.Date 是非线程安全的，所有的日期类都是可变的，这是Java日期类最大的问题之一。 设计很差 −  Java的日期&#x2F;时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外用于格式化和解析的类在java.text包中定义。java.util.Date同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK8新特性之时间类">
+<meta property="og:url" content="http://example.com/2021/08/03/JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8B%E6%97%B6%E9%97%B4%E7%B1%BB/index.html">
+<meta property="og:site_name" content="roysem">
+<meta property="og:description" content="JDK8新特性之时间类1.基本介绍1.1旧版的Java中，日期时间API存在的问题 非线程安全 − java.util.Date 是非线程安全的，所有的日期类都是可变的，这是Java日期类最大的问题之一。 设计很差 −  Java的日期&#x2F;时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外用于格式化和解析的类在java.text包中定义。java.util.Date同">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-08-03T10:44:23.000Z">
+<meta property="article:modified_time" content="2021-08-03T12:59:14.265Z">
+<meta property="article:author" content="嘿咻">
+<meta property="article:tag" content="java基础">
+<meta property="article:tag" content="JDK新特性">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/08/03/JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8B%E6%97%B6%E9%97%B4%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://example.com/2021/08/03/JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8B%E6%97%B6%E9%97%B4%E7%B1%BB/","path":"2021/08/03/JDK8新特性之时间类/","title":"JDK8新特性之时间类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JDK8新特性之时间类 | roysem</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">roysem</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-wrong"><a href="/wrong/" rel="section"><i class="wrong fa-fw"></i>wrong</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8B%E6%97%B6%E9%97%B4%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">JDK8新特性之时间类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1.基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E6%97%A7%E7%89%88%E7%9A%84Java%E4%B8%AD%EF%BC%8C%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4API%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1旧版的Java中，日期时间API存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2Java8%E5%9C%A8java%E3%80%82time%E5%8C%85%E4%B8%8B%E6%8F%90%E4%BE%9B%E4%BA%86%E5%BE%88%E5%A4%9A%E6%96%B0%E7%9A%84API%E3%80%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2Java8在java。time包下提供了很多新的API。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-LocalDateTime"><span class="nav-number">1.2.</span> <span class="nav-text">2.LocalDateTime</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1%E5%B8%B8%E7%94%A8API"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1常用API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-LocaDate"><span class="nav-number">1.3.</span> <span class="nav-text">3.LocaDate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1%E5%B8%B8%E7%94%A8API"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1常用API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-LocalTime"><span class="nav-number">1.4.</span> <span class="nav-text">4.LocalTime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">5.相互转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%B7%AE"><span class="nav-number">1.6.</span> <span class="nav-text">6.日期时间差</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="嘿咻"
+      src="/images/heixiu.jpeg">
+  <p class="site-author-name" itemprop="name">嘿咻</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/roysem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;roysem" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2335163219@qq.com" title="E-Mail → mailto:2335163219@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/03/JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8B%E6%97%B6%E9%97%B4%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/heixiu.jpeg">
+      <meta itemprop="name" content="嘿咻">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="roysem">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JDK8新特性之时间类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-08-03 18:44:23 / 修改时间：20:59:14" itemprop="dateCreated datePublished" datetime="2021-08-03T18:44:23+08:00">2021-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="JDK8新特性之时间类"><a href="#JDK8新特性之时间类" class="headerlink" title="JDK8新特性之时间类"></a>JDK8新特性之时间类</h1><h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1.基本介绍"></a>1.基本介绍</h2><h3 id="1-1旧版的Java中，日期时间API存在的问题"><a href="#1-1旧版的Java中，日期时间API存在的问题" class="headerlink" title="1.1旧版的Java中，日期时间API存在的问题"></a>1.1旧版的Java中，日期时间API存在的问题</h3><ul>
+<li><strong>非线程安全</strong> − java.util.Date 是非线程安全的，所有的日期类都是可变的，这是Java日期类最大的问题之一。</li>
+<li><strong>设计很差</strong> −  Java的日期/时间类的定义并不一致，在java.util和java.sql的包中都有日期类，此外用于格式化和解析的类在java.text包中定义。java.util.Date同时包含日期和时间，而java.sql.Date仅包含日期，将其纳入java.sql包并不合理。另外这两个类都有相同的名字，这本身就是一个非常糟糕的设计。</li>
+<li><strong>时区处理麻烦</strong> − 日期类并不提供国际化，没有时区支持，因此Java引入了java.util.Calendar和java.util.TimeZone类，但他们同样存在上述所有的问题。</li>
+</ul>
+<h3 id="1-2Java8在java。time包下提供了很多新的API。"><a href="#1-2Java8在java。time包下提供了很多新的API。" class="headerlink" title="1.2Java8在java。time包下提供了很多新的API。"></a>1.2Java8在java。time包下提供了很多新的API。</h3><ul>
+<li>Local(本地) - 简化了日期时间的处理，没有时区的问题</li>
+<li>Zoned(地区) - 通过制定的时间处理日期时间</li>
+</ul>
+<blockquote>
+<p>新的java.time包涵盖了所有处理日期，时间，日期/时间，时区，时刻（instants），过程（during）与时钟（clock）的操作。</p>
+</blockquote>
+<h2 id="2-LocalDateTime"><a href="#2-LocalDateTime" class="headerlink" title="2.LocalDateTime"></a>2.LocalDateTime</h2><p>操作日期和时间</p>
+<ul>
+<li>日期 包括年,月,日,星期</li>
+<li>时间 包括时,分,秒,毫秒</li>
+</ul>
+<h3 id="2-1常用API"><a href="#2-1常用API" class="headerlink" title="2.1常用API"></a>2.1常用API</h3><table>
+<thead>
+<tr>
+<th>返回值</th>
+<th>方法名</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static LocalDateTime</code></td>
+<td><code>now()</code></td>
+<td>从默认时区的系统时钟获取当前的日期时间</td>
+</tr>
+<tr>
+<td><code>static LocalDateTime</code></td>
+<td><code> of(int year,int month,int dayofMonth,int hour,int minute,int second)</code></td>
+<td>从年，月，日，时，分，秒获得LocalDateTime的实例</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getYear()</code></td>
+<td>获取年份字段</td>
+</tr>
+<tr>
+<td><code>Month</code></td>
+<td><code>getMonth()</code></td>
+<td>获取Month枚举获取月份字段</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getMonthValue()</code></td>
+<td>获取月份字段从1到12</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getDayOfMonth()</code></td>
+<td>获取这个月的第几天</td>
+</tr>
+<tr>
+<td><code>DayOfWeek</code></td>
+<td><code>getDayofWeek()</code></td>
+<td>获取星期几(DayOfWeek枚举)</td>
+</tr>
+<tr>
+<td><code>int </code></td>
+<td><code>getHour()</code></td>
+<td>获取时间字段</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getMinute()</code></td>
+<td>获取分钟字段</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>getSecond()</code></td>
+<td>获取秒</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>minusDays(long days)</code></td>
+<td>返回此 <code>LocalDateTime</code>的副本，其中指定的时间间隔以天为单位。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>minusHours(long hours)</code></td>
+<td>以指定的时间段返回此 <code>LocalDateTime</code>的副本，以减少的小时数。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>minusMonths(long months)</code></td>
+<td>返回此<code>LocalDateTime</code>的副本，指定的时间以月为单位减去。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>plusDays(long days)</code></td>
+<td>返回此 <code>LocalDateTime</code>的副本，并以指定的时间段添加天数。</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>plusMonths(long months)</code></td>
+<td>返回这个 <code>LocalDateTime</code>的副本，其中指定的时间段以月为单位</td>
+</tr>
+<tr>
+<td><code>LocalDateTime</code></td>
+<td><code>with(TemporalField field,  long newValue</code></td>
+<td>返回此日期时间的副本，并将指定的字段设置为新值。</td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td><code>format(DateTimeFormatter formatter)</code></td>
+<td>使用指定的格式化程序格式化此日期时间。</td>
+</tr>
+<tr>
+<td><code>static LocalDateTime</code></td>
+<td><code>parse(CharSequence text, DateTimeFormatter formatter)</code></td>
+<td>使用特定的格式化 <code>LocalDateTime</code>从文本字符串获取 <code>LocalDateTime</code>的实例。</td>
+</tr>
+</tbody></table>
+<h3 id="2-2举例"><a href="#2-2举例" class="headerlink" title="2.2举例"></a>2.2举例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//获取当前时间</span></span><br><span class="line">       LocalDateTime now = LocalDateTime.now();</span><br><span class="line">       System.out.println(<span class="string">&quot;now = &quot;</span> + now);<span class="comment">//now = 2021-08-03T19:43:02.639</span></span><br><span class="line">       <span class="comment">//设置时间</span></span><br><span class="line">       LocalDateTime of = LocalDateTime.of(<span class="number">2018</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;of = &quot;</span> + of);<span class="comment">//of = 2018-08-08T08:08:08</span></span><br><span class="line">       <span class="comment">//获取当前的年份</span></span><br><span class="line">       <span class="keyword">int</span> year = now.getYear();</span><br><span class="line">       System.out.println(<span class="string">&quot;year = &quot;</span> + year);<span class="comment">//year = 2021</span></span><br><span class="line">       <span class="comment">//获取当前的月份</span></span><br><span class="line">       Month month = now.getMonth();</span><br><span class="line">       System.out.println(<span class="string">&quot;month = &quot;</span> + month);<span class="comment">//month = AUGUST [返回的是Month枚举]</span></span><br><span class="line">       <span class="comment">//获取当前月份</span></span><br><span class="line">       <span class="keyword">int</span> monthValue = now.getMonthValue();</span><br><span class="line">       System.out.println(<span class="string">&quot;monthValue = &quot;</span> + monthValue);<span class="comment">//monthValue = 8</span></span><br><span class="line">       <span class="comment">//获取这个月的第几天</span></span><br><span class="line">       <span class="keyword">int</span> dayOfMonth = now.getDayOfMonth();</span><br><span class="line">       System.out.println(<span class="string">&quot;dayOfMonth = &quot;</span> + dayOfMonth);<span class="comment">//dayOfMonth = 3</span></span><br><span class="line">       <span class="comment">//获取这周的星期几</span></span><br><span class="line">       DayOfWeek dayOfWeek = now.getDayOfWeek();</span><br><span class="line">       System.out.println(<span class="string">&quot;dayOfWeek = &quot;</span> + dayOfWeek);<span class="comment">//dayOfWeek = TUESDAY [DayOfWeek枚举]</span></span><br><span class="line">       <span class="comment">//获取这周的星期几</span></span><br><span class="line">       <span class="keyword">int</span> value = now.getDayOfWeek().getValue();</span><br><span class="line">       System.out.println(<span class="string">&quot;value = &quot;</span> + value);<span class="comment">//value = 2</span></span><br><span class="line">       <span class="comment">//往后推两天</span></span><br><span class="line">       LocalDateTime localDateTime = now.plusDays(<span class="number">2</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;localDateTime = &quot;</span> + localDateTime);<span class="comment">//localDateTime = 2021-08-05T19:43:02.639</span></span><br><span class="line">       <span class="comment">//往前推两个月</span></span><br><span class="line">       LocalDateTime localDateTime1 = now.minusMonths(<span class="number">2</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;localDateTime1 = &quot;</span> + localDateTime1);<span class="comment">//localDateTime1 = 2021-06-03T19:43:02.639</span></span><br><span class="line">       <span class="comment">//这个月的第3天</span></span><br><span class="line">       LocalDateTime localDateTime2 = now.withDayOfMonth(<span class="number">7</span>);</span><br><span class="line">       System.out.println(<span class="string">&quot;localDateTime2 = &quot;</span> + localDateTime2);<span class="comment">//localDateTime2 = 2021-08-07T19:43:02.639</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//时间对象 ---&gt;字符串</span></span><br><span class="line"></span><br><span class="line">       String pattern = <span class="string">&quot;yyyy年MM月dd日 HH:mm:ss&quot;</span>;</span><br><span class="line">       String format = now.format(DateTimeFormatter.ofPattern(pattern));</span><br><span class="line">       System.out.println(<span class="string">&quot;format = &quot;</span> + format);<span class="comment">//format = 2021年08月03日 19:53:40</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//字符串 ---&gt;时间对象</span></span><br><span class="line"></span><br><span class="line">       String s1 =<span class="string">&quot;2021年08月03日 10:18:14&quot;</span>;</span><br><span class="line">       LocalDateTime parse = now.parse(s1, DateTimeFormatter.ofPattern(pattern));</span><br><span class="line">       System.out.println(<span class="string">&quot;parse = &quot;</span> + parse);<span class="comment">//parse = 2021-08-03T10:18:14</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-LocaDate"><a href="#3-LocaDate" class="headerlink" title="3.LocaDate"></a>3.LocaDate</h2><p>操作日期</p>
+<h3 id="3-1常用API"><a href="#3-1常用API" class="headerlink" title="3.1常用API"></a>3.1常用API</h3><table>
+<thead>
+<tr>
+<th align="left">返回值</th>
+<th>方法名</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>static LocalDate</code></td>
+<td><code>now()</code></td>
+<td>从默认时区的系统时钟获取当前日期</td>
+</tr>
+<tr>
+<td align="left"><code>static LocalDate</code></td>
+<td><code>of(int year,  int month, int dayOfMonth)</code></td>
+<td>从一年，一个月和一天获得一个 <code>LocalDate</code>的实例。</td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td><code>getDayOfMonth()</code></td>
+<td>获取月份字段。</td>
+</tr>
+<tr>
+<td align="left"><code>DayOfWeek</code></td>
+<td><code>getDayOfWeek()</code></td>
+<td>获取星期几字段，这是一个枚举 <code>DayOfWeek</code> 。</td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td><code>getMonthValue()</code></td>
+<td>将月份字段从1到12。</td>
+</tr>
+<tr>
+<td align="left"><code>LocalDate</code></td>
+<td><code>minusDays(long daysToSubtract)</code></td>
+<td>返回此 <code>LocalDate</code>的副本，并减去指定的天数。</td>
+</tr>
+<tr>
+<td align="left"><code>LocalDate</code></td>
+<td><code>plusDays(long daysToAdd)</code></td>
+<td>返回指定天数的 <code>LocalDate</code>的副本。</td>
+</tr>
+<tr>
+<td align="left"><code>LocalDate</code></td>
+<td><code>withYear(int year)</code></td>
+<td>返回此日期的副本，并更改年份。</td>
+</tr>
+</tbody></table>
+<h3 id="3-2实例"><a href="#3-2实例" class="headerlink" title="3.2实例"></a>3.2实例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//      获取当前对应的日期</span></span><br><span class="line">        LocalDate now = LocalDate.now();</span><br><span class="line">        System.out.println(now);<span class="comment">//2021-08-03</span></span><br><span class="line"></span><br><span class="line">        LocalDate date = LocalDate.of(<span class="number">2020</span>, <span class="number">12</span>, <span class="number">13</span>);</span><br><span class="line">        System.out.println(date);<span class="comment">//2020-12-13</span></span><br><span class="line"><span class="comment">//      获取年份</span></span><br><span class="line">        System.out.println(now.getYear());<span class="comment">//2021</span></span><br><span class="line"><span class="comment">//       获取月份，英文</span></span><br><span class="line">        System.out.println(now.getMonth());<span class="comment">//AUGUST</span></span><br><span class="line"><span class="comment">//       获取月份值</span></span><br><span class="line">        System.out.println(now.getMonthValue());<span class="comment">//8</span></span><br><span class="line"><span class="comment">//        获取当月中的第几天，也就是几号</span></span><br><span class="line">        System.out.println(now.getDayOfMonth());<span class="comment">//3</span></span><br><span class="line"><span class="comment">//        获取当周中的第几天，也就是星期</span></span><br><span class="line">        System.out.println(now.getDayOfWeek());<span class="comment">//TUESDAY</span></span><br><span class="line"><span class="comment">//        获取年中的第几天</span></span><br><span class="line">        System.out.println(now.getDayOfYear());<span class="comment">//215</span></span><br><span class="line"><span class="comment">//        修改年份为2019</span></span><br><span class="line">        System.out.println(now.withYear(<span class="number">2019</span>));<span class="comment">//2019-08-03</span></span><br><span class="line"><span class="comment">//        修改月份为2</span></span><br><span class="line">        System.out.println(now.withMonth(<span class="number">2</span>));<span class="comment">//2021-02-03</span></span><br><span class="line"><span class="comment">//        修改日期为3号</span></span><br><span class="line">        System.out.println(now.withDayOfMonth(<span class="number">3</span>));<span class="comment">//2021-08-03</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-LocalTime"><a href="#4-LocalTime" class="headerlink" title="4.LocalTime"></a>4.LocalTime</h2><p>操作时间</p>
+<p>API和上面的差不多</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test.test1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.LocalTime;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalTime time = LocalTime.of(<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>);</span><br><span class="line">        System.out.println(time);<span class="comment">//11:12:13</span></span><br><span class="line">        <span class="comment">//      获取当前时间</span></span><br><span class="line">        LocalTime now = LocalTime.now();</span><br><span class="line">        <span class="comment">//       获取小时</span></span><br><span class="line">        System.out.println(now.getHour());<span class="comment">//20</span></span><br><span class="line">        <span class="comment">//       获取分</span></span><br><span class="line">        System.out.println(now.getMinute());<span class="comment">//17</span></span><br><span class="line">        <span class="comment">//       获取秒</span></span><br><span class="line">        System.out.println(now.getSecond());<span class="comment">//10</span></span><br><span class="line">        <span class="comment">//       获取纳秒</span></span><br><span class="line">        System.out.println(now.getNano());<span class="comment">//296000000</span></span><br><span class="line">        <span class="comment">//      修改小时为12</span></span><br><span class="line">        System.out.println(now.withHour(<span class="number">12</span>));<span class="comment">//12:17:10.296</span></span><br><span class="line">        <span class="comment">//       修改分钟为22</span></span><br><span class="line">        System.out.println(now.withMinute(<span class="number">22</span>));<span class="comment">//20:22:10.296</span></span><br><span class="line">        <span class="comment">//        修改秒为33</span></span><br><span class="line">        System.out.println(now.withSecond(<span class="number">33</span>));<span class="comment">//20:17:33.296</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-相互转换"><a href="#5-相互转换" class="headerlink" title="5.相互转换"></a>5.相互转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//生成日期时间</span></span><br><span class="line">        LocalDateTime now = LocalDateTime.now();</span><br><span class="line">        System.out.println(<span class="string">&quot;now = &quot;</span> + now);<span class="comment">//now = 2021-08-03T20:26:07.972</span></span><br><span class="line">        <span class="comment">//转化成日期</span></span><br><span class="line">        LocalDate localDate = now.toLocalDate();</span><br><span class="line">        System.out.println(<span class="string">&quot;localDate = &quot;</span> + localDate);<span class="comment">//localDate = 2021-08-03</span></span><br><span class="line">        <span class="comment">//转化为时间</span></span><br><span class="line">        LocalTime localTime = now.toLocalTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;localTime = &quot;</span> + localTime);<span class="comment">//localTime = 20:26:07.972</span></span><br><span class="line">        <span class="comment">//将时间和日期转化为时间日期</span></span><br><span class="line">        LocalDateTime of = LocalDateTime.of(localDate, localTime);</span><br><span class="line">        System.out.println(<span class="string">&quot;of = &quot;</span> + of);<span class="comment">//of = 2021-08-03T20:26:07.972</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-日期时间差"><a href="#6-日期时间差" class="headerlink" title="6.日期时间差"></a>6.日期时间差</h2><p>K8中通过<code>Duration </code>用于计算两个“时间”间隔。通过<code>Period</code>用于计算两个“日期”间隔的类。</p>
+<p><strong>Duration代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalTime now = LocalTime.now();</span><br><span class="line">        System.out.println(now);<span class="comment">//20:28:55.080</span></span><br><span class="line">        LocalTime time = LocalTime.of(<span class="number">17</span>,<span class="number">48</span>,<span class="number">12</span>);</span><br><span class="line">        System.out.println(time);<span class="comment">//17:48:12</span></span><br><span class="line"></span><br><span class="line">        Duration duration = Duration.between(time,now);</span><br><span class="line">        <span class="comment">//      时间差转成小时</span></span><br><span class="line">        System.out.println(duration.toHours());<span class="comment">//2</span></span><br><span class="line">        <span class="comment">//      时间差转成分钟</span></span><br><span class="line">        System.out.println(duration.toMinutes());<span class="comment">//160</span></span><br><span class="line">        <span class="comment">//      时间差转成秒</span></span><br><span class="line">        System.out.println(duration.getSeconds());<span class="comment">//9643</span></span><br><span class="line">        <span class="comment">//      时间差转成纳秒</span></span><br><span class="line">        System.out.println(duration.toNanos());<span class="comment">//9643080000000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Period代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test5</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalDate now = LocalDate.now();</span><br><span class="line">        System.out.println(<span class="string">&quot;now = &quot;</span> + now);<span class="comment">//now = 2021-08-03</span></span><br><span class="line">        LocalDate date = LocalDate.of(<span class="number">2030</span>,<span class="number">4</span>,<span class="number">30</span>);</span><br><span class="line">        Period period = Period.between(now,date);</span><br><span class="line">        <span class="comment">//      获取年份差</span></span><br><span class="line">        System.out.println(period.getYears());<span class="comment">//8</span></span><br><span class="line">        <span class="comment">//      获取月份差</span></span><br><span class="line">        System.out.println(period.getMonths());<span class="comment">//8</span></span><br><span class="line">        <span class="comment">//       获取日期差</span></span><br><span class="line">        System.out.println(period.getDays());<span class="comment">//27</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%9F%BA%E7%A1%80/" rel="tag"># java基础</a>
+              <a href="/tags/JDK%E6%96%B0%E7%89%B9%E6%80%A7/" rel="tag"># JDK新特性</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/02/%E9%94%99%E9%A2%98%E9%9B%861/" rel="prev" title="错题集1">
+                  <i class="fa fa-chevron-left"></i> 错题集1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/03/%E5%BC%82%E5%B8%B8/" rel="next" title="异常">
+                  异常 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">嘿咻</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">71k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:05</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="150" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":false},"rect":"opacity:0.7","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
