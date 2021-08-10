@@ -1872,7 +1872,21 @@
 <p>B.  Object类是所有类的父类，它里面的所有方法，都可以被子类使用</p>
 <p>C.  Integer类是int类型的包装类，可以完成字符串类型转化成int的操作</p>
 <p>D.  如果一个类，想要进行排序操作，则需要实现Comparable接口</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">题目正确答案是： A</span><br><span class="line">A. Calendar类是抽象类，不能创建对象，Calendar.getInstance创建的对象是其子类的对象</span><br><span class="line">B. Object是所有类的父类，它里面有public 和protected方法，只有一个private方法，但是其被静态方法引用，在创建对象的时候，先执行父类的构造方法，改私有类就被调用了</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">题目正确答案是： A</span><br><span class="line">A. Calendar类是抽象类，不能创建对象，Calendar.getInstance创建的对象是其子类的对象</span><br><span class="line">B. Object是所有类的父类，它里面有public 和protected方法，只有一个private方法，但是其被静态方法引用，在创建对象的时候，先执行父类的构造方法，改私有类就被调用了</span><br><span class="line">C. 字符串转换int类型的方式是  Integer.parseInt(&quot;520&quot;);</span><br><span class="line">D. 内部比较器，使用的就是   Comparable接口 需要重写 compareTo()方法</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-观察下面代码，请分析，请问答案是（-）"><a href="#3-观察下面代码，请分析，请问答案是（-）" class="headerlink" title="3.观察下面代码，请分析，请问答案是（  ）"></a>3.观察下面代码，请分析，请问答案是（  ）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        String str = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">        <span class="comment">//问题: 这里创建了几个对象?</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>A. 1个对象</p>
+<p>B.  2个对象</p>
+<p>C. 3个对象</p>
+<p>D. 1个或两个对象</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">题目正确答案： B</span><br><span class="line">答案解析：</span><br><span class="line">    第一个指的是 new 出来的 String 对象，直接存放在 堆内存当中。  </span><br><span class="line">    第二个指的是 &quot;abc&quot; 字符串胡对象，存在于 堆内存的常量池当中。</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-观察下面代码，说明结果，解释原因？"><a href="#4-观察下面代码，说明结果，解释原因？" class="headerlink" title="4.观察下面代码，说明结果，解释原因？"></a>4.观察下面代码，说明结果，解释原因？</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String  s1  = “ab”;</span><br><span class="line">String  s2  = “c”</span><br><span class="line">String  s3  = “ab” + “c”;</span><br><span class="line">String  s4  = s1 + s2;</span><br><span class="line">请问： s3 == s4 执行的结果是什么？为什么？</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">false</span><br><span class="line">说明：s3 是常量相加。直接加，会在堆内存的常量池当中的地址。</span><br><span class="line">s4是变量相加，相加的过程，实际上会创建新的对象，是堆内存的地址。（备注：底层是StringBuilder的append方法）</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-和-equals-的区别是什么"><a href="#5-和-equals-的区别是什么" class="headerlink" title="5.== 和 equals 的区别是什么?"></a>5.== 和 equals 的区别是什么?</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">== 等于比较运算符,如果进行比较的两个操作数都是基本数据类型,即使他们的数据类型不相同,只要他们的值相等,也都将返回true.如果两个操作数都是引用类型,那么只有当两个引用变量的类型具有父子关系时才可以比较,而且这两个引用必须指向同一个对象,才会返回true.(在这里我们可以理解成==比较的是两个变量的内存地址)</span><br><span class="line"></span><br><span class="line">equals()方法是Object类的方法,在Object类中的equals()方法体内实际上返回的就是使用==进行比较的结果.但是我们知道所有的类都继承Object,而且Object中的equals()方法没有使用final关键字修饰,那么当我们使用equal()方法进行比较的时候,我们需要关注的就是这个类有没有重写Object中的equals()方法.</span><br></pre></td></tr></table></figure>
 
 ]]></content>
   </entry>
@@ -2232,6 +2246,660 @@
       <tags>
         <tag>java基础</tag>
         <tag>JDK新特性</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IO流</title>
+    <url>/2021/08/05/IO%E6%B5%81/</url>
+    <content><![CDATA[<h1 id><a href="#" class="headerlink" title></a></h1>]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+        <tag>IO流</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xml</title>
+    <url>/2021/08/09/xml/</url>
+    <content><![CDATA[<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p>XML（EXtensible Markup Language）可扩展的标记语言。主要用于数据交换。在HTML发展过程中，由于游览器厂商的恶性竞争，都在兼容不规范的写法，以用来吸引开发者。这与W3C的初衷相违背。于是W3C制定了XML标准，想以此替代HTML进行数据展示。但此并不能吸引开发者，XML最终以失败告终。XML接着又向数据交互方向寻求生存之路，并在此取得一定的成功。现主要功能用于配置文件跟网络中进行数据交互。</p>
+<h3 id="1-2-什么是xml"><a href="#1-2-什么是xml" class="headerlink" title="1.2  什么是xml"></a>1.2  什么是xml</h3><ul>
+<li>XML 指可扩展标记语言（<em>EX</em>tensible <em>M</em>arkup <em>L</em>anguage）</li>
+<li>XML 是一种<em>标记语言</em>，很类似 HTML</li>
+<li>XML 的设计宗旨是<em>传输数据</em>，而非显示数据</li>
+<li>XML 标签没有被预定义。您需要<em>自行定义标签</em>。</li>
+<li>XML 被设计为具有<em>自我描述性</em>。</li>
+<li>XML 是 <em>W3C 的推荐标准</em></li>
+</ul>
+<h3 id="1-3-XML与HTML的主要差异"><a href="#1-3-XML与HTML的主要差异" class="headerlink" title="1.3 XML与HTML的主要差异"></a>1.3 XML与HTML的主要差异</h3><ul>
+<li>XML标签都是自定义的，HTML标签都是预定义的</li>
+<li>XML的语法严格，HTML语法松散</li>
+<li>XML存储数据的，HTML展示数据的</li>
+</ul>
+<h3 id="1-4-用途"><a href="#1-4-用途" class="headerlink" title="1.4 用途"></a>1.4 用途</h3><p><strong>XML 应用于 web 开发的许多方面，常用于简化数据的存储和共享。</strong></p>
+<ul>
+<li><p>XML 把数据从 HTML 分离</p>
+<p>如果你需要在 HTML 文档中显示动态数据，那么每当数据改变时将花费大量的时间来编辑 HTML。</p>
+<p>通过 XML，数据能够存储在独立的 XML 文件中。这样你就可以专注于使用 HTML 进行布局和显示，并确保修改底层数据不再需要对 HTML 进行任何的改变。</p>
+<p>通过使用几行 JavaScript，你就可以读取一个外部 XML 文件，然后更新 HTML 中的数据内容。</p>
+</li>
+<li><p>XML 简化数据共享</p>
+<p>在真实的世界中，计算机系统和数据使用不兼容的格式来存储数据。</p>
+<p>XML 数据以纯文本格式进行存储，因此提供了一种独立于软件和硬件的数据存储方法。</p>
+<p>这让创建不同应用程序可以共享的数据变得更加容易。</p>
+</li>
+<li><p>XML 简化数据传输</p>
+</li>
+<li><p>XML 简化平台的变更</p>
+</li>
+<li><p>XML 使您的数据更有用</p>
+</li>
+</ul>
+<h2 id="2-XML语法"><a href="#2-XML语法" class="headerlink" title="2. XML语法"></a>2. XML语法</h2><h3 id="2-1-语法规则"><a href="#2-1-语法规则" class="headerlink" title="2.1 语法规则"></a>2.1 语法规则</h3><ul>
+<li>XML文件的后缀必须都是xml</li>
+<li>XML第一行必须写文档声明</li>
+<li>XML中有且仅有一个根标签</li>
+<li>属性值必须使用引号，单引号、双引号都可以</li>
+<li>标签必须正确关闭，要么成对标签，要么自闭合</li>
+<li>XML区分大小写</li>
+</ul>
+<h3 id="2-2-XML组成"><a href="#2-2-XML组成" class="headerlink" title="2.2  XML组成"></a>2.2  XML组成</h3><h4 id="2-2-1-文档声明"><a href="#2-2-1-文档声明" class="headerlink" title="2.2.1 文档声明"></a>2.2.1 文档声明</h4><ul>
+<li><p>格式：<code>&lt;?xml 属性列表 ?</code></p>
+</li>
+<li><p>属性列表</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">version</td>
+<td align="center">版本号，必须属性</td>
+</tr>
+<tr>
+<td align="center">encoding</td>
+<td align="center">编码方式，告知解析引擎当前文档使用的字符集，默认ISO-8859-1</td>
+</tr>
+<tr>
+<td align="center">standalone</td>
+<td align="center">是否独立，取值yes表示不依赖其它文件，取值no表示依赖其它文件</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>例子</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-2-指令"><a href="#2-2-2-指令" class="headerlink" title="2.2.2  指令"></a>2.2.2  指令</h4><p>xml中还可以定义指令（CSS），毕竟发明xml的初衷还是做数据展示的。了解即可。</p>
+<ul>
+<li><p>demo.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml-stylesheet  type=&quot;text/css&quot; href=&quot;test.css&quot;  ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">users</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">user</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>张三<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>18<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">sex</span>&gt;</span>男<span class="tag">&lt;/<span class="name">sex</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">user</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>李四<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>28<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">sex</span>&gt;</span>女<span class="tag">&lt;/<span class="name">sex</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">users</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>test.css</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@CHARSET</span> <span class="string">&quot;UTF-8&quot;</span>;</span><br><span class="line">name&#123;</span><br><span class="line">	<span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-3-元素"><a href="#2-2-3-元素" class="headerlink" title="2.2.3 元素"></a>2.2.3 元素</h4><p>xml中还可以自定义元素，有如下规则：</p>
+<ul>
+<li>名称可以包含字母，数字以及其它字符</li>
+<li>不能以数字或者标点符号开头</li>
+<li>名称不能以xml或者XML、Xml等等开始</li>
+<li>名称不能包含空格</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">&quot;CHILDREN&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">&quot;WEB&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">author</span>&gt;</span>Erik T. Ray<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">year</span>&gt;</span>2003<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>在上例中，<bookstore> 和 <book> 都拥有<em>元素内容</em>，因为它们包含了其他元素。<author> 只有<em>文本内容</em>，因为它仅包含文本。</author></book></bookstore></p>
+<p>在上例中，只有 <book> 元素拥有<em>属性</em> (category=”CHILDREN”)。</book></p>
+<h4 id="2-2-4-属性"><a href="#2-2-4-属性" class="headerlink" title="2.2.4 属性"></a>2.2.4 属性</h4><p>标签内还可以定义属性，主要以K-V对的形式，属性值必须使用引号，单引号、双引号都行。id属性值唯一。</p>
+<h4 id="2-2-5-文本"><a href="#2-2-5-文本" class="headerlink" title="2.2.5 文本"></a>2.2.5 文本</h4><ul>
+<li><p>标签对中还可以定义文本内容。文本中如果用到需要转义的字符则需要转义，比如：</p>
+<table>
+<thead>
+<tr>
+<th>显示结果</th>
+<th>描述</th>
+<th>转义字符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>空格</td>
+<td><code>&amp;nbsp;</code></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于号</td>
+<td><code>&amp;lt;</code></td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于号</td>
+<td><code>&amp;gt;</code></td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>与号</td>
+<td><code>&amp;amp;</code></td>
+</tr>
+<tr>
+<td>“</td>
+<td>双引号</td>
+<td><code>&amp;quot;</code></td>
+</tr>
+<tr>
+<td>‘</td>
+<td>单引号</td>
+<td><code>&amp;apos;</code></td>
+</tr>
+<tr>
+<td>×</td>
+<td>乘号</td>
+<td><code>&amp;times;</code></td>
+</tr>
+<tr>
+<td>÷</td>
+<td>除号</td>
+<td><code>&amp;divde;</code></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>CDATA区中的文本会原样输出，特殊字符不需要转义。<code>&lt;![CDATA[    ]]&gt;</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">	&lt;![CDATA[</span><br><span class="line">			if(a&gt;1 &amp;&amp; a&lt;3)&#123;</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">	]]&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">books</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">id</span>=<span class="string">&quot;<span class="symbol">&amp;quot;</span>001<span class="symbol">&amp;quot;</span>&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span> <span class="symbol">&amp;lt;</span><span class="symbol">&amp;lt;</span>西游记<span class="symbol">&amp;gt;</span><span class="symbol">&amp;gt;</span> <span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>作者：&#x27;吴承恩&#x27;<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">            &lt;![CDATA[</span><br><span class="line">                    我在这，想写什么都可以的，不一定要写标准代码。</span><br><span class="line">                    &lt;&lt;嘻嘻，我是西游记&gt;&gt;</span><br><span class="line">                    Sys.out.println(&quot;西游记讲的是两个和尚和三个动物的故事&quot;);</span><br><span class="line"></span><br><span class="line">            ]]&gt;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">books</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意事项：XML当中标签是 包裹嵌套，不能写 交叉嵌套。</p>
+</blockquote>
+<p><img src="/2021/08/09/xml/image-20210809214228769.jpg" alt="image-20210809214228769"></p>
+</li>
+</ul>
+<h4 id="2-2-6-注释"><a href="#2-2-6-注释" class="headerlink" title="2.2.6 注释"></a>2.2.6 注释</h4><p>xml中的注释同HTML，<code>&lt;!--      --&gt;</code></p>
+<h2 id="3-约束"><a href="#3-约束" class="headerlink" title="3. 约束"></a>3. 约束</h2><h3 id="3-1-分类"><a href="#3-1-分类" class="headerlink" title="3.1 分类"></a>3.1 分类</h3><p>XML的约束主要分为dtd跟schema两种。</p>
+<ul>
+<li><p>dtd是一种简单的约束技术，已经过时。</p>
+</li>
+<li><p>schema是一种复杂的约束技术，功能更加强大。</p>
+</li>
+</ul>
+<h3 id="3-2-DTD"><a href="#3-2-DTD" class="headerlink" title="3.2 DTD"></a>3.2 DTD</h3><p><strong>文档类型定义（DTD）可定义合法的XML文档构建模块。它使用一系列合法的元素来定义文档的结构。</strong></p>
+<p><strong>DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">我们知道 XML 的标签是自定义的。你想写什么，就可以写什么，只要符合标识符的规范就可以了。</span><br><span class="line">但是很多情况下，我们要求 xml 的标签，不能随便写，这种情况下，就需要使用 xml的约束了。</span><br><span class="line"></span><br><span class="line">例如: 在properties当中规定说: 用户名的键必须叫做 username 不能写别的，否则无法识别。</span><br><span class="line">但是在 xml 当中，因为名字的太不规范了，所以为了规范要求，根据现实需求，就需要添加约束信息。</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-1-DTD引用"><a href="#3-2-1-DTD引用" class="headerlink" title="3.2.1 DTD引用"></a>3.2.1 DTD引用</h4><h5 id="3-2-1-1-内部的-DOCTYPE-声明"><a href="#3-2-1-1-内部的-DOCTYPE-声明" class="headerlink" title="3.2.1.1 内部的 DOCTYPE 声明"></a>3.2.1.1 内部的 DOCTYPE 声明</h5><p>假如 DTD 被包含在您的 XML 源文件中，它应当通过下面的语法包装在一个 DOCTYPE 声明中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE 根元素 [元素声明]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>带有 DTD 的 XML 文档实例（请在 IE5 以及更高的版本打开，并选择查看源代码）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE note [</span><br><span class="line">  &lt;!ELEMENT note (to,from,heading,body)&gt;</span><br><span class="line">  &lt;!ELEMENT to      (#PCDATA)&gt;</span><br><span class="line">  &lt;!ELEMENT from    (#PCDATA)&gt;</span><br><span class="line">  &lt;!ELEMENT heading (#PCDATA)&gt;</span><br><span class="line">  &lt;!ELEMENT body    (#PCDATA)&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;note&gt;</span><br><span class="line">  &lt;to&gt;George&lt;/to&gt;</span><br><span class="line">  &lt;from&gt;John&lt;/from&gt;</span><br><span class="line">  &lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">  &lt;body&gt;Don&#x27;t forget the meeting!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt;</span><br></pre></td></tr></table></figure>
+
+<p>解释</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">!DOCTYPE note (第二行)定义此文档是 note 类型的文档。</span><br><span class="line"></span><br><span class="line">!ELEMENT note (第三行)定义 note 元素有四个元素：&quot;to、from、heading,、body&quot;</span><br><span class="line"></span><br><span class="line">!ELEMENT to (第四行)定义 to 元素为 &quot;#PCDATA&quot; 类型</span><br><span class="line"></span><br><span class="line">!ELEMENT from (第五行)定义 from 元素为 &quot;#PCDATA&quot; 类型</span><br><span class="line"></span><br><span class="line">!ELEMENT heading (第六行)定义 heading 元素为 &quot;#PCDATA&quot; 类型</span><br><span class="line"></span><br><span class="line">!ELEMENT body (第七行)定义 body 元素为 &quot;#PCDATA&quot; 类型</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-1-2-外部文档声明"><a href="#3-2-1-2-外部文档声明" class="headerlink" title="3.2.1.2 外部文档声明"></a>3.2.1.2 外部文档声明</h5><p>假如 DTD 位于 XML 源文件的外部，那么它应通过下面的语法被封装在一个 DOCTYPE 定义中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个 XML 文档和上面的 XML 文档相同，但是拥有一个外部的 DTD: （<a href="https://www.w3school.com.cn/dtd/note_ex_dtd.xml">在 IE5 中打开</a>，并选择“查看源代码”命令。）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE note SYSTEM &quot;note.dtd&quot;&gt;</span><br><span class="line">&lt;note&gt;</span><br><span class="line">&lt;to&gt;George&lt;/to&gt;</span><br><span class="line">&lt;from&gt;John&lt;/from&gt;</span><br><span class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">&lt;body&gt;Don&#x27;t forget the meeting!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt; </span><br></pre></td></tr></table></figure>
+
+<p>这是包含 DTD 的 “note.dtd” 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (to,from,heading,body)&gt;</span><br><span class="line">&lt;!ELEMENT to (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT from (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT heading (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT body (#PCDATA)&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-1-2-引入网络当中的DTD约束"><a href="#3-2-1-2-引入网络当中的DTD约束" class="headerlink" title="3.2.1.2 引入网络当中的DTD约束"></a>3.2.1.2 引入网络当中的DTD约束</h5><p>网络DTD <code>&lt;!DOCTYPE 根标签名  PUBLIC &quot;dtd文件名&quot;  &quot;dtd文件的位置URL&quot; &gt;</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">web-app</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span> <span class="meta-string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-3-元素"><a href="#3-2-3-元素" class="headerlink" title="3.2.3  元素"></a>3.2.3  元素</h4><h5 id="3-2-3-1-声明一个元素"><a href="#3-2-3-1-声明一个元素" class="headerlink" title="3.2.3.1 声明一个元素"></a>3.2.3.1 声明一个元素</h5><p>在 DTD 中，XML 元素通过元素声明来进行声明。元素声明使用下面的语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 类别&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (元素内容)&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-3-2-空元素"><a href="#3-2-3-2-空元素" class="headerlink" title="3.2.3.2 空元素"></a>3.2.3.2 空元素</h5><p>空元素通过类别关键词EMPTY进行声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 EMPTY&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT br EMPTY&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-3-3-只有-PCDATA-的元素"><a href="#3-2-3-3-只有-PCDATA-的元素" class="headerlink" title="3.2.3.3 只有 PCDATA 的元素"></a>3.2.3.3 只有 PCDATA 的元素</h5><p>只有 PCDATA 的元素通过圆括号中的 #PCDATA 进行声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (#PCDATA)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT from (#PCDATA)&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-3-4-带有任何内容的元素"><a href="#3-2-3-4-带有任何内容的元素" class="headerlink" title="3.2.3.4 带有任何内容的元素"></a>3.2.3.4 带有任何内容的元素</h5><p>通过类别关键词 ANY 声明的元素，可包含任何可解析数据的组合：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 ANY&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note ANY&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-3-5-带有子元素（序列）的元素"><a href="#3-2-3-5-带有子元素（序列）的元素" class="headerlink" title="3.2.3.5 带有子元素（序列）的元素"></a>3.2.3.5 带有子元素（序列）的元素</h5><p>带有一个或多个子元素的元素通过圆括号中的子元素名进行声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (子元素名称 1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (子元素名称 1,子元素名称 2,.....)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (to,from,heading,body)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当子元素按照由逗号分隔开的序列进行声明时，这些子元素必须按照相同的顺序出现在文档中。在一个完整的声明中，子元素也必须被声明，同时子元素也可拥有子元素。”note” 元素的完整声明是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (to,from,heading,body)&gt;</span><br><span class="line">&lt;!ELEMENT to      (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT from    (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT heading (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT body    (#PCDATA)&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-3-6-声明只出现一次的元素"><a href="#3-2-3-6-声明只出现一次的元素" class="headerlink" title="3.2.3.6 声明只出现一次的元素"></a>3.2.3.6 声明只出现一次的元素</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (子元素名称)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (message)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子声明了：message 子元素必须出现一次，并且必须只在 “note” 元素中出现一次。</p>
+<h5 id="3-2-3-7-声明最少出现一次的元素"><a href="#3-2-3-7-声明最少出现一次的元素" class="headerlink" title="3.2.3.7 声明最少出现一次的元素"></a>3.2.3.7 声明最少出现一次的元素</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (子元素名称+)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (message+)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中的加号声明了：message 子元素必须在 “note” 元素内出现至少一次。</p>
+<h5 id="3-2-3-8-声明出现零次或多次的元素"><a href="#3-2-3-8-声明出现零次或多次的元素" class="headerlink" title="3.2.3.8 声明出现零次或多次的元素"></a>3.2.3.8 声明出现零次或多次的元素</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (子元素名称*)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (message*)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中的星号声明了：子元素 message 可在 “note” 元素内出现零次或多次。</p>
+<h5 id="3-2-3-9-声明出现零次或一次的元素"><a href="#3-2-3-9-声明出现零次或一次的元素" class="headerlink" title="3.2.3.9 声明出现零次或一次的元素"></a>3.2.3.9 声明出现零次或一次的元素</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT 元素名称 (子元素名称?)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (message?)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中的问号声明了：子元素 message 可在 “note” 元素内出现零次或一次。</p>
+<h5 id="3-2-3-10-声明“非…-既…”类型的内容"><a href="#3-2-3-10-声明“非…-既…”类型的内容" class="headerlink" title="3.2.3.10 声明“非…/既…”类型的内容"></a>3.2.3.10 声明“非…/既…”类型的内容</h5><p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (to,from,header,(message|body))&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子声明了：”note” 元素必须包含 “to” 元素、”from” 元素、”header” 元素，以及非 “message” 元素既 “body” 元素。</p>
+<h5 id="3-2-3-11-声明混合型的内容"><a href="#3-2-3-11-声明混合型的内容" class="headerlink" title="3.2.3.11 声明混合型的内容"></a>3.2.3.11 声明混合型的内容</h5><p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT note (#PCDATA|to|from|header|message)*&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子声明了：”note” 元素可包含出现零次或多次的 PCDATA、”to”、”from”、”header” 或者 “message”。</p>
+<h4 id="3-2-4-属性"><a href="#3-2-4-属性" class="headerlink" title="3.2.4 属性"></a>3.2.4 属性</h4><h5 id="3-2-4-1-声明属性"><a href="#3-2-4-1-声明属性" class="headerlink" title="3.2.4.1 声明属性"></a>3.2.4.1 声明属性</h5><p>属性声明使用下列语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 属性名称 属性类型 默认值&gt;</span><br></pre></td></tr></table></figure>
+
+<p>DTD 实例:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST payment type CDATA &quot;check&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>XML 实例:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;payment type=&quot;check&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-4-2-以下是属性类型的选项："><a href="#3-2-4-2-以下是属性类型的选项：" class="headerlink" title="3.2.4.2 以下是属性类型的选项："></a>3.2.4.2 以下是<em>属性类型</em>的选项：</h5><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CDATA</td>
+<td align="left">值为字符数据 (character data)</td>
+</tr>
+<tr>
+<td align="left">(<em>en1</em>|<em>en2</em>|..)</td>
+<td align="left">此值是枚举列表中的一个值</td>
+</tr>
+<tr>
+<td align="left">ID</td>
+<td align="left">值为唯一的 id</td>
+</tr>
+<tr>
+<td align="left">IDREF</td>
+<td align="left">值为另外一个元素的 id</td>
+</tr>
+<tr>
+<td align="left">IDREFS</td>
+<td align="left">值为其他 id 的列表</td>
+</tr>
+<tr>
+<td align="left">NMTOKEN</td>
+<td align="left">值为合法的 XML 名称</td>
+</tr>
+<tr>
+<td align="left">NMTOKENS</td>
+<td align="left">值为合法的 XML 名称的列表</td>
+</tr>
+<tr>
+<td align="left">ENTITY</td>
+<td align="left">值是一个实体</td>
+</tr>
+<tr>
+<td align="left">ENTITIES</td>
+<td align="left">值是一个实体列表</td>
+</tr>
+<tr>
+<td align="left">NOTATION</td>
+<td align="left">此值是符号的名称</td>
+</tr>
+<tr>
+<td align="left">xml:</td>
+<td align="left">值是一个预定义的 XML 值</td>
+</tr>
+</tbody></table>
+<h5 id="3-2-4-3-默认值参数可使用下列值："><a href="#3-2-4-3-默认值参数可使用下列值：" class="headerlink" title="3.2.4.3 默认值参数可使用下列值："></a>3.2.4.3 默认值参数可使用下列值：</h5><table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">值</td>
+<td align="left">属性的默认值</td>
+</tr>
+<tr>
+<td align="left">#REQUIRED</td>
+<td align="left">属性值是必需的</td>
+</tr>
+<tr>
+<td align="left">#IMPLIED</td>
+<td align="left">属性不是必需的</td>
+</tr>
+<tr>
+<td align="left">#FIXED value</td>
+<td align="left">属性值是固定的</td>
+</tr>
+</tbody></table>
+<h5 id="3-2-4-4-规定一个默认的属性值"><a href="#3-2-4-4-规定一个默认的属性值" class="headerlink" title="3.2.4.4 规定一个默认的属性值"></a>3.2.4.4 规定一个默认的属性值</h5><p>DTD:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT square EMPTY&gt;</span><br><span class="line">&lt;!ATTLIST square width CDATA &quot;0&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>合法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;square width=&quot;100&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，”square” 被定义为带有 CDATA 类型的 “width” 属性的空元素。如果宽度没有被设定，其默认值为0 。</p>
+<h5 id="3-2-4-5-IMPLIED"><a href="#3-2-4-5-IMPLIED" class="headerlink" title="3.2.4.5 #IMPLIED"></a>3.2.4.5 #IMPLIED</h5><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 属性名称 属性类型 #IMPLIED&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<p>DTD:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST contact fax CDATA #IMPLIED&gt;</span><br></pre></td></tr></table></figure>
+
+<p>合法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;contact fax=&quot;555-667788&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>合法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;contact /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>假如您不希望强制作者包含属性，并且您没有默认值选项的话，请使用关键词 #IMPLIED。</p>
+<h5 id="3-2-4-6-REQUIRED"><a href="#3-2-4-6-REQUIRED" class="headerlink" title="3.2.4.6 #REQUIRED"></a>3.2.4.6 #REQUIRED</h5><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 属性名称 属性类型 #REQUIRED&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<p>DTD:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST person number CDATA #REQUIRED&gt;</span><br></pre></td></tr></table></figure>
+
+<p>合法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;person number=&quot;5677&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>非法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;person /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>假如您没有默认值选项，但是仍然希望强制作者提交属性的话，请使用关键词 #REQUIRED。</p>
+<h5 id="3-2-4-7-FIXED"><a href="#3-2-4-7-FIXED" class="headerlink" title="3.2.4.7 #FIXED"></a>3.2.4.7 #FIXED</h5><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 属性名称 属性类型 #FIXED &quot;value&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<p>DTD:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST sender company CDATA #FIXED &quot;Microsoft&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>合法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;sender company=&quot;Microsoft&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>非法的 XML:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;sender company=&quot;W3School&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果您希望属性拥有固定的值，并不允许作者改变这个值，请使用 #FIXED 关键词。如果作者使用了不同的值，XML 解析器会返回错误。</p>
+<h5 id="3-2-4-8-列举属性值"><a href="#3-2-4-8-列举属性值" class="headerlink" title="3.2.4.8 列举属性值"></a>3.2.4.8 列举属性值</h5><p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 属性名称 (en1|en2|..) 默认值&gt;</span><br></pre></td></tr></table></figure>
+
+<p>DTD 例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST payment type (check|cash) &quot;cash&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>XML 例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;payment type=&quot;check&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;payment type=&quot;cash&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-schema"><a href="#3-3-schema" class="headerlink" title="3.3 schema"></a>3.3 schema</h3><h4 id="3-3-1-概述"><a href="#3-3-1-概述" class="headerlink" title="3.3.1 概述"></a>3.3.1 概述</h4><p>XML Schema 的作用是定义 XML 文档的合法构建模块，类似 DTD。</p>
+<h5 id="3-3-1-1-XML-Schema"><a href="#3-3-1-1-XML-Schema" class="headerlink" title="3.3.1.1 XML Schema:"></a>3.3.1.1 XML Schema:</h5><ul>
+<li>定义可出现在文档中的元素</li>
+<li>定义可出现在文档中的属性</li>
+<li>定义哪个元素是子元素</li>
+<li>定义子元素的次序</li>
+<li>定义子元素的数目</li>
+<li>定义元素是否为空，或者是否可包含文本</li>
+<li>定义元素和属性的数据类型</li>
+<li>定义元素和属性的默认值以及固定值</li>
+</ul>
+<h5 id="3-3-1-2-为何使用"><a href="#3-3-1-2-为何使用" class="headerlink" title="3.3.1.2 为何使用"></a>3.3.1.2 为何使用</h5><ul>
+<li>XML Schema 可针对未来的需求进行扩展</li>
+<li>XML Schema 更完善，功能更强大</li>
+<li>XML Schema 基于 XML 编写</li>
+<li>XML Schema 支持数据类型</li>
+<li>XML Schema 支持命名空间</li>
+</ul>
+<figure class="highlight scheme"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span><br><span class="line">&lt;xs:schema xmlns:xs=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span></span><br><span class="line">targetNamespace=<span class="string">&quot;http://www.w3school.com.cn&quot;</span></span><br><span class="line">xmlns=<span class="string">&quot;http://www.w3school.com.cn&quot;</span></span><br><span class="line">elementFormDefault=<span class="string">&quot;qualified&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=<span class="string">&quot;note&quot;</span>&gt;</span><br><span class="line">    &lt;xs:complexType&gt;</span><br><span class="line">      &lt;xs:sequence&gt;</span><br><span class="line">	&lt;xs:element name=<span class="string">&quot;to&quot;</span> type=<span class="string">&quot;xs:string&quot;</span>/&gt;</span><br><span class="line">	&lt;xs:element name=<span class="string">&quot;from&quot;</span> type=<span class="string">&quot;xs:string&quot;</span>/&gt;</span><br><span class="line">	&lt;xs:element name=<span class="string">&quot;heading&quot;</span> type=<span class="string">&quot;xs:string&quot;</span>/&gt;</span><br><span class="line">	&lt;xs:element name=<span class="string">&quot;body&quot;</span> type=<span class="string">&quot;xs:string&quot;</span>/&gt;</span><br><span class="line">      &lt;/xs:sequence&gt;</span><br><span class="line">    &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+
+<p>note 元素是一个复合类型，因为它包含其他的子元素。其他元素 (to, from, heading, body) 是简易类型，因为它们没有包含其他元素。您将在下面的章节学习更多有关复合类型和简易类型的知识。</p>
+<p>3.3.1.3 引用</p>
+<figure class="highlight scheme"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line"> &lt;a:students xmlns:xsi=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="line">			xmlns:a=<span class="string">&quot;http://www.blb.com/xml&quot;</span></span><br><span class="line">			xsi:schemaLocation=<span class="string">&quot;http://www.blb.com/xml student.xsd&quot;</span></span><br><span class="line"></span><br><span class="line">&gt;</span><br><span class="line">	&lt;a:student number=<span class="string">&quot;blb_0001&quot;</span>&gt;</span><br><span class="line">		&lt;a:name&gt;six&lt;/a:name&gt;</span><br><span class="line">		&lt;a:age&gt;<span class="number">111</span>&lt;/a:age&gt;</span><br><span class="line">		&lt;a:sex&gt;boy&lt;/a:sex&gt;</span><br><span class="line">	&lt;/a:student&gt;</span><br><span class="line">	</span><br><span class="line">&lt;/a:students&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>schema文件的后缀是xsd。</li>
+<li>schema的导入信息都是写在根标签中的。</li>
+<li>在根标签中需要引入xsi的前缀<code>xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</code></li>
+<li>通过<code>xsi:schemaLocation</code>指定要使用的schema文件（<code>student.xsd</code>），并且给这个文件取一个别名<code>http://www.blb.com/xml</code></li>
+<li>通过<code>xmlns:命名空间</code>给这个别名命名一个命名空间的前缀，定义了前缀以后标签需要加上前缀</li>
+<li>可以不设置命名空间，则标签默认来自此xsd文件，如果有多个schema文件，只能有1个默认。</li>
+</ul>
+<h4 id="3-3-2-简单的类型"><a href="#3-3-2-简单的类型" class="headerlink" title="3.3.2 简单的类型"></a>3.3.2 简单的类型</h4><h5 id="3-2-2-1-元素与类型"><a href="#3-2-2-1-元素与类型" class="headerlink" title="3.2.2.1 元素与类型"></a>3.2.2.1 元素与类型</h5><h6 id="3-2-2-1-1-什么是简易元素？"><a href="#3-2-2-1-1-什么是简易元素？" class="headerlink" title="3.2.2.1.1 什么是简易元素？"></a>3.2.2.1.1 什么是简易元素？</h6><p>简易元素指那些仅包含文本的元素。它不会包含任何其他的元素或属性。</p>
+<p>不过，“仅包含文本”这个限定却很容易造成误解。文本有很多类型。它可以是 XML Schema 定义中包括的类型中的一种（布尔、字符串、数据等等），或者它也可以是您自行定义的定制类型。</p>
+<p>您也可向数据类型添加限定（即 facets），以此来限制它的内容，或者您可以要求数据匹配某种特定的模式。</p>
+<h6 id="3-2-2-1-2-定义简易元素"><a href="#3-2-2-1-2-定义简易元素" class="headerlink" title="3.2.2.1.2 定义简易元素"></a>3.2.2.1.2 定义简易元素</h6><p>定义简易元素的语法：</p>
+<figure class="highlight scheme"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=<span class="string">&quot;xxx&quot;</span> type=<span class="string">&quot;yyy&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>此处 xxx 指元素的名称，yyy 指元素的数据类型。XML Schema 拥有很多内建的数据类型。</p>
+<h6 id="3-2-2-1-3-最常用的类型是："><a href="#3-2-2-1-3-最常用的类型是：" class="headerlink" title="3.2.2.1.3 最常用的类型是："></a>3.2.2.1.3 最常用的类型是：</h6><ul>
+<li>xs:string</li>
+<li>xs:decimal</li>
+<li>xs:integer</li>
+<li>xs:boolean</li>
+<li>xs:date</li>
+<li>xs:time</li>
+</ul>
+<p>例子：</p>
+<p>这是一些 XML 元素：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;age&gt;28&lt;/age&gt;</span><br><span class="line">&lt;dateborn&gt;1980-03-27&lt;/dateborn&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这是相应的简易元素定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;age&quot; type=&quot;xs:integer&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;dateborn&quot; type=&quot;xs:date&quot;/&gt; </span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-1-4-简易元素的默认值和固定值"><a href="#3-2-2-1-4-简易元素的默认值和固定值" class="headerlink" title="3.2.2.1.4 简易元素的默认值和固定值"></a>3.2.2.1.4 简易元素的默认值和固定值</h6><p>简易元素可拥有指定的默认值或固定值。</p>
+<p>当没有其他的值被规定时，默认值就会自动分配给元素。</p>
+<p>在下面的例子中，缺省值是 “red”：</p>
+<figure class="highlight scheme"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=<span class="string">&quot;color&quot;</span> type=<span class="string">&quot;xs:string&quot;</span> default=<span class="string">&quot;red&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>固定值同样会自动分配给元素，并且您无法规定另外一个值。</p>
+<p>在下面的例子中，固定值是 “red”：</p>
+<figure class="highlight scheme"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=<span class="string">&quot;color&quot;</span> type=<span class="string">&quot;xs:string&quot;</span> fixed=<span class="string">&quot;red&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-1-5-属性的默认值和固定值"><a href="#3-2-2-1-5-属性的默认值和固定值" class="headerlink" title="3.2.2.1.5 属性的默认值和固定值"></a>3.2.2.1.5 属性的默认值和固定值</h6><p>属性可拥有指定的默认值或固定值。</p>
+<p>当没有其他的值被规定时，默认值就会自动分配给元素。</p>
+<p>在下面的例子中，缺省值是 “EN”：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; default=&quot;EN&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>固定值同样会自动分配给元素，并且您无法规定另外的值。</p>
+<p>在下面的例子中，固定值是 “EN”：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; fixed=&quot;EN&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-1-6-可选的和必需的属性"><a href="#3-2-2-1-6-可选的和必需的属性" class="headerlink" title="3.2.2.1.6 可选的和必需的属性"></a>3.2.2.1.6 可选的和必需的属性</h6><p>在缺省的情况下，属性是可选的。如需规定属性为必选，请使用 “use” 属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; use=&quot;required&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-2-2-限定"><a href="#3-2-2-2-限定" class="headerlink" title="3.2.2.2  限定"></a>3.2.2.2  限定</h5><p><strong>限定（restriction）用于为 XML 元素或者属性定义可接受的值。对 XML 元素的限定被称为 facet。</strong></p>
+<h6 id="3-2-2-2-1-对值的限定"><a href="#3-2-2-2-1-对值的限定" class="headerlink" title="3.2.2.2.1 对值的限定"></a>3.2.2.2.1 对值的限定</h6><p>下面的例子定义了带有一个限定且名为 “age” 的元素。age 的值不能低于 0 或者高于 120：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;age&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:integer&quot;&gt;</span><br><span class="line">    &lt;xs:minInclusive value=&quot;0&quot;/&gt;</span><br><span class="line">    &lt;xs:maxInclusive value=&quot;120&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-2-2-对一组值的限定"><a href="#3-2-2-2-2-对一组值的限定" class="headerlink" title="3.2.2.2.2 对一组值的限定"></a>3.2.2.2.2 对一组值的限定</h6><p>如需把 XML 元素的内容限制为一组可接受的值，我们要使用枚举约束（enumeration constraint）。</p>
+<p>下面的例子定义了带有一个限定的名为 “car” 的元素。可接受的值只有：Audi, Golf, BMW：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;car&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Audi&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Golf&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;BMW&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>上面的例子也可以被写为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;car&quot; type=&quot;carType&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType name=&quot;carType&quot;&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Audi&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Golf&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;BMW&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注释：</strong>在这种情况下，类型 “carType” 可被其他元素使用，因为它不是 “car” 元素的组成部分。</p>
+<h6 id="3-2-2-2-3-对一系列值的限定"><a href="#3-2-2-2-3-对一系列值的限定" class="headerlink" title="3.2.2.2.3 对一系列值的限定"></a>3.2.2.2.3 对一系列值的限定</h6><p>如需把 XML 元素的内容限制定义为一系列可使用的数字或字母，我们要使用模式约束（pattern constraint）。</p>
+<p>下面的例子定义了带有一个限定的名为 “letter” 的元素。可接受的值只有小写字母 a - z 其中的一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;[a-z]&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下一个例子定义了带有一个限定的名为 “initials” 的元素。可接受的值是大写字母 A - Z 其中的三个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;initials&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;[A-Z][A-Z][A-Z]&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下一个例子也定义了带有一个限定的名为 “initials” 的元素。可接受的值是大写或小写字母 a - z 其中的三个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;initials&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;[a-zA-Z][a-zA-Z][a-zA-Z]&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下一个例子定义了带有一个限定的名为 “choice 的元素。可接受的值是字母 x, y 或 z 中的一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;choice&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;[xyz]&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下一个例子定义了带有一个限定的名为 “prodid” 的元素。可接受的值是五个阿拉伯数字的一个序列，且每个数字的范围是 0-9：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;prodid&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:integer&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;[0-9][0-9][0-9][0-9][0-9]&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-2-4-对一系列值的其他限定"><a href="#3-2-2-2-4-对一系列值的其他限定" class="headerlink" title="3.2.2.2.4 对一系列值的其他限定"></a>3.2.2.2.4 对一系列值的其他限定</h6><p>下面的例子定义了带有一个限定的名为 “letter” 的元素。可接受的值是 a - z 中零个或多个字母：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;([a-z])*&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下面的例子定义了带有一个限定的名为 “letter” 的元素。可接受的值是一对或多对字母，每对字母由一个小写字母后跟一个大写字母组成。举个例子，”sToP”将会通过这种模式的验证，但是 “Stop”、”STOP” 或者 “stop” 无法通过验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;([a-z][A-Z])+&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下面的例子定义了带有一个限定的名为 “gender” 的元素。可接受的值是 male 或者 female：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;gender&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;male|female&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>下面的例子定义了带有一个限定的名为 “password” 的元素。可接受的值是由 8 个字符组成的一行字符，这些字符必须是大写或小写字母 a - z 亦或数字 0 - 9：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;password&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:pattern value=&quot;[a-zA-Z0-9]&#123;8&#125;&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-2-5-对空白字符的限定"><a href="#3-2-2-2-5-对空白字符的限定" class="headerlink" title="3.2.2.2.5 对空白字符的限定"></a>3.2.2.2.5 对空白字符的限定</h6><p>如需规定对空白字符（whitespace characters）的处理方式，我们需要使用 whiteSpace 限定。</p>
+<p>下面的例子定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “preserve”，这意味着 XML 处理器不会移除任何空白字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;address&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:whiteSpace value=&quot;preserve&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>这个例子也定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “replace”，这意味着 XML 处理器将移除所有空白字符（换行、回车、空格以及制表符）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;address&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:whiteSpace value=&quot;replace&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>这个例子也定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “collapse”，这意味着 XML 处理器将移除所有空白字符（换行、回车、空格以及制表符会被替换为空格，开头和结尾的空格会被移除，而多个连续的空格会被缩减为一个单一的空格）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;address&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:whiteSpace value=&quot;collapse&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-2-6-对长度的限定"><a href="#3-2-2-2-6-对长度的限定" class="headerlink" title="3.2.2.2.6 对长度的限定"></a>3.2.2.2.6 对长度的限定</h6><p>如需限制元素中值的长度，我们需要使用 length、maxLength 以及 minLength 限定。</p>
+<p>本例定义了带有一个限定且名为 “password” 的元素。其值必须精确到 8 个字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;password&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:length value=&quot;8&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<p>这个例子也定义了带有一个限定的名为 “password” 的元素。其值最小为 5 个字符，最大为 8 个字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;xs:element name=&quot;password&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:minLength value=&quot;5&quot;/&gt;</span><br><span class="line">    &lt;xs:maxLength value=&quot;8&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:element&gt; </span><br></pre></td></tr></table></figure>
+
+<h6 id="3-2-2-2-7-数据类型的限定"><a href="#3-2-2-2-7-数据类型的限定" class="headerlink" title="3.2.2.2.7 数据类型的限定"></a>3.2.2.2.7 数据类型的限定</h6><table>
+<thead>
+<tr>
+<th align="left">限定</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">enumeration</td>
+<td align="left">定义可接受值的一个列表</td>
+</tr>
+<tr>
+<td align="left">fractionDigits</td>
+<td align="left">定义所允许的最大的小数位数。必须大于等于0。</td>
+</tr>
+<tr>
+<td align="left">length</td>
+<td align="left">定义所允许的字符或者列表项目的精确数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td align="left">maxExclusive</td>
+<td align="left">定义数值的上限。所允许的值必须小于此值。</td>
+</tr>
+<tr>
+<td align="left">maxInclusive</td>
+<td align="left">定义数值的上限。所允许的值必须小于或等于此值。</td>
+</tr>
+<tr>
+<td align="left">maxLength</td>
+<td align="left">定义所允许的字符或者列表项目的最大数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td align="left">minExclusive</td>
+<td align="left">定义数值的下限。所允许的值必需大于此值。</td>
+</tr>
+<tr>
+<td align="left">minInclusive</td>
+<td align="left">定义数值的下限。所允许的值必需大于或等于此值。</td>
+</tr>
+<tr>
+<td align="left">minLength</td>
+<td align="left">定义所允许的字符或者列表项目的最小数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td align="left">pattern</td>
+<td align="left">定义可接受的字符的精确序列。</td>
+</tr>
+<tr>
+<td align="left">totalDigits</td>
+<td align="left">定义所允许的阿拉伯数字的精确位数。必须大于0。</td>
+</tr>
+<tr>
+<td align="left">whiteSpace</td>
+<td align="left">定义空白字符（换行、回车、空格以及制表符）的处理方式。</td>
+</tr>
+</tbody></table>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:schema</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.blb.com/xml&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">xmlns:xsd</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">targetNamespace</span>=<span class="string">&quot;http://www.blb.com/xml&quot;</span> <span class="attr">elementFormDefault</span>=<span class="string">&quot;qualified&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--  定义标签students  类型是自定义类型studentsType --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">&quot;students&quot;</span> <span class="attr">type</span>=<span class="string">&quot;studentsType&quot;</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">&quot;studentsType&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 标签student，类型是自定义类型studentType  最少出现次数是1，最多次数不限 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">&quot;student&quot;</span> <span class="attr">type</span>=<span class="string">&quot;studentType&quot;</span> <span class="attr">minOccurs</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">				<span class="attr">maxOccurs</span>=<span class="string">&quot;unbounded&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 定义自定义类型studentType --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">&quot;studentType&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- name标签是字符串类型  --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;xsd:string&quot;</span> /&gt;</span></span><br><span class="line">				<span class="comment">&lt;!-- age标签是自定义类型ageType  --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">type</span>=<span class="string">&quot;ageType&quot;</span> /&gt;</span></span><br><span class="line">				<span class="comment">&lt;!-- sex标签是自定义类型sexType  --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">type</span>=<span class="string">&quot;sexType&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 属性number，类型是自定义类型numberType，且为必须的 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">&quot;number&quot;</span> <span class="attr">type</span>=<span class="string">&quot;numberType&quot;</span> <span class="attr">use</span>=<span class="string">&quot;required&quot;</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- sexType自定义类型 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">xsd:simpleType</span> <span class="attr">name</span>=<span class="string">&quot;sexType&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">xsd:restriction</span> <span class="attr">base</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 枚举：值只能是boy或者girl   --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">&quot;boy&quot;</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">&quot;girl&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">xsd:restriction</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">xsd:simpleType</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 自定义类型ageType  范围从0-300之间 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">xsd:simpleType</span> <span class="attr">name</span>=<span class="string">&quot;ageType&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">xsd:restriction</span> <span class="attr">base</span>=<span class="string">&quot;xsd:integer&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:minInclusive</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:maxInclusive</span> <span class="attr">value</span>=<span class="string">&quot;300&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">xsd:restriction</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">xsd:simpleType</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 自定义numberType类型，必须以blb_开头，后面跟4位数字 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">xsd:simpleType</span> <span class="attr">name</span>=<span class="string">&quot;numberType&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">xsd:restriction</span> <span class="attr">base</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">xsd:pattern</span> <span class="attr">value</span>=<span class="string">&quot;blb_\d&#123;4&#125;&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">xsd:restriction</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">xsd:simpleType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:schema</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<h3 id="4-解析"><a href="#4-解析" class="headerlink" title="4.解析"></a>4.解析</h3><p>定义好的xml文件我们通常需要使用程序来操作，这就要求我们能够解析XML，主要的解析方式有DOM、SAX。DOM主要基于文档对象模型，操作方便，相对更占空间。SAX基于事件驱动。我们通常使用框架dom4j来解析。</p>
+<p>DOM解析：易用性强，使用DOM时，将把所有的XML文档信息都存于内存中，并且遍历简单，支持XPath，增强了易用性。效率低，解析速度慢，内存占用量过高，对于大文件来说几乎不可能使用。</p>
+<p>SAX解析：SAX是一个用于处理XML事件驱动的“推”模型，虽然它不是W3C标准，但它却是一个得到了广泛认可的API。SAX模型最大的优点是内存消耗小。</p>
+<h4 id="4-1-DOM4J"><a href="#4-1-DOM4J" class="headerlink" title="4.1  DOM4J"></a>4.1  DOM4J</h4><p>​    dom4j是一个Java的XML API，是jdom的升级品，用来读写XML文件的。dom4j是一个十分优秀的Java API，具有性能优异、功能强大和极其易使用的特点，它的性能超过sun公司官方的dom技术，同时它也是一个开放源代码的软件。如今可以看到越来越多的Java软件都在使用dom4j来读写XML，特别值得一提的是连Sun的JAXM也在用dom4j。这已经是必须使用的jar包。</p>
+<h4 id="4-2-文档对象的获取"><a href="#4-2-文档对象的获取" class="headerlink" title="4.2  文档对象的获取"></a>4.2  文档对象的获取</h4><p>假设需解析的文档为student.xml，内容如下</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">students</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">student</span> <span class="attr">number</span>=<span class="string">&quot;blb_0001&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>six<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">age</span>&gt;</span>28<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sex</span>&gt;</span>boy<span class="tag">&lt;/<span class="name">sex</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">student</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">student</span> <span class="attr">number</span>=<span class="string">&quot;blb_0002&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>seven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">age</span>&gt;</span>29<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sex</span>&gt;</span>girl<span class="tag">&lt;/<span class="name">sex</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">student</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">students</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>SAX方式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">InputStream in = Demo.class.getClassLoader().getResourceAsStream(<span class="string">&quot;student.xml&quot;</span>);	</span><br><span class="line">SAXReader reader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">Document document = reader.read(in);</span><br></pre></td></tr></table></figure></li>
+<li><p>DOM方式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span><br><span class="line">DocumentBuilder db = dbf.newDocumentBuilder();</span><br><span class="line">InputStream in = Demo3.class.getClassLoader().getResourceAsStream(<span class="string">&quot;student.xml&quot;</span>);</span><br><span class="line">org.w3c.dom.Document w3cdoc=db.parse(in);</span><br><span class="line">DOMReader domReader=<span class="keyword">new</span> DOMReader();</span><br><span class="line"><span class="comment">//将org.w3c.dom.Document转成org.dom4j.Document</span></span><br><span class="line">org.dom4j.Document document=domReader.read(w3cdoc);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-3-常用方法"><a href="#4-3-常用方法" class="headerlink" title="4.3  常用方法"></a>4.3  常用方法</h4><ul>
+<li><p>根元素的获取</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Element root = document.getRootElement();</span><br></pre></td></tr></table></figure></li>
+<li><p>获取标签下的所有子标签的相关信息</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Iterator&lt;Element&gt; it =  root.elementIterator();</span><br><span class="line"><span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">    Element e = it.next();</span><br><span class="line">  <span class="comment">//   e.getName 获取元素的标签名</span></span><br><span class="line">    System.out.print(e.getName() + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">    <span class="comment">// e.attributeValue(&quot;number&quot;)  获取标签指定属性的值</span></span><br><span class="line">    System.out.print(e.attributeValue(<span class="string">&quot;number&quot;</span>) + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">    <span class="comment">// 获取子标签下的子标签</span></span><br><span class="line">    Element c1 = e.element(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">    <span class="comment">// c1.getText() 获取标签内的文本内容。</span></span><br><span class="line">    System.out.println(c1.getText());</span><br><span class="line">    			</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-4-xpath解析"><a href="#4-4-xpath解析" class="headerlink" title="4.4  xpath解析"></a>4.4  xpath解析</h4><p>​    当我们使用dom的api解析时比较麻烦，尤其是嵌套层数比较多的时候。我们可以使用xpath表达式的方式来解析。使用这个功能要求dom4j的版本在2.0以上。</p>
+<ul>
+<li>```java<br>// 查找number属性值为blb_0002的students标签下的student子标签<br>Node n = document.selectSingleNode(“//students/student[@number=’blb_0002’]”);<br>System.out.println(n.getName());// selectSingleNode  获取某一个节点，如果有多个返回找到的第1个<br>Node selectSingleNode = n.selectSingleNode(“name”);<br>String name = selectSingleNode.getText();<br>System.out.println(name);// 遍历，获取students标签下的所有student标签,路径中的”//“表示忽略层级，不使用则必须从根开始<br>List<Node> nodes = document.selectNodes(“//students/student”);<br>ListIterator<Node> listIterator = nodes.listIterator();<br>// 通过迭代器遍历<br>while(listIterator.hasNext()){<pre><code>Node n = listIterator.next();
+// n.valueOf(&quot;@number&quot;)获取Node的number属性的值
+String number =  n.valueOf(&quot;@number&quot;);
+System.out.println(number);
+//相对路径用 name   
+Node selectSingleNode = n.selectSingleNode(&quot;name&quot;);
+// 获取节点的文本内容
+String name = selectSingleNode.getText();
+System.out.println(name);
+</code></pre>
+}// 还可以通过Node的匹配的条件来过滤<br>List<Node> nodes = document.selectNodes(“//students/student”);<br>Iterator<Node> iterator = nodes.iterator();<br>while(iterator.hasNext()){<pre><code>Node n = iterator.next();
+//            根据条件过滤 number属性值不为blb_0001
+if(n.matches(&quot;@number!=&#39;blb_0001&#39;&quot;))&#123;
+    System.out.println(n.getName());
+&#125;
+</code></pre>
+}<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 5.XML生成</span><br><span class="line"></span><br><span class="line">```xml</span><br><span class="line">//目标：将对象写入到 XML文件当中</span><br><span class="line">@SuppressWarnings(&quot;all&quot;)</span><br><span class="line">public class Test01 &#123;</span><br><span class="line">public static void main(String[] args)  throws IOException &#123;</span><br><span class="line"></span><br><span class="line">    //创建一个对象，将对象写入到XML文件当中</span><br><span class="line">    Hero hh = new Hero(1,&quot;赵云&quot;,20);</span><br><span class="line">    //1.需要创建一些列的对象，添加到Document树当中</span><br><span class="line">    //创建Document树在内存当中。</span><br><span class="line">    Document doc = DocumentHelper.createDocument();</span><br><span class="line">    Element root = doc.addElement(&quot;lol&quot;);</span><br><span class="line">    Element hero = root.addElement(&quot;hero&quot;);</span><br><span class="line">    hero.addAttribute(&quot;id&quot;,hh.getId()+&quot;&quot;);</span><br><span class="line">    hero.addElement(&quot;name&quot;).addText(hh.getName());</span><br><span class="line">    hero.addElement(&quot;age&quot;).addText(hh.getAge()+&quot;&quot;);</span><br><span class="line"></span><br><span class="line">    //2. 准备数据</span><br><span class="line">    String path = &quot;JavaSEDay21\\dir\\14_英雄联盟.xml&quot;;</span><br><span class="line">    FileWriter fw = new FileWriter(path);</span><br><span class="line">    OutputFormat format = new OutputFormat();</span><br><span class="line">    format.setEncoding(&quot;UTF-8&quot;);</span><br><span class="line">    //3.直接往XML当中写入。 XMLWriter类</span><br><span class="line">    XMLWriter xw = new XMLWriter(fw,format);</span><br><span class="line">    xw.write(doc);</span><br><span class="line">    xw.flush();</span><br><span class="line">    xw.close();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></Node></Node></Node></Node></li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+        <tag>xml</tag>
       </tags>
   </entry>
 </search>
