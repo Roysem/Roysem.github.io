@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"Gemini"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1.数据库连接1.1 启动服务与终止服务启动服务 1net  start  mysql  终止服务 1net stop mysql  1.2 连接服务器   选项 说明 默认    -u 帐号 当前系统同名帐号   -p 密码    -P 连接端口 3306   -h 主机地址 127.0.0.1   -e 执行sql指令    连接服务器  1mysql -uroot -p -P3306 -h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库常用命令">
+<meta property="og:url" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="roysem">
+<meta property="og:description" content="1.数据库连接1.1 启动服务与终止服务启动服务 1net  start  mysql  终止服务 1net stop mysql  1.2 连接服务器   选项 说明 默认    -u 帐号 当前系统同名帐号   -p 密码    -P 连接端口 3306   -h 主机地址 127.0.0.1   -e 执行sql指令    连接服务器  1mysql -uroot -p -P3306 -h">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590119.png">
+<meta property="og:image" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590120.png">
+<meta property="og:image" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590121.png">
+<meta property="og:image" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590741.png">
+<meta property="og:image" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590744.png">
+<meta property="article:published_time" content="2021-08-12T01:13:41.000Z">
+<meta property="article:modified_time" content="2021-08-18T12:43:36.924Z">
+<meta property="article:author" content="嘿咻">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590119.png">
+
+
+<link rel="canonical" href="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/","path":"2021/08/12/数据库常用命令/","title":"数据库常用命令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库常用命令 | roysem</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">roysem</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-wrong"><a href="/wrong/" rel="section"><i class="wrong fa-fw"></i>wrong</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">1.数据库连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E4%B8%8E%E7%BB%88%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 启动服务与终止服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 连接服务器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-DDL"><span class="nav-number">2.</span> <span class="nav-text">2.DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 操作数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 删除数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 修改数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 查询数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5 使用数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 操作数据表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 创建数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 删除数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 修改数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.2.3 查询数据表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">2.3数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 整数类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%AE%9A%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3 浮点数类型和定点数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-1%E8%A7%A3%E9%87%8AM-D%E7%9A%84%E6%84%8F%E6%80%9D%EF%BC%9A"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">2.3.3.1解释M,D的意思：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-2-FLOAT%E3%80%81DOUBLE%E3%80%81DECIMAL%E4%B8%89%E8%80%85%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%82"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">2.3.3.2 FLOAT、DOUBLE、DECIMAL三者的区别。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-3-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8FLOAT%E3%80%81DOUBLE%E3%80%81DECIMAL"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">2.3.3.3 什么时候使用FLOAT、DOUBLE、DECIMAL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4 字符集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5-ENUM-SET"><span class="nav-number">2.3.5.</span> <span class="nav-text">2.3.5 ENUM&#x2F;SET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5-%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.6.</span> <span class="nav-text">2.3.5 二进制类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-6-%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4"><span class="nav-number">2.3.7.</span> <span class="nav-text">2.3.6 日期与时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-7%E3%80%81%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.8.</span> <span class="nav-text">2.3.7、如何选择数据类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-DML"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 DML</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.4.0.0.1.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="嘿咻"
+      src="/images/heixiu.jpeg">
+  <p class="site-author-name" itemprop="name">嘿咻</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/roysem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;roysem" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2335163219@qq.com" title="E-Mail → mailto:2335163219@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/heixiu.jpeg">
+      <meta itemprop="name" content="嘿咻">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="roysem">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库常用命令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-12 09:13:41" itemprop="dateCreated datePublished" datetime="2021-08-12T09:13:41+08:00">2021-08-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-18 20:43:36" itemprop="dateModified" datetime="2021-08-18T20:43:36+08:00">2021-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-数据库连接"><a href="#1-数据库连接" class="headerlink" title="1.数据库连接"></a>1.数据库连接</h1><h2 id="1-1-启动服务与终止服务"><a href="#1-1-启动服务与终止服务" class="headerlink" title="1.1 启动服务与终止服务"></a>1.1 启动服务与终止服务</h2><p><strong>启动服务</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net  start  mysql</span><br></pre></td></tr></table></figure>
+
+<p><strong>终止服务</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net stop mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-连接服务器"><a href="#1-2-连接服务器" class="headerlink" title="1.2 连接服务器"></a>1.2 连接服务器</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-u</td>
+<td>帐号</td>
+<td>当前系统同名帐号</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>密码</td>
+<td></td>
+</tr>
+<tr>
+<td>-P</td>
+<td>连接端口</td>
+<td>3306</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>主机地址</td>
+<td>127.0.0.1</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>执行sql指令</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>连接服务器</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p -P3306 -h 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p><strong>连接本地数据库 可以使用默认值</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p </span><br></pre></td></tr></table></figure>
+
+<p><strong>使用<code>-e</code> 执行SQL语句</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot -e&quot;show databases;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>退出连接</strong></p>
+<p>命令行下执行exit可通出当前连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>三种注释方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- 1.单行注释 ，--之后必须有空格</span><br><span class="line">#2.单行注释</span><br><span class="line">/*多行注释*/</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-DDL"><a href="#2-DDL" class="headerlink" title="2.DDL"></a>2.DDL</h1><p>DDL 数据库定义语言，针对于数据库，数据表的增删改查的使用</p>
+<h2 id="2-1-操作数据库"><a href="#2-1-操作数据库" class="headerlink" title="2.1 操作数据库"></a>2.1 操作数据库</h2><h3 id="2-1-1-创建数据库"><a href="#2-1-1-创建数据库" class="headerlink" title="2.1.1 创建数据库"></a>2.1.1 创建数据库</h3><p><strong>创建数据库 [可写可不写]</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create databases [if not exists]  数据库名称</span><br></pre></td></tr></table></figure>
+
+<p>如果不存在mydb02数据库，则创建一个数据库，数据库名称为mydb02</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create databases if not exists mydb02; </span><br></pre></td></tr></table></figure>
+
+<p><strong>指定字符集</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database if not exists 数据库名 character set 字符集</span><br></pre></td></tr></table></figure>
+
+<p>如果不存在mydb02数据库，则创建一个数据库，数据库名称为mydb02，并设置utf8格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database if not exists mydb03 character set utf8;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-删除数据库"><a href="#2-1-2-删除数据库" class="headerlink" title="2.1.2 删除数据库"></a>2.1.2 删除数据库</h3><p><strong>删除数据库</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop [if exists] database 数据库名称</span><br></pre></td></tr></table></figure>
+
+<p>删除数据库 mydb03 如果不存在，则删除。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP DATABASE IF EXISTS mydb03;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-修改数据库"><a href="#2-1-3-修改数据库" class="headerlink" title="2.1.3 修改数据库"></a>2.1.3 修改数据库</h3><p><strong>修改数据库的字符集</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER DATABASE 数据库名称 CHARACTER SET 字符集名称;</span><br></pre></td></tr></table></figure>
+
+<p>案例代码: 修改数据库 mydb03 的字符集为gbk格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER DATABASE mydb03 CHARACTER SET gbk;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-4-查询数据库"><a href="#2-1-4-查询数据库" class="headerlink" title="2.1.4 查询数据库"></a>2.1.4 查询数据库</h3><p><strong>查询数据库的字符集</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create database 数据库名称</span><br></pre></td></tr></table></figure>
+
+<p>查看数据库 mydb03 的创建语句，查看的过程当中，可以看到字符集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE DATABASE mydb03;</span><br></pre></td></tr></table></figure>
+
+<p>查看当前正在使用的数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DATABASE();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-5-使用数据库"><a href="#2-1-5-使用数据库" class="headerlink" title="2.1.5 使用数据库"></a>2.1.5 使用数据库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名称;</span><br></pre></td></tr></table></figure>
+
+<p>使用数据库mydb03</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mydb03</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-操作数据表"><a href="#2-2-操作数据表" class="headerlink" title="2.2 操作数据表"></a>2.2 操作数据表</h2><h3 id="2-2-1-创建数据表"><a href="#2-2-1-创建数据表" class="headerlink" title="2.2.1 创建数据表"></a>2.2.1 创建数据表</h3><p><strong>语法格式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS  表名称(</span><br><span class="line">    列名1  数据类型1  约束类型,</span><br><span class="line">    列名2  数据类型2  约束类型,</span><br><span class="line">    列名3  数据类型3  约束类型</span><br><span class="line">) ENGINE=存储引擎;</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS  student_two(</span><br><span class="line">	id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	NAME VARCHAR(20) NOT NULL,</span><br><span class="line">	age INT NOT NULL</span><br><span class="line">) ENGINE=INNODB;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-删除数据表"><a href="#2-2-2-删除数据表" class="headerlink" title="2.2.2 删除数据表"></a><strong>2.2.2 删除数据表</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE [IF EXISTS] 表名称;</span><br></pre></td></tr></table></figure>
+
+<p>如果存在表student_two，则删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS student_two;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-修改数据表"><a href="#2-2-3-修改数据表" class="headerlink" title="2.2.3 修改数据表"></a>2.2.3 修改数据表</h3><p><strong>修改表的字符集</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名称 CHARACTER SET 字符集;</span><br></pre></td></tr></table></figure>
+
+<p>修改表 student_1 的字符集 gbk</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student_1 CHARACTER SET gbk;</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加新的一列</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名称 ADD 列名称 列的数据类型;</span><br></pre></td></tr></table></figure>
+
+<p> 修改表，添加新的一列，添加性别 gender</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student_1 ADD gender VARCHAR(20);</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改表，修改列的数据类型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名称 MODIFY 列名称 列的数据类型;</span><br></pre></td></tr></table></figure>
+
+<p>修改表，修改表所在列的数据类型，性别gender 修改为INT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student_1 MODIFY gender INT;</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改表，修改列名称和数据类型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名称 CHANGE 旧的列名称 新的列名称 新的列数据类型;</span><br></pre></td></tr></table></figure>
+
+<p>修改表，将旧的列性别 gender 修改成为 sex VARCHAR(20)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student_1 CHANGE gender sex VARCHAR(20);</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改表，删除表当中某一列</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名称 DROP 列名称;</span><br></pre></td></tr></table></figure>
+
+<p> 修改表，删除表当中的某一列，删除表 student_1 的 sex这列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student_1 DROP sex;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-查询数据表"><a href="#2-2-3-查询数据表" class="headerlink" title="2.2.3 查询数据表"></a>2.2.3 查询数据表</h3><p><strong>查看数据库当中，所有表的信息</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLES;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查询数据库当中，单独的某个表的表结构，每一列的列名、约束、数据类型、信息</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DESC 表名称;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查询数据库当中，表的存储引擎，数据容量，创建时间等</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLE STATUS FROM mydb03 LIKE &#x27;student_1&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3数据类型"><a href="#2-3数据类型" class="headerlink" title="2.3数据类型"></a>2.3数据类型</h2><p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/144449.html">请看</a></p>
+<h3 id="2-3-1-类型"><a href="#2-3-1-类型" class="headerlink" title="2.3.1 类型"></a><strong>2.3.1 类型</strong></h3><ul>
+<li><p>数值数据类型</p>
+<ul>
+<li><p>整数类型：TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT</p>
+</li>
+<li><p>浮点数类型：FLOAT、DOUBLE</p>
+</li>
+<li><p>定点小数：DECIMAL</p>
+</li>
+</ul>
+</li>
+<li><p>日期/时间类型</p>
+</li>
+</ul>
+<p>　　YEAR、TIME、DATE、DATETIME、TIMESTAMP</p>
+<ul>
+<li>字符串类型</li>
+</ul>
+<p>　　CHAR、VARCHAR、TEXT、ENUM、SET等 　　</p>
+<ul>
+<li>二进制类型</li>
+</ul>
+<p>　　BIT、BINARY、VARBINARY、BLOB</p>
+<h3 id="2-3-2-整数类型"><a href="#2-3-2-整数类型" class="headerlink" title="2.3.2 整数类型"></a>2.3.2 整数类型</h3><p><img src="/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590119.png" alt="img"></p>
+<p>不同整数类型的取值范围</p>
+<p><img src="/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590120.png" alt="img"></p>
+<p>int(n)  括号中的数字表示的是该数据类型指定的显示宽度，指定能够显示的数值中数字的个数。</p>
+<p>这里要注意：显示宽度和数据类型的取值范围是无关的，显示宽度只是指明MySQL最大可能显示的数字个数，</p>
+<p>如果不写显示宽度，就会用系统默认的，比如，INT    的默认显示宽度是11，看上面表，最高也就能表示10位大小的数值，但是要注意，有符号的，也就是负数时，符号位也占一位。</p>
+<h3 id="2-3-3-浮点数类型和定点数类型"><a href="#2-3-3-浮点数类型和定点数类型" class="headerlink" title="2.3.3 浮点数类型和定点数类型"></a><strong>2.3.3 浮点数类型和定点数类型</strong></h3><p>　<img src="/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590121.png" alt="img">　</p>
+<h4 id="2-3-3-1解释M-D的意思："><a href="#2-3-3-1解释M-D的意思：" class="headerlink" title="2.3.3.1解释M,D的意思："></a>2.3.3.1<strong>解释M,D的意思：</strong></h4><ul>
+<li>M:<strong>数值的总位数。</strong> 通俗点讲，就是看有多少个数字，比如，5.6789，M就是5</li>
+<li> D:小数点后面能保留几位。 比如上面的5.6789 ，D就是4。 这只是举一个例</li>
+</ul>
+<p>不单单就MECIMAL有M,D这两个参数，FLOAT 和 DOUBLE 都有</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tmp(</span><br><span class="line"> 　x FLOAT(3,1),</span><br><span class="line"> 　y DOUBLE(5,3),</span><br><span class="line"> 　z DECIMAL(5,4)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>假设x插入的值为：5.69，56.78，5.438，349.2 (注意：实验给x这个字段插入的值，可能实验了三次，不要错看成x的值为5.69，y为56.78等等了)<br> 实际上在数据库中存的值为：5.7，56.9，5.3，349.2这个报错<br> 分析：x的M为3，D为1，那么小数点上必须是占了一位数字，就算没有值，也会用0来填充，所以说，整数位上最多就只能是2位，这里要切记要先根据D的值，来算整数位能最多有多少位。</p>
+<p>通过分析x，y和z也就简单了，</p>
+<p>y字段上的值，整数部分最多是2位，小数点后的位数最多是3位，也就是说小数点后超过了3位，就会四舍五入。<br> z字段上的值，整数部分最多只能是一位，小数点后的位数最多是4位，如果不足4位，也会用0补充。比如插入1.56，在数据库中存的就是1.5600， 比如插入25.46，这个就会报错，因为整数部分只能是一位，小数点后的位数已经占了4位了。这里要搞清楚。</p>
+<h4 id="2-3-3-2-FLOAT、DOUBLE、DECIMAL三者的区别。"><a href="#2-3-3-2-FLOAT、DOUBLE、DECIMAL三者的区别。" class="headerlink" title="2.3.3.2 FLOAT、DOUBLE、DECIMAL三者的区别。"></a><strong>2.3.3.2 FLOAT、DOUBLE、DECIMAL三者的区别</strong>。</h4><p>都是用来表示我们所说的小数的也就是浮点数，但是三种的精度不一样，也就是后面显示的位数不一样，</p>
+<ul>
+<li><p>区别一：</p>
+<ul>
+<li><p>FLOAT显示后面的小数点位大概在40多位，</p>
+</li>
+<li><p>DOUBLE能显示的就是300多位了，不是一个层次上的，</p>
+</li>
+<li><p>DECIMAL这个小数点后面能显示的位数跟DOUBLE差不多，</p>
+</li>
+</ul>
+</li>
+<li><p>区别二：</p>
+</li>
+</ul>
+<p>　　　FLOAT和DOUBLE在不指定精度时，也就是不用(M,D)，默认会按照实际的精度，也就是你写多少就是多少，而DECIMAL如不指定精度默认为(10,0)，也就是如果不指定精度，插入数值56.89，在数据库中存储的就是57。所以一般使用DECIMAL时就会指定精度，而使用FLOAT和DOUBLE就不用。</p>
+<ul>
+<li>区别三:</li>
+</ul>
+<p>　　　浮点数相对与定点数(DECIMAL)的优点就是在长度一定的情况下，浮点数能够表示更大的数据范围，但是缺点是会引起精度问题。</p>
+<h4 id="2-3-3-3-什么时候使用FLOAT、DOUBLE、DECIMAL"><a href="#2-3-3-3-什么时候使用FLOAT、DOUBLE、DECIMAL" class="headerlink" title="2.3.3.3 什么时候使用FLOAT、DOUBLE、DECIMAL"></a>2.3.3.3 什么时候使用FLOAT、DOUBLE、DECIMAL</h4><p>　　　对精度要求比较高的时候，比如货币、科学数据等，使用DECIMAL的类型比较好。其他的时候，看你要存放的数据的大小而定了，一般使用DOUBLE。并且在使用浮点数时需要注意，尽量避免做浮点数的比较，比如加、减，谁大谁小，这样的操作，会引起精度缺失。相信在一些程序语言中，遇到过float精度丢失的问题。</p>
+<h3 id="2-3-4-字符集"><a href="#2-3-4-字符集" class="headerlink" title="2.3.4 字符集"></a>2.3.4 字符集</h3><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CHAR</td>
+<td align="left">0-255字节</td>
+<td align="left">定长字符串</td>
+</tr>
+<tr>
+<td align="left">VARCHAR</td>
+<td align="left">0-65535 字节</td>
+<td align="left">变长字符串</td>
+</tr>
+<tr>
+<td align="left">TINYBLOB</td>
+<td align="left">0-255字节</td>
+<td align="left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td align="left">TINYTEXT</td>
+<td align="left">0-255字节</td>
+<td align="left">短文本字符串</td>
+</tr>
+<tr>
+<td align="left">BLOB</td>
+<td align="left">0-65 535字节</td>
+<td align="left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td align="left">TEXT</td>
+<td align="left">0-65 535字节</td>
+<td align="left">长文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMBLOB</td>
+<td align="left">0-16 777 215字节</td>
+<td align="left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMTEXT</td>
+<td align="left">0-16 777 215字节</td>
+<td align="left">中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGBLOB</td>
+<td align="left">0-4 294 967 295字节</td>
+<td align="left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGTEXT</td>
+<td align="left">0-4 294 967 295字节</td>
+<td align="left">极大文本数据</td>
+</tr>
+</tbody></table>
+<p>char类型是定长类型，比如定义了20长度的<code>char</code>类型，只存一个字符也占用20个长度，char好处是处理速度快，缺点是空间占用大，把手机号、邮箱、密码等长度相对固定的设置为char类型是不错的选择。</p>
+<p>varchar类型与char相反，点用空间受内容影响，可以把文章标题、介绍等设置为 varchar类型更合适。</p>
+<h3 id="2-3-5-ENUM-SET"><a href="#2-3-5-ENUM-SET" class="headerlink" title="2.3.5 ENUM/SET"></a>2.3.5 ENUM/SET</h3><p><strong>ENUM</strong></p>
+<p>ENUM 类型因为只允许在集合中取得一个值，有点类似于单选项。在处理相互排拆的数据时容易让人理解，比如人类的性别。换个枚举最大可以有 65535 个成员值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE stu ADD sex ENUM(&#x27;男&#x27;,&#x27;女&#x27;) DEFAULT NULL;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用索引或值添加enum数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO stu (sname,class_id,sex) VALUES(&#x27;李岗&#x27;,1,&#x27;男&#x27;);</span><br><span class="line">INSERT INTO stu (sname,class_id,sex) VALUES(&#x27;李玉&#x27;,1,2);</span><br></pre></td></tr></table></figure>
+
+<p>可以使用值与索引检索ENUM</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from stu WHERE sex=&#x27;女&#x27;;</span><br><span class="line">SELECT * from stu WHERE sex=2;</span><br></pre></td></tr></table></figure>
+
+<p><strong>SET</strong></p>
+<p>SET 类型与 ENUM 类型相似但不相同。SET 类型可以从预定义的集合中取得任意数量的值。一个 SET 类型最多可以包含 64 项元素。</p>
+<ul>
+<li>插入SET字段中的值如果有重复，则会自动删除重复的值</li>
+<li>插入SET字段中的值会按顺序排列，排列规则就是按照SET中的值的排列优先顺序</li>
+</ul>
+<p>使用SET类型添加文章属性字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE article ADD flag SET(&#x27;推荐&#x27;,&#x27;置顶&#x27;,&#x27;图文&#x27;,&#x27;热门&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>添加数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO article (title,status,flag)VALUES(&#x27;后盾人&#x27;,1,&#x27;图文,推荐,置顶&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>find_in_set</code> 查找数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM article WHERE find_in_set(&#x27;图文&#x27;,flag);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-5-二进制类型"><a href="#2-3-5-二进制类型" class="headerlink" title="2.3.5 二进制类型"></a><strong>2.3.5 二进制类型</strong></h3><p>用来存放二进制数，也就是01010这种。有BIT、BINARY、VARBINARY、TINYBLOB、BLOB、MEDIUNBLOB和LONGBLOB</p>
+<p><img src="/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590741.png" alt="img">　　　</p>
+<p>BIT类型　</p>
+<p>位字段类型，M表示插入值的位数，最大为64位，默认值为1，如果插入值小于M位，值的左边用0填充，　</p>
+<p>5.2、BINARY和VARBINARY类型</p>
+<p>格式：字段 BINARY(M)或者VARBINARY(M)</p>
+<p>这两个跟CHAR和VARCHAR类似，</p>
+<p>　　BINARY:长度是固定的，指定长度后，不足最大程度的，将在它们右边填充”\0”来达到指定长度，</p>
+<p>　　VARBINARY：长度是可变的，制定好长度后，其长度可以在0到最大值之间，例如，指定字段数据类型为VARBINARY(20),如果插入的值的长度只有10，则实际存储空间为10加1，即实际占用的空间为字符串的实际长度加1.</p>
+<p>我们说MySQL中对大小写不敏感，但是这两个数据类型却对大小写敏感，原因是他们是用二进制来保存数据的，比如A和a，两个的二进制就不一样。所以在很多时候我们需要区分大小写的时候，就会用到该类型。</p>
+<p>注意：这两个类型的长度计算的是字节长度，一个字符等于2个字节，比如BINARY(4)这个表示能够存放4个字节的长度，也就是只能存放2个汉字。可以存4个字母。不要把这个长度当成二进制位的长度了，说是二进制字符串的意思是，用二进制来进行存储，但是其长度约束是字节长度。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE` `TABLE` `tmp(``　　b ``BINARY``(10)``）;</span><br><span class="line">` `INSERT` `INTO` `tmp ``VALUES``(``&#x27;a&#x27;``);``select` `* ``from` `tmp ``WHERE` `b=``&#x27;A&#x27;``;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/2018072515590744.png" alt="img"></p>
+<p>解释：在tmp表中存放了一个小写a，然后通过大写A查找表中，看是否能找到a，结果找不到，就验证了我们上面的说法，具有区分大小写的功能。</p>
+<p>总结：BINARY和VARBINARY的主要作用就是用来区分大小写的，其他没什么作用，但是使用时要注意限制其大小的是字节数，而不是二进制位，它存储的格式是用二进制来存储的。这两个不要搞混淆了。</p>
+<p>　5.3、BLOB类型</p>
+<p>是一个二进制大对象,TINYBLOB(32kb)、BLOB（64kb）、MEDIUMBLOB(16M)和LONGBLOB（4GB）。一般存储的是一些图像，音频文件。</p>
+<h3 id="2-3-6-日期与时间"><a href="#2-3-6-日期与时间" class="headerlink" title="2.3.6 日期与时间"></a>2.3.6 日期与时间</h3><table>
+<thead>
+<tr>
+<th>日期时间类型</th>
+<th>占用空间</th>
+<th>日期格式</th>
+<th>最小值</th>
+<th>最大值</th>
+<th>零值表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATETIME</td>
+<td>8 bytes</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>1000-01-01 00:00:00</td>
+<td>9999-12-31 23:59:59</td>
+<td>0000-00-00 00:00:00</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>4 bytes</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>1970-01-01 08:00:01</td>
+<td>2038-01-19 03:14:07</td>
+<td>00000000000000</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>4 bytes</td>
+<td>YYYY-MM-DD</td>
+<td>1000-01-01</td>
+<td>9999-12-31</td>
+<td>0000-00-00</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>3 bytes</td>
+<td>HH:MM:SS</td>
+<td>-838:59:59</td>
+<td>838:59:59</td>
+<td>00:00:00</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>1 bytes</td>
+<td>YYYY</td>
+<td>1901</td>
+<td>2155</td>
+<td>0000</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Mysql保存日期格式使用 YYYY-MM-DD HH:MM:SS的ISO 8601标准</li>
+<li>向数据表储存日期与时间必须使用ISO格式</li>
+<li>如果添加数据全部是 nul<ul>
+<li> DATE 和  DATETIME 添加的值为 null</li>
+<li>TIMESTAMP 添加的是当前的系统时间</li>
+<li>DATE添加的数据的时候，只会保存 年月日的部分，时分秒即使添加，也不会保存。</li>
+<li>添加数据的时候，格式必须是  yyyy-MM-dd HH:mm:ss</li>
+<li>添加数据的时候，三者必须使用引号引起来，单引号双引号都可以。</li>
+</ul>
+</li>
+</ul>
+<p>区别两个时间 <code>DATETIME</code> 和 <code>TIMESTAMP</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1. 相同点：</span><br><span class="line">	都可以表示 日期和时间  yyyy-MM-dd HH:mm:ss</span><br><span class="line">	</span><br><span class="line">2. 不同点:</span><br><span class="line">	A. 如果添加数据为 null, DATETIME 添加的值为 null 但是 TIMESTAMP 添加的值是 当前的系统时间。</span><br><span class="line">	B. 系统底层保存数据的区别。DATETIME底层会原封不动的保存，TIMESTAMP底层会转换成为UTC格式保存（包含时区）</span><br><span class="line">	</span><br><span class="line">3. 版本问题:</span><br><span class="line">	TIMESTAMP 在不同版本当中，区别很大。</span><br><span class="line">	如果是 MySQL5.6.5 版本之前的，TIMESTAMP 在一张表当中，只能存在一列，他的数据类型为 TIMESTAMP</span><br><span class="line">	如果是 MySQL5.6.5 版本之后的，TIMESTAMP 在一张表当中，可以存在多列，他们的数据类型为 TIMESTAMP</span><br></pre></td></tr></table></figure>
+
+<p><strong>格式化</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">格式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">%a</td>
+<td align="left">缩写星期名</td>
+</tr>
+<tr>
+<td align="left">%b</td>
+<td align="left">缩写月名</td>
+</tr>
+<tr>
+<td align="left">%c</td>
+<td align="left">月，数值</td>
+</tr>
+<tr>
+<td align="left">%D</td>
+<td align="left">带有英文前缀的月中的天</td>
+</tr>
+<tr>
+<td align="left">%d</td>
+<td align="left">月的天，数值(00-31)</td>
+</tr>
+<tr>
+<td align="left">%e</td>
+<td align="left">月的天，数值(0-31)</td>
+</tr>
+<tr>
+<td align="left">%f</td>
+<td align="left">微秒</td>
+</tr>
+<tr>
+<td align="left">%H</td>
+<td align="left">小时 (00-23)</td>
+</tr>
+<tr>
+<td align="left">%h</td>
+<td align="left">小时 (01-12)</td>
+</tr>
+<tr>
+<td align="left">%I</td>
+<td align="left">小时 (01-12)</td>
+</tr>
+<tr>
+<td align="left">%i</td>
+<td align="left">分钟，数值(00-59)</td>
+</tr>
+<tr>
+<td align="left">%j</td>
+<td align="left">年的天 (001-366)</td>
+</tr>
+<tr>
+<td align="left">%k</td>
+<td align="left">小时 (0-23)</td>
+</tr>
+<tr>
+<td align="left">%l</td>
+<td align="left">小时 (1-12)</td>
+</tr>
+<tr>
+<td align="left">%M</td>
+<td align="left">月名</td>
+</tr>
+<tr>
+<td align="left">%m</td>
+<td align="left">月，数值(00-12)</td>
+</tr>
+<tr>
+<td align="left">%p</td>
+<td align="left">AM 或 PM</td>
+</tr>
+<tr>
+<td align="left">%r</td>
+<td align="left">时间，12-小时（hh:mm:ss AM 或 PM）</td>
+</tr>
+<tr>
+<td align="left">%S</td>
+<td align="left">秒(00-59)</td>
+</tr>
+<tr>
+<td align="left">%s</td>
+<td align="left">秒(00-59)</td>
+</tr>
+<tr>
+<td align="left">%T</td>
+<td align="left">时间, 24-小时 (hh:mm:ss)</td>
+</tr>
+<tr>
+<td align="left">%U</td>
+<td align="left">周 (00-53) 星期日是一周的第一天</td>
+</tr>
+<tr>
+<td align="left">%u</td>
+<td align="left">周 (00-53) 星期一是一周的第一天</td>
+</tr>
+<tr>
+<td align="left">%V</td>
+<td align="left">周 (01-53) 星期日是一周的第一天，与 %X 使用</td>
+</tr>
+<tr>
+<td align="left">%v</td>
+<td align="left">周 (01-53) 星期一是一周的第一天，与 %x 使用</td>
+</tr>
+<tr>
+<td align="left">%W</td>
+<td align="left">星期名</td>
+</tr>
+<tr>
+<td align="left">%w</td>
+<td align="left">周的天 （0=星期日, 6=星期六）</td>
+</tr>
+<tr>
+<td align="left">%X</td>
+<td align="left">年，其中的星期日是周的第一天，4 位，与 %V 使用</td>
+</tr>
+<tr>
+<td align="left">%x</td>
+<td align="left">年，其中的星期一是周的第一天，4 位，与 %v 使用</td>
+</tr>
+<tr>
+<td align="left">%Y</td>
+<td align="left">年，4 位</td>
+</tr>
+<tr>
+<td align="left">%y</td>
+<td align="left">年，2 位</td>
+</tr>
+</tbody></table>
+<p>使用<code>Date_format</code>格式化日期与时间显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sname,DATE_FORMAT(birthday,&#x27;%Y年%m月%d %H时%i分%s秒&#x27;) as birthday from stu;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>time_format</code>格式化输出时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sname,TIME_FORMAT(birthday,&#x27;%r&#x27;) as birthday from stu;</span><br></pre></td></tr></table></figure>
+
+<p>以时间戳格式来记录日期与时间。</p>
+<p><strong>设置TIMESTAMP字段</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE stu ADD updated_at </span><br><span class="line">TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;</span><br><span class="line"></span><br><span class="line">INSERT INTO stu SET sname = &#x27;后盾人&#x27;,updated_at = &#x27;2020-2-12 10:33:12&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加数据时自动更新时间</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE stu ADD updated_at </span><br><span class="line">TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP </span><br><span class="line">ON UPDATE CURRENT_TIMESTAMP;</span><br></pre></td></tr></table></figure>
+
+<p>当执行添加与更新时字段将自动为当前时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into stu set sname = &#x27;小张&#x27;;</span><br><span class="line">update stu set sname = &#x27;ih&#x27; where id= 7;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行更新或添加都会改变timestamp字段</li>
+</ul>
+<h3 id="2-3-7、如何选择数据类型"><a href="#2-3-7、如何选择数据类型" class="headerlink" title="2.3.7、如何选择数据类型"></a><strong>2.3.7、如何选择数据类型</strong></h3><p>1、整数和浮点数</p>
+<p>　　如果不需要小数部分，则使用整数来保存数据，并且根据整数的大小，来选择合适的整数类型，如果需要小数部分，则使用浮点数类型，浮点数类型中，有float和double，如果需要精度高一点，则选择double。根据自己的需求来决定选什么。</p>
+<p>2、浮点数和定点数</p>
+<p>　　浮点数FLOAT、DOUBLE相对应定点数DECIMAL的优势在于：在长度一定的情况下，浮点数能表示更大的数据范围，但是浮点数容易产生误差，因此在精度比较高时，建议使用DECIMAL，比如货币这一类东西，就用DECIMAL比较合理，注意浮点数在进行加减运算时也容易出现问题。如果进行数值比较，也建议用DECIMAL</p>
+<p>3、日期与时间类型</p>
+<p>　　可以看上面详解时的图，根据各种格式，选择自己所需要的数据类型，注意TIMESTAMP和DATETIME的区别，一个是跟时区有关，一个无关，其他没什么大的区别。</p>
+<p>4、CHAR与VARCHAR之间的特点与选择</p>
+<p>　　区别：</p>
+<p>　　　　CHAR是固定长度字符、VARCHAR是可变长度字符。CHAR会自动删除插入数据的尾部空格，VARCHAR不会。<br> 　　　CHAR是固定长度，处理速度比VARCHAR更快，缺点很明显，浪费存储空间，所以对存储不大，但在速度上有要求的可以使用CHAR类型，反之用VARCHAR。</p>
+<p>5、ENUM和SET</p>
+<p>　　　ENUM只能取单值，也就是从枚举类型中选取其中一个值，但是SET可以取多值，<br> 　　ENUM最多能存放65535个成员，SET只能65个<br> 　　空字符串也能在SET中存储，</p>
+<p>　　　要存储一个人的喜爱时，最好使用SET类型，其实最重要的是看具体的情况在选取最为合适的把</p>
+<p>6、BLOB和TEXT</p>
+<p>　　　BLOB是二进制字符串，TEXT是非二进制字符串，两者均可存放大容量的信息，BLOB主要存储图片、音频信息，而TEXT只能存储纯文本文件。分清楚两者的用途</p>
+<p>7、BINARY和VARBINARY</p>
+<p>　　　这两个的区别和CHAR与VARCHAR的区别差不多，BINARY是固定长度、VARBINARY是可变程度，这两个的作用就是为了区分大小写的，注意这两个是字节字符串。</p>
+<h2 id="2-4-DML"><a href="#2-4-DML" class="headerlink" title="2.4 DML"></a>2.4 DML</h2><p><strong>新增表记录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名称  [(列名1,列名2,列名3)]  VALUES (列1的数值, 列2的数值, 列3的数值);</span><br></pre></td></tr></table></figure>
+
+<p>案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-- 1. 删除表</span><br><span class="line">DROP TABLE IF EXISTS student_six;</span><br><span class="line"></span><br><span class="line">-- 2. 创建表</span><br><span class="line">CREATE TABLE IF NOT EXISTS student_six(</span><br><span class="line">	sid INT,</span><br><span class="line">	sname VARCHAR(20),</span><br><span class="line">	sage INT,</span><br><span class="line">	sgender ENUM(&#x27;男&#x27;,&#x27;女&#x27;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">-- 3. 新增数据(完整写法)</span><br><span class="line">INSERT INTO student_six (sid,sname,sage,sgender) VALUES (1,&#x27;迪丽热巴&#x27;,21,&#x27;女&#x27;);</span><br><span class="line">INSERT INTO student_six (sid,sname,sage) VALUES (2,&#x27;古力娜扎&#x27;,23);</span><br><span class="line">INSERT INTO student_six (sage,sid,sname) VALUES (24,3,&#x27;马尔扎哈&#x27;);</span><br><span class="line">INSERT INTO student_six (sid,sname) VALUES (4,&#x27;张三&#x27;),(5,&#x27;李四&#x27;),(6,&#x27;王五&#x27;);</span><br><span class="line"></span><br><span class="line">-- 4. 查询数据</span><br><span class="line">SELECT * FROM student_six;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">   注意事项：</span><br><span class="line">      1. 完整写法当中，需要写出列名称，要求就是 列名和列的值顺序要对应。</span><br><span class="line">      2. 还可以进行批量的添加数据</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改表记录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名称 SET 列名1=修改值1, 列名2=修改值2;</span><br><span class="line">UPDATE 表名称 SET 列名1=修改值1, 列名2=修改值2  WHERE 条件;</span><br></pre></td></tr></table></figure>
+
+<p>案例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-- 1. 删除表</span><br><span class="line">DROP TABLE IF EXISTS student_six;</span><br><span class="line"></span><br><span class="line">-- 2. 创建表</span><br><span class="line">CREATE TABLE IF NOT EXISTS student_six(</span><br><span class="line">	sid INT,</span><br><span class="line">	sname VARCHAR(20),</span><br><span class="line">	sage INT,</span><br><span class="line">	sgender ENUM(&#x27;男&#x27;,&#x27;女&#x27;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">-- 3. 插入表记录</span><br><span class="line">INSERT INTO student_six VALUES (1,&#x27;张三&#x27;,23,&#x27;男&#x27;),(2,&#x27;李四&#x27;,24,&#x27;女&#x27;),(3,&#x27;王五&#x27;,25,&#x27;男&#x27;);</span><br><span class="line"></span><br><span class="line">-- 4. 查询表数据</span><br><span class="line">SELECT * FROM student_six;</span><br><span class="line"></span><br><span class="line">-- 5. 修改操作：将sid=1的数据进行修改。 sname=&quot;张三丰&quot;,sage=100</span><br><span class="line">UPDATE student_six SET sname=&#x27;张三丰&#x27;,sage=100 WHERE sid=1;</span><br><span class="line"></span><br><span class="line">-- 6. 修改操作：将sage=50</span><br><span class="line">UPDATE student_six SET sage=50;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p><code>加 WHERE</code> 和 <code>不加 WHERE</code> 有什么区别呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 如果加上了 WHERE 条件，则符合条件的几行记录，才会被修改。</span><br><span class="line">2. 如果没有加上 WHERE 条件，则所有的记录，都认定为符合条件，会全部进行修改。</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除表记录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 表名称;</span><br><span class="line">DELETE FROM 表名称 WHERE 条件;</span><br><span class="line"></span><br><span class="line">TRUNCATE 表名称;</span><br></pre></td></tr></table></figure>
+
+<p>案例代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-- 1. 删除表</span><br><span class="line">DROP TABLE IF EXISTS student_six;</span><br><span class="line"></span><br><span class="line">-- 2. 创建表</span><br><span class="line">CREATE TABLE IF NOT EXISTS student_six(</span><br><span class="line">	sid INT,</span><br><span class="line">	sname VARCHAR(20),</span><br><span class="line">	sage INT,</span><br><span class="line">	sgender ENUM(&#x27;男&#x27;,&#x27;女&#x27;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">-- 3. 插入表记录</span><br><span class="line">INSERT INTO student_six VALUES (1,&#x27;张三&#x27;,23,&#x27;男&#x27;),(2,&#x27;李四&#x27;,24,&#x27;女&#x27;),(3,&#x27;王五&#x27;,25,&#x27;男&#x27;);</span><br><span class="line"></span><br><span class="line">-- 4. 查询表数据</span><br><span class="line">SELECT * FROM student_six;</span><br><span class="line"></span><br><span class="line">-- 5. 删除某一条记录， 删除 sid=2</span><br><span class="line">DELETE FROM student_six WHERE sid=2;</span><br><span class="line"></span><br><span class="line">-- 6. 删除记录，如果不写 WHERE 条件会逐行删除表记录</span><br><span class="line">DELETE FROM student_six;</span><br><span class="line"></span><br><span class="line">-- 7. 如果想要删除整张表的记录，直接采用 TRUNCATE，先删除表，再创建一个一模一样的空表</span><br><span class="line">TRUNCATE student_six;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意事项</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 加WHERE条件 和 不加WHERE条件 有什么区别？</span><br><span class="line">	A. 不加 WHERE 条件, 他是逐行删除表记录，直到所有的记录全部删除完毕。</span><br><span class="line">	B. 加上 WHERE 条件, 他是根据条件进行删除，只删除满足条件的数据。</span><br><span class="line">	</span><br><span class="line">2. TRUNCATE 和 WHERE 的区别?</span><br><span class="line">	A. TRUNCATE 的删除方式是：直接删除整张表，然后创建一个一模一样的空表。</span><br><span class="line">	B. WHERE 的删除方式是： 逐行删除表记录，效率非常低。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/10/%E5%8F%8D%E5%B0%84/" rel="prev" title="反射">
+                  <i class="fa fa-chevron-left"></i> 反射
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C1/" rel="next" title="数据库常用操作1">
+                  数据库常用操作1 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">嘿咻</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">164k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:29</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="150" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":false},"rect":"opacity:0.7","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
